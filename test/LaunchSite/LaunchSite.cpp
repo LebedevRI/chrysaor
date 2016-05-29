@@ -16,7 +16,25 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LaunchSite.hpp"
-#include <iostream>
+#include "gtest/gtest.h"
+#include <cstddef>
 
-int main() { std::cout << "Hello World!" << std::endl; }
+#include "src/LaunchSite.hpp"
+
+TEST(LaunchSiteTest, TestLatitudeGetter) {
+  double lattitude = 23.484013324312;
+  LaunchSite foo(lattitude, 0.0, 0);
+  EXPECT_EQ(foo.Latitude(), lattitude);
+}
+
+TEST(LaunchSiteTest, TestLongitudeGetter) {
+  double longitude = 42.12345362145531;
+  LaunchSite foo(0.0, longitude, 0);
+  EXPECT_EQ(foo.Longitude(), longitude);
+}
+
+TEST(LaunchSiteTest, TestLatitudegetter) {
+  std::size_t altitude = 123.0;
+  LaunchSite foo(0.0, 0.0, altitude);
+  EXPECT_EQ(foo.Altitude(), altitude);
+}

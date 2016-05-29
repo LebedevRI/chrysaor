@@ -16,7 +16,10 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LaunchSite.hpp"
-#include <iostream>
+#include "gtest/gtest.h" // for InitGoogleTest, RUN_ALL_TESTS
 
-int main() { std::cout << "Hello World!" << std::endl; }
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  int ret = RUN_ALL_TESTS();
+  return ret;
+}
