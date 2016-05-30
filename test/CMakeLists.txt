@@ -57,3 +57,5 @@ set_target_properties(libgtest PROPERTIES
 
 add_subdirectory(LaunchSite)
 add_subdirectory(Stage)
+add_subdirectory(CubicCurvePoint)
+add_subdirectory(CubicCurve)
