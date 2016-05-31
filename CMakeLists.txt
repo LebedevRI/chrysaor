@@ -15,6 +15,13 @@ project(chrysaor CXX)
 
 LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
 
+# Add a sensible build type default and warning because empty means no optimization and no debug info.
+if(NOT CMAKE_BUILD_TYPE)
+  message("WARNING: CMAKE_BUILD_TYPE is not defined!\n"
+          "\tDefaulting to CMAKE_BUILD_TYPE=RelWithDebInfo.")
+  SET(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif(NOT CMAKE_BUILD_TYPE)
+
 option(BUILD_TESTS "Build the testsuite" ON)
 
 set(CMAKE_CXX_STANDARD 14)
