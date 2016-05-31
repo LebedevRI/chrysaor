@@ -4,36 +4,26 @@ set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 If(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
-  message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files already created:\nrm -rf CMakeCache.txt CMakeFiles")
+  message(FATAL_ERROR "In-source builds are not permitted.\n"
+          "Make a separate folder for building:\n"
+          "$ mkdir build; cd build; cmake ..\n"
+          "Before that, remove the files already created:\n"
+          "$ rm -rf CMakeCache.txt CMakeFiles")
 endif(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 
 project(chrysaor CXX)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
+LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
+
+option(BUILD_TESTS "Build the testsuite" ON)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
-include(CheckCXXCompilerFlag)
-
 ADD_DEFINITIONS(-Wall)
 ADD_DEFINITIONS(-Werror)
 
-MESSAGE("-- Checking for -march=native support")
-CHECK_CXX_COMPILER_FLAG("-march=native" MARCHNATIVE)
-if(MARCHNATIVE)
-  set(MARCH "-march=native")
-else()
-  MESSAGE("-- Checking for -mtune=native support")
-  CHECK_CXX_COMPILER_FLAG("-mtune=native" MTUNENATIVE)
-  if (MTUNENATIVE)
-    set(MARCH "-mtune=native")
-  else()
-    set(MARCH "-mtune=generic")
-  endif()
-endif()
-
-ADD_DEFINITIONS(${MARCH})
+include(CpuMarch)
 
 find_package(Threads REQUIRED)
 
@@ -44,12 +34,22 @@ else(NOT iwyu_path)
   set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
 endif()
 
-enable_testing()
+if(BUILD_TESTS)
+# at least in debian, they are the package only installs their source code,
+# so if one wants to use them, he needs to compile them in-tree
+  include(GTest)
+  # include(GMock)
+
+  enable_testing()
+endif(BUILD_TESTS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(src)
-add_subdirectory(test)
+
+if(BUILD_TESTS)
+  add_subdirectory(test)
+endif(BUILD_TESTS)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Coverage" AND CMAKE_COMPILER_IS_GNUCXX)
   include(CodeCoverage)
