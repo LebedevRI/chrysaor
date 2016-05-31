@@ -23,6 +23,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 ADD_DEFINITIONS(-Wall)
 ADD_DEFINITIONS(-Werror)
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  ADD_DEFINITIONS(-Wno-error=unused-private-field)
+endif()
+
 include(CpuMarch)
 
 find_package(Threads REQUIRED)
