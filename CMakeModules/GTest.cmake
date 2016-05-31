@@ -7,7 +7,7 @@ include(ExternalProject)
 ExternalProject_Add(
     gtest
     URL /usr/src/gtest
-    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
+    PREFIX ${CMAKE_BINARY_DIR}/googletest
     # Disable install step
     INSTALL_COMMAND ""
 )

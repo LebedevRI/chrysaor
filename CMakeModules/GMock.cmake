@@ -7,7 +7,7 @@ include(ExternalProject)
 ExternalProject_Add(
     gmock
     URL /usr/src/gmock
-    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gmock
+    PREFIX ${CMAKE_BINARY_DIR}/googletest
     # Disable install step
     INSTALL_COMMAND ""
 )
