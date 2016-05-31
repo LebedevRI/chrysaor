@@ -25,17 +25,17 @@ private:
   /**
   * @brief latitude of the launch site [deg]
   */
-  double latitude;
+  double latitude_;
 
   /**
   * @brief longitude of the launch site [deg]
   */
-  double longitude;
+  double longitude_;
 
   /**
   * @brief launch site altitude ASL [m]
   */
-  std::size_t altitude;
+  std::size_t altitude_;
 
 public:
   /**
@@ -43,22 +43,22 @@ public:
    *
    * @return double latitude
    */
-  double Latitude() const { return this->latitude; }
+  double Latitude() const { return this->latitude_; }
 
   /**
    * @brief returns longitude of the launch site [deg]
    *
    * @return double longitude
    */
-  double Longitude() const { return this->longitude; }
+  double Longitude() const { return this->longitude_; }
 
   /**
    * @brief returns launch site altitude ASL [m]
    *
    * @return std::size_t altitude
    */
-  std::size_t Altitude() const { return this->altitude; }
+  std::size_t Altitude() const { return this->altitude_; }
 
   LaunchSite(double latitude, double longitude, std::size_t altitude)
-      : latitude(latitude), longitude(longitude), altitude(altitude) {}
+      : latitude_(latitude), longitude_(longitude), altitude_(altitude) {}
 };

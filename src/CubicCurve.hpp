@@ -45,24 +45,24 @@ private:
   /**
   * @brief the curve
   */
-  std::set<CubicCurvePoint> curve;
+  std::set<CubicCurvePoint> curve_;
 
 public:
-  const double operator[](const double x) const {
-    assert(!this->curve.empty());
+  double operator[](const double x) const {
+    assert(!this->curve_.empty());
 
     const CubicCurvePoint xpt(x, -1.0, -1.0, -1.0);
 
-    if (xpt <= *this->curve.begin())
-      return *this->curve.begin();
-    else if (xpt >= *this->curve.rbegin())
-      return *this->curve.rbegin();
+    if (xpt <= *this->curve_.begin())
+      return *this->curve_.begin();
+    else if (xpt >= *this->curve_.rbegin())
+      return *this->curve_.rbegin();
     else {
       // will hold closest points, so that [min-k min p map map+n]
-      CubicCurvePoint min = *this->curve.begin();
-      CubicCurvePoint max = *this->curve.begin();
+      CubicCurvePoint min = *this->curve_.begin();
+      CubicCurvePoint max = *this->curve_.begin();
 
-      for (const auto &point : this->curve) {
+      for (const auto &point : this->curve_) {
         if (xpt == point)
           return point;
 
@@ -79,13 +79,13 @@ public:
     }
   }
 
-  std::size_t size() const { return this->curve.size(); }
+  std::size_t size() const { return this->curve_.size(); }
 
-  CubicCurve() : curve() {}
+  CubicCurve() : curve_() {}
 
-  CubicCurve(std::initializer_list<CubicCurvePoint> __l) : curve(__l) {}
+  CubicCurve(std::initializer_list<CubicCurvePoint> __l) : curve_(__l) {}
 
   template <typename _InputIterator>
   CubicCurve(_InputIterator __first, _InputIterator __last)
-      : curve(__first, __last) {}
+      : curve_(__first, __last) {}
 };

@@ -97,8 +97,9 @@ TEST(CubicCurveTest, TestBigger) {
   std::map<double, double> testPts;
   std::vector<CubicCurvePoint> ptsVec;
   for (std::size_t i = 0; i < numPts; i++) {
-    const double t =
-        std::min(std::max((double)(i) / (double)(numPts - 1), 0.0), 1.0);
+    const double t = std::min(
+        std::max(static_cast<double>(i) / static_cast<double>(numPts - 1), 0.0),
+        1.0);
 
     const double x = (1.0 - t) * x0 + t * x1;
     const double y = (1.0 - t) * y0 + t * y1;

@@ -31,32 +31,32 @@ private:
   /**
   * @brief launch mass [kg]
   */
-  std::size_t launchMass;
+  std::size_t launchMass_;
 
   /**
   * @brief thrust ASL [N] [kg * m/s^2]
   */
-  std::size_t thrust;
+  std::size_t thrust_;
 
   /**
   * @brief isp vacuum [s]
   */
-  std::size_t isp0;
+  std::size_t isp0_;
 
   /**
   * @brief isp asl [s]
   */
-  std::size_t isp1;
+  std::size_t isp1_;
 
   /**
   * @brief stage fuel mass [kg]
   */
-  std::size_t fm;
+  std::size_t fm_;
 
   /**
   * @brief reference cross section area [m^2]
   */
-  std::size_t A;
+  std::size_t A_;
 
 public:
   /**
@@ -65,7 +65,8 @@ public:
    * @return double dm [kg/s]
    */
   double dm() const {
-    return ((double)this->thrust / (double)(this->isp1 * g0));
+    return (static_cast<double>(this->thrust_) /
+            static_cast<double>(this->isp1_ * g0));
   }
 
   /**
@@ -74,7 +75,8 @@ public:
    * @return double maxT [s]
    */
   double maxT() const {
-    return ((double)(this->fm * this->isp1 * g0) / (double)this->thrust);
+    return (static_cast<double>(this->fm_ * this->isp1_ * g0) /
+            static_cast<double>(this->thrust_));
   }
 
   /**
@@ -83,11 +85,12 @@ public:
    * @return double TWR [const]
    */
   double TWR() const {
-    return ((double)(this->thrust) / (double)(this->launchMass * g0));
+    return (static_cast<double>(this->thrust_) /
+            static_cast<double>(this->launchMass_ * g0));
   }
 
   Stage(std::size_t launchMass, std::size_t thrust, std::size_t isp0,
         std::size_t isp1, std::size_t fm, std::size_t A)
-      : launchMass(launchMass), thrust(thrust), isp0(isp0), isp1(isp1), fm(fm),
-        A(A) {}
+      : launchMass_(launchMass), thrust_(thrust), isp0_(isp0), isp1_(isp1),
+        fm_(fm), A_(A) {}
 };

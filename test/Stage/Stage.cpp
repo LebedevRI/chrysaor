@@ -28,7 +28,7 @@ TEST(Stage, TestStageDm_Thrust) {
   Stage foo(0, thrust, 0, isp1, 0, 0);
   auto dm1 = foo.dm(); // [kg/s]
 
-  Stage bar(0, 2.0 * thrust, 0, isp1, 0, 0);
+  Stage bar(0, 2 * thrust, 0, isp1, 0, 0);
   auto dm2 = bar.dm(); // [kg/s]
 
   ASSERT_NE(dm1, dm2);
@@ -44,7 +44,7 @@ TEST(Stage, TestStageDm_Isp1) {
   Stage foo(0, thrust, 0, isp1, 0, 0);
   auto dm1 = foo.dm(); // [kg/s]
 
-  Stage bar(0, thrust, 0, 2.0 * isp1, 0, 0);
+  Stage bar(0, thrust, 0, 2 * isp1, 0, 0);
   auto dm2 = bar.dm(); // [kg/s]
 
   ASSERT_NE(dm1, dm2);
@@ -59,7 +59,7 @@ TEST(Stage, TestStageMaxT_Thrust) {
   Stage foo(0, thrust, 0, isp1, fm, 0);
   auto maxT1 = foo.maxT(); // [s]
 
-  Stage bar(0, 2.0 * thrust, 0, isp1, fm, 0);
+  Stage bar(0, 2 * thrust, 0, isp1, fm, 0);
   auto maxT2 = bar.maxT(); // [s]
 
   ASSERT_NE(maxT1, maxT2);
@@ -76,7 +76,7 @@ TEST(Stage, TestStageMaxT_Isp1) {
   Stage foo(0, thrust, 0, isp1, fm, 0);
   auto maxT1 = foo.maxT(); // [s]
 
-  Stage bar(0, thrust, 0, 2.0 * isp1, fm, 0);
+  Stage bar(0, thrust, 0, 2 * isp1, fm, 0);
   auto maxT2 = bar.maxT(); // [s]
 
   ASSERT_NE(maxT1, maxT2);
@@ -91,7 +91,7 @@ TEST(Stage, TestStageMaxT_Fm) {
   Stage foo(0, thrust, 0, isp1, fm, 0);
   auto maxT1 = foo.maxT(); // [s]
 
-  Stage bar(0, thrust, 0, isp1, 2.0 * fm, 0);
+  Stage bar(0, thrust, 0, isp1, 2 * fm, 0);
   auto maxT2 = bar.maxT(); // [s]
 
   ASSERT_NE(maxT1, maxT2);
@@ -105,7 +105,7 @@ TEST(Stage, TestStageTWR) {
   Stage foo(launchMass, thrust, 0, 0, 0, 0);
   auto TWR1 = foo.TWR(); // [const]
 
-  Stage bar(launchMass, 2.0 * thrust, 0, 0, 0, 0);
+  Stage bar(launchMass, 2 * thrust, 0, 0, 0, 0);
   auto TWR2 = bar.TWR(); // [const]
 
   ASSERT_NE(TWR1, TWR2);

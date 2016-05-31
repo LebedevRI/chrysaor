@@ -23,8 +23,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 ADD_DEFINITIONS(-Wall)
 ADD_DEFINITIONS(-Werror)
 
+#MESSAGE(FATAL_ERROR ${CMAKE_CXX_COMPILER_ID})
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  ADD_DEFINITIONS(-Wextra)
+  ADD_DEFINITIONS(-Weverything)
+
+  ADD_DEFINITIONS(-Wno-c++98-compat)
+  ADD_DEFINITIONS(-Wno-global-constructors)
+
   ADD_DEFINITIONS(-Wno-error=unused-private-field)
+  ADD_DEFINITIONS(-Wno-error=float-equal)
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  ADD_DEFINITIONS(-Wextra)
 endif()
 
 include(CpuMarch)
