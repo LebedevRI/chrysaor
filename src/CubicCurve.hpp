@@ -49,20 +49,20 @@ private:
 
 public:
   double operator[](const double x) const {
-    assert(!this->curve_.empty());
+    assert(!curve_.empty());
 
     const CubicCurvePoint xpt(x, -1.0, -1.0, -1.0);
 
-    if (xpt <= *this->curve_.begin())
-      return *this->curve_.begin();
-    else if (xpt >= *this->curve_.rbegin())
-      return *this->curve_.rbegin();
+    if (xpt <= *curve_.begin())
+      return *curve_.begin();
+    else if (xpt >= *curve_.rbegin())
+      return *curve_.rbegin();
     else {
       // will hold closest points, so that [min-k min p map map+n]
-      CubicCurvePoint min = *this->curve_.begin();
-      CubicCurvePoint max = *this->curve_.begin();
+      CubicCurvePoint min = *curve_.begin();
+      CubicCurvePoint max = *curve_.begin();
 
-      for (const auto &point : this->curve_) {
+      for (const auto &point : curve_) {
         if (xpt == point)
           return point;
 
@@ -79,7 +79,7 @@ public:
     }
   }
 
-  std::size_t size() const { return this->curve_.size(); }
+  std::size_t size() const { return curve_.size(); }
 
   CubicCurve() : curve_() {}
 

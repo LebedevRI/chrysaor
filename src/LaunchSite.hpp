@@ -43,21 +43,21 @@ public:
    *
    * @return double latitude
    */
-  double Latitude() const { return this->latitude_; }
+  double Latitude() const { return latitude_; }
 
   /**
    * @brief returns longitude of the launch site [deg]
    *
    * @return double longitude
    */
-  double Longitude() const { return this->longitude_; }
+  double Longitude() const { return longitude_; }
 
   /**
    * @brief returns launch site altitude ASL [m]
    *
    * @return std::size_t altitude
    */
-  std::size_t Altitude() const { return this->altitude_; }
+  std::size_t Altitude() const { return altitude_; }
 
   LaunchSite(double latitude, double longitude, std::size_t altitude)
       : latitude_(latitude), longitude_(longitude), altitude_(altitude) {}

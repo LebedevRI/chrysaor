@@ -42,34 +42,26 @@ private:
 
 public:
   // all getters return the x-coordinate of current point
-  double operator()() const { return (this->x_); }
-  double operator*() const { return (this->x_); }
+  double operator()() const { return (x_); }
+  double operator*() const { return (x_); }
 
   // converter returns the y-coordinate of current point
-  operator double() const { return (this->y_); }
+  operator double() const { return (y_); }
 
   //
-  // void operator=(const CubicCurvePoint & b) { this->x = b.x; this->y = b.y;
-  // this->outTangent = b.outTangent; this->inTangent = b.inTangent; }
+  // void operator=(const CubicCurvePoint & b) { x = b.x; y = b.y;
+  // outTangent = b.outTangent; inTangent = b.inTangent; }
 
   // all comparison is key-based.
 
-  bool operator==(const CubicCurvePoint &b) const { return (this->x_ == b.x_); }
-  bool operator<(const CubicCurvePoint &b) const { return (this->x_ < b.x_); }
+  bool operator==(const CubicCurvePoint &b) const { return (x_ == b.x_); }
+  bool operator<(const CubicCurvePoint &b) const { return (x_ < b.x_); }
 
-  bool operator!=(const CubicCurvePoint &b) const {
-    return !(this->operator==(b));
-  }
-  bool operator>(const CubicCurvePoint &b) const {
-    return !(this->operator<(b));
-  }
+  bool operator!=(const CubicCurvePoint &b) const { return !(operator==(b)); }
+  bool operator>(const CubicCurvePoint &b) const { return !(operator<(b)); }
 
-  bool operator<=(const CubicCurvePoint &b) const {
-    return !(this->operator>(b));
-  }
-  bool operator>=(const CubicCurvePoint &b) const {
-    return !(this->operator<(b));
-  }
+  bool operator<=(const CubicCurvePoint &b) const { return !(operator>(b)); }
+  bool operator>=(const CubicCurvePoint &b) const { return !(operator<(b)); }
 
   CubicCurvePoint(double x, double y, double outTangent, double inTangent)
       : x_(x), y_(y), outTangent_(outTangent), inTangent_(inTangent) {}

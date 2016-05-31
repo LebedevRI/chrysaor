@@ -65,8 +65,7 @@ public:
    * @return double dm [kg/s]
    */
   double dm() const {
-    return (static_cast<double>(this->thrust_) /
-            static_cast<double>(this->isp1_ * g0));
+    return (static_cast<double>(thrust_) / static_cast<double>(isp1_ * g0));
   }
 
   /**
@@ -75,8 +74,8 @@ public:
    * @return double maxT [s]
    */
   double maxT() const {
-    return (static_cast<double>(this->fm_ * this->isp1_ * g0) /
-            static_cast<double>(this->thrust_));
+    return (static_cast<double>(fm_ * isp1_ * g0) /
+            static_cast<double>(thrust_));
   }
 
   /**
@@ -85,8 +84,8 @@ public:
    * @return double TWR [const]
    */
   double TWR() const {
-    return (static_cast<double>(this->thrust_) /
-            static_cast<double>(this->launchMass_ * g0));
+    return (static_cast<double>(thrust_) /
+            static_cast<double>(launchMass_ * g0));
   }
 
   Stage(std::size_t launchMass, std::size_t thrust, std::size_t isp0,
