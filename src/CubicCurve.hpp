@@ -16,6 +16,8 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "src/CubicCurvePoint.hpp" // for CubicCurvePoint
 #include <cassert>                 // for assert
 #include <cstddef>                 // for size_t

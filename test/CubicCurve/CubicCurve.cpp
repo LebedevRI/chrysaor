@@ -17,6 +17,7 @@
  */
 
 #include "src/CubicCurve.hpp"
+#include "src/CubicCurvePoint.hpp"
 #include "gtest/gtest.h" // for AssertHelper, ASSERT_EQ, TEST, ASSERT_NO_THROW
 #include <algorithm>     // for max, min
 #include <cstddef>       // for size_t

@@ -16,10 +16,9 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "src/LaunchSite.hpp"
 #include "gtest/gtest.h"
 #include <cstddef>
-
-#include "src/LaunchSite.hpp"
 
 TEST(LaunchSiteTest, TestLatitudeGetter) {
   double lattitude = 23.484013324312;
