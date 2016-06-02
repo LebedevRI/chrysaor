@@ -23,6 +23,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 
 option(BUILD_TESTS "Build the testsuite" ON)
+option(BUILD_DOC "Build the documentation" ON)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
@@ -64,6 +65,24 @@ if(BUILD_TESTS)
 
   enable_testing()
 endif(BUILD_TESTS)
+
+if(BUILD_DOC)
+  find_package(Doxygen REQUIRED)
+  FIND_PROGRAM(DOT_PATH dot)
+
+  IF(NOT DOT_PATH)
+    MESSAGE(FATAL_ERROR "dot not found! Aborting...")
+  ENDIF(NOT DOT_PATH)
+
+  configure_file(${CMAKE_SOURCE_DIR}/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
+  add_custom_target(doc ALL
+                    ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile
+                    DEPENDS ${CMAKE_BINARY_DIR}/Doxyfile
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                    COMMENT "Generating API documentation with Doxygen"
+                    VERBATIM
+                    SOURCES ${CMAKE_BINARY_DIR}/Doxyfile)
+endif(BUILD_DOC)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
