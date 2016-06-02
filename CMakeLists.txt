@@ -22,7 +22,8 @@ if(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-option(BUILD_TESTS "Build the testsuite" ON)
+include(CTest)
+
 option(BUILD_DOC "Build the documentation" ON)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -57,14 +58,14 @@ else(NOT iwyu_path)
   set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
 endif()
 
-if(BUILD_TESTS)
+if(BUILD_TESTING)
 # at least in debian, they are the package only installs their source code,
 # so if one wants to use them, he needs to compile them in-tree
   include(GTest)
   # include(GMock)
 
   enable_testing()
-endif(BUILD_TESTS)
+endif(BUILD_TESTING)
 
 if(BUILD_DOC)
   find_package(Doxygen REQUIRED)
@@ -88,9 +89,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(src)
 
-if(BUILD_TESTS)
+if(BUILD_TESTING)
   add_subdirectory(test)
-endif(BUILD_TESTS)
+endif(BUILD_TESTING)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Coverage" AND CMAKE_COMPILER_IS_GNUCXX)
   include(CodeCoverage)
