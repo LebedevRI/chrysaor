@@ -41,8 +41,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   ADD_DEFINITIONS(-Wno-c++98-compat)
   ADD_DEFINITIONS(-Wno-global-constructors)
 
+  ADD_DEFINITIONS(-Wno-error=missing-prototypes)
+  ADD_DEFINITIONS(-Wno-error=missing-variable-declarations)
+
   ADD_DEFINITIONS(-Wno-error=unused-private-field)
   ADD_DEFINITIONS(-Wno-error=float-equal)
+  ADD_DEFINITIONS(-Wno-error=weak-vtables)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   ADD_DEFINITIONS(-Wextra)
 endif()
