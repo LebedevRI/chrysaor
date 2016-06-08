@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 add_subdirectory(Vec3)
 
+add_subdirectory(CelestialBody)
+
 add_subdirectory(LaunchSite)
 add_subdirectory(Stage)
 add_subdirectory(CubicCurvePoint)
