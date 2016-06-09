@@ -49,6 +49,14 @@ TEST_P(EllipticalOrbitTest, Epsilon) {
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
 }
 
+TEST_P(EllipticalOrbitTest, VelAlt) {
+  auto as = GetParam();
+
+  SpecificOrbitalEnergy foo(as.velocity, 0.0, as.altitude, as.body);
+
+  EXPECT_FLOAT_EQ(as.epsilon, foo);
+}
+
 TEST_P(EllipticalOrbitTest, Default) {
   auto as = GetParam();
 

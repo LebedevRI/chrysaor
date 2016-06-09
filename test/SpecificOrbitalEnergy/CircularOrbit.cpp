@@ -46,6 +46,14 @@ TEST_P(CircularOrbitTest, Epsilon) {
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
 }
 
+TEST_P(CircularOrbitTest, VelAlt) {
+  auto as = GetParam();
+
+  SpecificOrbitalEnergy foo(as.velocity, 0.0, as.altitude, as.body);
+
+  EXPECT_DOUBLE_EQ(as.epsilon, foo);
+}
+
 TEST_P(CircularOrbitTest, Default) {
   auto as = GetParam();
 
