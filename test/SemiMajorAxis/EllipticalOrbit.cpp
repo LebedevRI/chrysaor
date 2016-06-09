@@ -40,12 +40,44 @@ struct EllipticalOrbitData {
 class EllipticalOrbitTest
     : public ::testing::TestWithParam<EllipticalOrbitData> {};
 
-TEST_P(EllipticalOrbitTest, Default) {
+TEST_P(EllipticalOrbitTest, SMA) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
+
+  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+}
+
+TEST_P(EllipticalOrbitTest, TwoApsis) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.apoapsis, as.altitude, as.body);
+
+  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+}
+
+TEST_P(EllipticalOrbitTest, VelAlt) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
 
   EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+}
+
+// all the real constructors should result in same SMA
+TEST_P(EllipticalOrbitTest, Default) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
+  SemiMajorAxis bar(as.apoapsis, as.altitude, as.body);
+  SemiMajorAxis baz((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
+
+  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, bar);
+  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, baz);
+  EXPECT_FLOAT_EQ(foo, bar);
+  EXPECT_FLOAT_EQ(foo, baz);
+  EXPECT_FLOAT_EQ(bar, baz);
 }
 
 extern CelestialBody Kerbin;
