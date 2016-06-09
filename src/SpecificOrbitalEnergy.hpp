@@ -66,6 +66,36 @@ public:
   SpecificOrbitalEnergy(double epsilon) : value_(epsilon){};
 
   /**
+   * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
+   *
+   * From the geometry of an ellipse, \f$2a=r_p+r_a\f$
+   *
+   * Vis-viva equation, orbital-energy-invariance law:
+   * \f$\epsilon={{v^2}\over{2}}-{{\mu}\over{r}}=-{\mu\over{2a}}\f$
+   *
+   * We can substitute \f$2a\f$:
+   *
+   * \f$\epsilon=-{\mu\over{r_p+r_a}}\f$
+   *
+   * See math/orbit/soe-from-r1-and-r2.rkt
+   *
+   * @param ApA altitude, from the surface of the parent body, at the orbit's
+   * farthest point (apoapsis) [m]
+   * @param PeA altitude, from the surface of the parent body, at the orbit's
+   * nearest point (eriapsis) [m]
+   * @param parentBody the parent body
+   */
+  SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody)
+      : value_(0) {
+    // we got altitude, i.e. distance to the surface,
+    // but we need distance to the center of mass
+    const double ApR = ApA + parentBody->R_;
+    const double PeR = PeA + parentBody->R_;
+
+    value_ = -(parentBody->mu_) / (ApR + PeR);
+  };
+
+  /**
    * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,

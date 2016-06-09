@@ -27,6 +27,7 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(SpecificOrbitalEnergyTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo; });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0); });
+  ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
@@ -39,6 +40,12 @@ TEST(SpecificOrbitalEnergyTest, TestGetter) {
     const double sma = 123456789.0123456789;
     SpecificOrbitalEnergy foo(sma);
     ASSERT_EQ(sma, foo);
+  }
+  {
+    CelestialBody planet(1.0, 0.5);
+
+    SpecificOrbitalEnergy foo(0.0, 0.0, &planet);
+    ASSERT_DOUBLE_EQ(-planet.mu_, foo);
   }
   {
     CelestialBody planet(2.0, 1.0);
