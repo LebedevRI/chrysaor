@@ -45,7 +45,7 @@ TEST_P(EllipticalOrbitTest, SMA) {
 
   SemiMajorAxis foo((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
 
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
 }
 
 TEST_P(EllipticalOrbitTest, TwoApsis) {
@@ -53,7 +53,7 @@ TEST_P(EllipticalOrbitTest, TwoApsis) {
 
   SemiMajorAxis foo(as.apoapsis, as.altitude, as.body);
 
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
 }
 
 TEST_P(EllipticalOrbitTest, VelAlt) {
@@ -73,11 +73,11 @@ TEST_P(EllipticalOrbitTest, Default) {
   SemiMajorAxis baz((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
 
   EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, bar);
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, baz);
+  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, bar);
+  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, baz);
   EXPECT_FLOAT_EQ(foo, bar);
   EXPECT_FLOAT_EQ(foo, baz);
-  EXPECT_FLOAT_EQ(bar, baz);
+  EXPECT_DOUBLE_EQ(bar, baz);
 }
 
 extern CelestialBody Kerbin;
