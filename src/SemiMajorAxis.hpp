@@ -86,7 +86,6 @@ public:
    * farthest point (apoapsis) [m]
    * @param PeA altitude, from the surface of the parent body, at the orbit's
    * nearest point (eriapsis) [m]
-   * @param altitude altitude, from the surface of the parent body [m]
    * @param parentBody the parent body
    */
   SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody) : value_(0) {

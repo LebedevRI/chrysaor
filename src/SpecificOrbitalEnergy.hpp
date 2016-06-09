@@ -39,14 +39,14 @@
 class SpecificOrbitalEnergy {
 private:
   /**
-   * @brief the specific orbital energy \epsilon [J/kg] [m^2/s^2]
+   * @brief the specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    *
    */
   double value_;
 
 public:
   /**
-   * @brief the specific orbital energy \epsilon [J/kg] [m^2/s^2]
+   * @brief the specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    *
    * @return double
    */
@@ -59,14 +59,14 @@ public:
   SpecificOrbitalEnergy() : value_(0){};
 
   /**
-   * @brief sets \epsilon to the passed value
+   * @brief sets \f$\epsilon\f$ to the passed value
    *
-   * @param epsilon specific orbital energy \epsilon [J/kg] [m^2/s^2]
+   * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    */
   SpecificOrbitalEnergy(double epsilon) : value_(epsilon){};
 
   /**
-   * @brief calculates \epsilon from given velocity vector and altitude.
+   * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,
    * the velocity magnitude is: \f$v = \sqrt{V_x^2+V_y^2}\f$.
