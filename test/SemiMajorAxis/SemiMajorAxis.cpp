@@ -48,4 +48,11 @@ TEST(SemiMajorAxisTest, TestGetter) {
     SemiMajorAxis foo(r, r, &planet);
     ASSERT_DOUBLE_EQ(r + planet.R_, foo);
   }
+  {
+    CelestialBody planet(2.0, 1.0);
+
+    const double r = 1.0;
+    SemiMajorAxis foo(1.0, 0.0, r, &planet);
+    ASSERT_DOUBLE_EQ(r + planet.R_, foo);
+  }
 }
