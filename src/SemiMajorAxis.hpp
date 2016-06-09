@@ -65,7 +65,7 @@ public:
    *
    * @param sma length of semi-major axis [m]
    */
-  SemiMajorAxis(double sma) : value_(sma){};
+  SemiMajorAxis(double sma) : value_(sma) { assert(std::isfinite(sma)); };
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -89,12 +89,24 @@ public:
    * @param parentBody the parent body
    */
   SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody) : value_(0) {
+    assert(parentBody);
+    assert(std::isfinite(parentBody->R_));
+    assert(parentBody->R_ >= 0.0);
+
+    assert(std::isfinite(ApA));
+    assert(std::isfinite(PeA));
+
     // we got altitude, i.e. distance to the surface,
     // but we need distance to the center of mass
     const double ApR = ApA + parentBody->R_;
     const double PeR = PeA + parentBody->R_;
 
+    assert(std::isfinite(ApR));
+    assert(std::isfinite(PeR));
+
     value_ = (ApR + PeR) / 2.0;
+
+    assert(std::isfinite(value_));
   };
 
   /**
@@ -144,8 +156,7 @@ public:
       : value_(0) {
     assert(parentBody);
     assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ > 1.0e+10);
-    assert(parentBody->mu_ < 1.0e+15);
+    assert(parentBody->mu_ >= 0);
 
     assert(std::isfinite(Vx));
     assert(Vx >= 0.0);
@@ -158,6 +169,8 @@ public:
     assert(std::isfinite(parentBody->R_));
     assert(parentBody->R_ >= 0.0);
 
+    assert(std::isfinite(altitude));
+
     // all math assumes the radius to be from the center of patent body.
     altitude += parentBody->R_;
 
@@ -167,6 +180,11 @@ public:
 
     assert(std::isfinite((parentBody->mu_) / altitude));
     assert(((parentBody->mu_) / altitude) != 0.0);
+
+    assert(std::isfinite((2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
+                                 ((parentBody->mu_) / altitude)))));
+    assert(((2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
+                    ((parentBody->mu_) / altitude)))) != 0.0);
 
     value_ = ((altitude) / (2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
                                    ((parentBody->mu_) / altitude))));

@@ -63,7 +63,9 @@ public:
    *
    * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    */
-  SpecificOrbitalEnergy(double epsilon) : value_(epsilon){};
+  SpecificOrbitalEnergy(double epsilon) : value_(epsilon) {
+    assert(std::isfinite(epsilon));
+  };
 
   /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
@@ -87,12 +89,29 @@ public:
    */
   SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody)
       : value_(0) {
+    assert(parentBody);
+    assert(std::isfinite(parentBody->mu_));
+    assert(parentBody->mu_ >= 0);
+    assert(std::isfinite(parentBody->R_));
+    assert(parentBody->R_ >= 0.0);
+
+    assert(std::isfinite(ApA));
+    assert(std::isfinite(PeA));
+
     // we got altitude, i.e. distance to the surface,
     // but we need distance to the center of mass
     const double ApR = ApA + parentBody->R_;
     const double PeR = PeA + parentBody->R_;
 
+    assert(std::isfinite(ApR));
+    assert(std::isfinite(PeR));
+
+    assert(std::isfinite(ApR + PeR));
+    assert((ApR + PeR) != 0.0);
+
     value_ = -(parentBody->mu_) / (ApR + PeR);
+
+    assert(std::isfinite(value_));
   };
 
   /**
@@ -132,8 +151,7 @@ public:
       : value_(0) {
     assert(parentBody);
     assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ > 1.0e+10);
-    assert(parentBody->mu_ < 1.0e+15);
+    assert(parentBody->mu_ >= 0);
 
     assert(std::isfinite(Vx));
     assert(Vx >= 0.0);
@@ -145,6 +163,8 @@ public:
 
     assert(std::isfinite(parentBody->R_));
     assert(parentBody->R_ >= 0.0);
+
+    assert(std::isfinite(altitude));
 
     // all math assumes the radius to be from the center of patent body.
     altitude += parentBody->R_;
