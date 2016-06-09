@@ -25,5 +25,18 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 
 TEST(SemiMajorAxisTest, TestConstructor) {
   ASSERT_NO_THROW({ SemiMajorAxis foo; });
+  ASSERT_NO_THROW({ SemiMajorAxis foo(0.0); });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, 0.0, &Kerbin); });
+}
+
+TEST(SemiMajorAxisTest, TestGetter) {
+  {
+    SemiMajorAxis foo;
+    ASSERT_EQ(0.0, foo);
+  }
+  {
+    const double sma = 123456789.0123456789;
+    SemiMajorAxis foo(sma);
+    ASSERT_EQ(sma, foo);
+  }
 }

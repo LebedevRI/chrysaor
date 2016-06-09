@@ -61,6 +61,13 @@ public:
   SemiMajorAxis() : value_(0){};
 
   /**
+   * @brief sets SMA to the passed value
+   *
+   * @param sma length of semi-major axis [m]
+   */
+  SemiMajorAxis(double sma) : value_(sma){};
+
+  /**
    * @brief calculates SMA from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,
