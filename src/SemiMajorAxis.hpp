@@ -68,6 +68,37 @@ public:
   SemiMajorAxis(double sma) : value_(sma){};
 
   /**
+   * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
+   *
+   * For circular orbit, the semi-major axis is the radius.
+   *
+   * Else, from the geometry of an ellipse, \f$2a=r_p+r_a\f$
+   *
+   * Thus, the semi-major axis is half the sum of radiuses at the orbit's 2
+   * Apsis:
+   * \f$a={{{r_a+r_p}}\over{2}}\f$
+   *
+   * According to herbie, it is the most precise version given the
+   * expected input data range (error = 0.0 bits).
+   * See math/orbit/sma-from-r1-and-r2.rkt
+   *
+   * @param ApA altitude, from the surface of the parent body, at the orbit's
+   * farthest point (apoapsis) [m]
+   * @param PeA altitude, from the surface of the parent body, at the orbit's
+   * nearest point (eriapsis) [m]
+   * @param altitude altitude, from the surface of the parent body [m]
+   * @param parentBody the parent body
+   */
+  SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody) : value_(0) {
+    // we got altitude, i.e. distance to the surface,
+    // but we need distance to the center of mass
+    const double ApR = ApA + parentBody->R_;
+    const double PeR = PeA + parentBody->R_;
+
+    value_ = (ApR + PeR) / 2.0;
+  };
+
+  /**
    * @brief calculates SMA from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,

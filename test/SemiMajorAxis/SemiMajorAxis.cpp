@@ -18,7 +18,8 @@
 
 #include "src/SemiMajorAxis.hpp"
 #include "src/CelestialBody.hpp" // for CelestialBody
-#include "gtest/gtest.h"         // for ASSERT_NO_THROW, AssertHelper, TEST
+#include "gtest/gtest.h"         // for AssertHelper, ASSERT_NO_THROW, ASSE...
+#include <iomanip>               // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);
@@ -26,6 +27,7 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(SemiMajorAxisTest, TestConstructor) {
   ASSERT_NO_THROW({ SemiMajorAxis foo; });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0); });
+  ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
@@ -38,5 +40,12 @@ TEST(SemiMajorAxisTest, TestGetter) {
     const double sma = 123456789.0123456789;
     SemiMajorAxis foo(sma);
     ASSERT_EQ(sma, foo);
+  }
+  {
+    CelestialBody planet(0.0, 1.0);
+
+    const double r = 1.0;
+    SemiMajorAxis foo(r, r, &planet);
+    ASSERT_DOUBLE_EQ(r + planet.R_, foo);
   }
 }
