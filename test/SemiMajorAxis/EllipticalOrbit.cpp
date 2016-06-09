@@ -97,7 +97,7 @@ extern CelestialBody Earth;
  */
 
 INSTANTIATE_TEST_CASE_P(
-    Default, EllipticalOrbitTest,
+    Kerbin, EllipticalOrbitTest,
     testing::Values(
         EllipticalOrbitData{&Kerbin,
                             0.0e+00, // on the surface -> min orbit, LKO
@@ -122,8 +122,11 @@ INSTANTIATE_TEST_CASE_P(
         EllipticalOrbitData{&Kerbin,
                             1.0e+05, // LKO -> KEO
                             2.8971987833458042587153613567352294922e+03L,
-                            2.86333406e+06},
+                            2.86333406e+06}));
 
+INSTANTIATE_TEST_CASE_P(
+    Earth, EllipticalOrbitTest,
+    testing::Values(
         EllipticalOrbitData{&Earth,
                             0.0e+00, // on the surface -> min orbit, LEO
                             7.9541790227209166914690285921096801758e+03L,

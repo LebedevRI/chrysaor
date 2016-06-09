@@ -64,7 +64,7 @@ extern CelestialBody Earth;
  */
 
 INSTANTIATE_TEST_CASE_P(
-    Default, CircularOrbitTest,
+    Kerbin, CircularOrbitTest,
     testing::Values(
         CircularOrbitData{&Kerbin, 0.0e+00, // on the surface
                           2.4261079942986873059631362994849223761e+03L,
@@ -77,7 +77,11 @@ INSTANTIATE_TEST_CASE_P(
                           -2.5225714285714286379516124725341796875e6L},
         CircularOrbitData{&Kerbin, 2.86333406e+06, // KEO
                           1.0098074305900465787999564781785011292e+03L,
-                          -509855.52343743591336533427238464355469L},
+                          -509855.52343743591336533427238464355469L}));
+
+INSTANTIATE_TEST_CASE_P(
+    Earth, CircularOrbitTest,
+    testing::Values(
         CircularOrbitData{&Earth, 0.0e+00, // on the surface
                           7.9053659669038524953066371381282806396e+03L,
                           -3.1247405535340834408998489379882812500e7L},
