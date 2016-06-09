@@ -18,7 +18,8 @@
 
 #include "src/SpecificOrbitalEnergy.hpp"
 #include "src/CelestialBody.hpp" // for CelestialBody
-#include "gtest/gtest.h"         // for ASSERT_NO_THROW, AssertHelper, TEST
+#include "gtest/gtest.h"         // for AssertHelper, ASSERT_NO_THROW, ASSE...
+#include <iomanip>               // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);
@@ -26,4 +27,17 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(SpecificOrbitalEnergyTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo; });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, 0.0, &Kerbin); });
+}
+
+TEST(SpecificOrbitalEnergyTest, TestGetter) {
+  {
+    SpecificOrbitalEnergy foo;
+    ASSERT_EQ(0.0, foo);
+  }
+  {
+    CelestialBody planet(2.0, 1.0);
+
+    SpecificOrbitalEnergy foo(0.0, 0.0, 0.0, &planet);
+    ASSERT_DOUBLE_EQ(-planet.mu_, foo);
+  }
 }
