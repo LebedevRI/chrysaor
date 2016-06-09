@@ -36,12 +36,44 @@ struct CircularOrbitData {
 
 class CircularOrbitTest : public ::testing::TestWithParam<CircularOrbitData> {};
 
-TEST_P(CircularOrbitTest, Default) {
+TEST_P(CircularOrbitTest, SMA) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.altitude + as.body->R_);
+
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+}
+
+TEST_P(CircularOrbitTest, TwoApsis) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.altitude, as.altitude, as.body);
+
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+}
+
+TEST_P(CircularOrbitTest, VelAlt) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
 
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+}
+
+// all the real constructors should result in same SMA
+TEST_P(CircularOrbitTest, Default) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
+  SemiMajorAxis bar(as.altitude, as.altitude, as.body);
+  SemiMajorAxis baz(as.altitude + as.body->R_);
+
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, bar);
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, baz);
+  EXPECT_DOUBLE_EQ(foo, bar);
+  EXPECT_DOUBLE_EQ(foo, baz);
+  EXPECT_DOUBLE_EQ(bar, baz);
 }
 
 extern CelestialBody Kerbin;
