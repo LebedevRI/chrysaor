@@ -59,6 +59,13 @@ public:
   SpecificOrbitalEnergy() : value_(0){};
 
   /**
+   * @brief sets \epsilon to the passed value
+   *
+   * @param epsilon specific orbital energy \epsilon [J/kg] [m^2/s^2]
+   */
+  SpecificOrbitalEnergy(double epsilon) : value_(epsilon){};
+
+  /**
    * @brief calculates \epsilon from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,

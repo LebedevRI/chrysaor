@@ -38,12 +38,23 @@ struct CircularOrbitData {
 
 class CircularOrbitTest : public ::testing::TestWithParam<CircularOrbitData> {};
 
+TEST_P(CircularOrbitTest, Epsilon) {
+  auto as = GetParam();
+
+  SpecificOrbitalEnergy foo(as.epsilon);
+
+  EXPECT_DOUBLE_EQ(as.epsilon, foo);
+}
+
 TEST_P(CircularOrbitTest, Default) {
   auto as = GetParam();
 
   SpecificOrbitalEnergy foo(as.velocity, 0.0, as.altitude, as.body);
+  SpecificOrbitalEnergy bar(as.epsilon);
 
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
+  EXPECT_DOUBLE_EQ(as.epsilon, bar);
+  EXPECT_DOUBLE_EQ(foo, bar);
 }
 
 extern CelestialBody Kerbin;
