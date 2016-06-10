@@ -44,7 +44,15 @@ TEST_P(CircularOrbitTest, SMA) {
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
 }
 
-TEST_P(CircularOrbitTest, TwoApsis) {
+TEST_P(CircularOrbitTest, TwoApsisR) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo(as.altitude + as.body->R_, as.altitude + as.body->R_);
+
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+}
+
+TEST_P(CircularOrbitTest, TwoApsisA) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.altitude, as.altitude, as.body);
@@ -65,15 +73,20 @@ TEST_P(CircularOrbitTest, Default) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
-  SemiMajorAxis bar(as.altitude, as.altitude, as.body);
-  SemiMajorAxis baz(as.altitude + as.body->R_);
+  SemiMajorAxis bar(as.altitude + as.body->R_, as.altitude + as.body->R_);
+  SemiMajorAxis baz(as.altitude, as.altitude, as.body);
+  SemiMajorAxis qux(as.altitude + as.body->R_);
 
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, bar);
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, baz);
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, qux);
   EXPECT_DOUBLE_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
+  EXPECT_DOUBLE_EQ(foo, qux);
   EXPECT_DOUBLE_EQ(bar, baz);
+  EXPECT_DOUBLE_EQ(bar, qux);
+  EXPECT_DOUBLE_EQ(baz, qux);
 }
 
 extern CelestialBody Kerbin;

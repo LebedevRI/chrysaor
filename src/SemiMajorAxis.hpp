@@ -82,10 +82,39 @@ public:
    * expected input data range (error = 0.0 bits).
    * See math/orbit/sma-from-r1-and-r2.rkt
    *
+   * @param ApR radius of the orbit, at the orbit's farthest point (apoapsis)
+   * [m]
+   * @param PeR radius of the orbit, at the orbit's nearest point (periapsis)
+   * [m]
+   */
+  SemiMajorAxis(double ApR, double PeR) : value_(0) {
+    assert(std::isfinite(ApR));
+    assert(std::isfinite(PeR));
+
+    value_ = (ApR + PeR) / 2.0;
+
+    assert(std::isfinite(value_));
+  };
+
+  /**
+   * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
+   *
+   * For circular orbit, the semi-major axis is the radius.
+   *
+   * Else, from the geometry of an ellipse, \f$2a=r_p+r_a\f$
+   *
+   * Thus, the semi-major axis is half the sum of radiuses at the orbit's 2
+   * Apsis:
+   * \f$a={{{r_a+r_p}}\over{2}}\f$
+   *
+   * According to herbie, it is the most precise version given the
+   * expected input data range (error = 0.0 bits).
+   * See math/orbit/sma-from-r1-and-r2.rkt
+   *
    * @param ApA altitude, from the surface of the parent body, at the orbit's
    * farthest point (apoapsis) [m]
    * @param PeA altitude, from the surface of the parent body, at the orbit's
-   * nearest point (eriapsis) [m]
+   * nearest point (periapsis) [m]
    * @param parentBody the parent body
    */
   SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody) : value_(0) {
@@ -104,7 +133,7 @@ public:
     assert(std::isfinite(ApR));
     assert(std::isfinite(PeR));
 
-    value_ = (ApR + PeR) / 2.0;
+    value_ = SemiMajorAxis(ApR, PeR);
 
     assert(std::isfinite(value_));
   };
