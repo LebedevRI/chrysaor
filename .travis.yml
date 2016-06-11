@@ -1,0 +1,17 @@
+sudo: required
+
+language: cpp
+
+services:
+  - docker
+
+cache:
+  directories:
+    - docker-images
+
+before_install:
+  - docker build -t lebedevri/chrysaor .
+
+script:
+  - docker run -v $PWD:/build/chrysaor -w /build/chrysaor -e CC=gcc-6 -e CXX=g++-6 lebedevri/chrysaor sh -c "cd /build/chrysaor && rm -rf /build/chrysaor/build && mkdir /build/chrysaor/build && cd /build/chrysaor/build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_DOC=off -DUSE_IWYU=off ../ && make && make test"
+  - docker run -v $PWD:/build/chrysaor -w /build/chrysaor -e CC=clang-3.8 -e CXX=clang++-3.8 lebedevri/chrysaor sh -c "cd /build/chrysaor && rm -rf /build/chrysaor/build && mkdir /build/chrysaor/build && cd /build/chrysaor/build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_DOC=off -DUSE_IWYU=off ../ && make && make test"

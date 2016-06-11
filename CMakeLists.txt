@@ -25,6 +25,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 include(CTest)
 
 option(BUILD_DOC "Build the documentation" ON)
+option(USE_IWYU "Run iwyu tool when compiling sources" ON)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
@@ -55,11 +56,13 @@ include(CpuMarch)
 
 find_package(Threads REQUIRED)
 
-find_program(iwyu_path NAMES include-what-you-use iwyu)
-if(NOT iwyu_path)
-  message(FATAL_ERROR "Could not find the program include-what-you-use")
-else(NOT iwyu_path)
-  set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
+if(USE_IWYU)
+  find_program(iwyu_path NAMES include-what-you-use iwyu)
+  if(NOT iwyu_path)
+    message(FATAL_ERROR "Could not find the program include-what-you-use")
+  else(NOT iwyu_path)
+    set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
+  endif()
 endif()
 
 if(BUILD_TESTING)
