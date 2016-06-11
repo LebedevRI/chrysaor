@@ -16,9 +16,10 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/CelestialBody.hpp"    // for CelestialBody
-#include "src/SemiMajorAxis.hpp"    // for SemiMajorAxis
-#include "gtest/gtest.h"            // for AssertHelper, EXPECT_DOUBLE_EQ
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include "gtest/gtest.h"                 // for AssertHelper, EXPECT_DOUBLE_EQ
 #include <gtest/gtest-param-test.h> // for ParamIteratorInterface, Circular...
 #include <iomanip>                  // for operator<<
 #include <iostream>                 // for operator<<, ostream, basic_ostream
@@ -42,6 +43,15 @@ TEST_P(CircularOrbitTest, SMA) {
   SemiMajorAxis foo(as.altitude + as.body->R_);
 
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+}
+
+TEST_P(CircularOrbitTest, SOE) {
+  auto as = GetParam();
+
+  SpecificOrbitalEnergy foo_soe(as.altitude, as.altitude, as.body);
+  SemiMajorAxis foo_sma(foo_soe, as.body);
+
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo_sma);
 }
 
 TEST_P(CircularOrbitTest, TwoApsisR) {
@@ -77,16 +87,24 @@ TEST_P(CircularOrbitTest, Default) {
   SemiMajorAxis baz(as.altitude, as.altitude, as.body);
   SemiMajorAxis qux(as.altitude + as.body->R_);
 
+  SpecificOrbitalEnergy quux_soe(as.altitude, as.altitude, as.body);
+  SemiMajorAxis quux(quux_soe, as.body);
+
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, bar);
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, baz);
   EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, qux);
+  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, quux);
   EXPECT_DOUBLE_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
   EXPECT_DOUBLE_EQ(foo, qux);
+  EXPECT_DOUBLE_EQ(foo, quux);
   EXPECT_DOUBLE_EQ(bar, baz);
   EXPECT_DOUBLE_EQ(bar, qux);
+  EXPECT_DOUBLE_EQ(bar, quux);
   EXPECT_DOUBLE_EQ(baz, qux);
+  EXPECT_DOUBLE_EQ(baz, quux);
+  EXPECT_DOUBLE_EQ(qux, quux);
 }
 
 extern CelestialBody Kerbin;

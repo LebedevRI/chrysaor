@@ -16,10 +16,11 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/SemiMajorAxis.hpp"
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include "gtest/gtest.h"         // for AssertHelper, ASSERT_NO_THROW, ASSE...
-#include <iomanip>               // for operator<<
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include "gtest/gtest.h" // for AssertHelper, ASSERT_NO_THROW, ASSE...
+#include <iomanip>       // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);
@@ -27,6 +28,10 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(SemiMajorAxisTest, TestConstructor) {
   ASSERT_NO_THROW({ SemiMajorAxis foo; });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0); });
+  ASSERT_NO_THROW({
+    SpecificOrbitalEnergy epsilon(1.0);
+    SemiMajorAxis foo(epsilon, &Kerbin);
+  });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0); });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, 0.0, &Kerbin); });
@@ -41,6 +46,14 @@ TEST(SemiMajorAxisTest, TestGetter) {
     const double sma = 123456789.0123456789;
     SemiMajorAxis foo(sma);
     ASSERT_EQ(sma, foo);
+  }
+  {
+    // not testing all the SOE constructors. SOE tests will do that.
+    SpecificOrbitalEnergy epsilon(-1.0);
+    CelestialBody planet(2.0, 1.0);
+
+    SemiMajorAxis foo(epsilon, &planet);
+    ASSERT_EQ(planet.R_, foo);
   }
   {
     const double r = 1.0;

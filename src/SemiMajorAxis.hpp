@@ -18,9 +18,10 @@
 
 #pragma once
 
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include <cassert>               // for assert
-#include <cmath>                 // for pow
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include <cassert>                       // for assert
+#include <cmath>                         // for pow
 
 /**
  * @brief semi-major axis class
@@ -66,6 +67,44 @@ public:
    * @param sma length of semi-major axis [m]
    */
   SemiMajorAxis(double sma) : value_(sma) { assert(std::isfinite(sma)); }
+
+  /**
+   * @brief calculates length of semi-major axis from specific orbital energy
+   *
+   * Vis-viva equation, orbital-energy-invariance law:
+   * \f$\epsilon={{v^2}\over{2}}-{{\mu}\over{r}}=-{\mu\over{2a}}\f$
+   *
+   * We can solve it for \f$a\f$:
+   *
+   * \f$\epsilon={-{\mu\over{2a}}}\f$
+   *
+   * \f$a\epsilon={-{\mu\over{2}}}\f$
+   *
+   * \f$a={-{\mu\over{2\epsilon}}}\f$
+   *
+   * According to herbie, it is the most precise version given the
+   * expected input data range (error = 0.0 bits).
+   * See math/orbit/sma-from-soe.rkt
+   *
+   * @param epsilon the specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
+   * @param parentBody the parent body
+   */
+  SemiMajorAxis(SpecificOrbitalEnergy epsilon, CelestialBody *parentBody)
+      : value_(0) {
+    assert(std::isfinite(epsilon));
+    assert(epsilon != 0.0);
+
+    assert(parentBody);
+    assert(std::isfinite(parentBody->mu_));
+    assert(parentBody->mu_ >= 0);
+
+    assert(std::isfinite(2.0 * epsilon));
+    assert((2.0 * epsilon) != 0.0);
+
+    value_ = (-parentBody->mu_) / (2.0 * epsilon);
+
+    assert(std::isfinite(value_));
+  }
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
