@@ -31,12 +31,12 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 ADD_DEFINITIONS(-Wall)
+ADD_DEFINITIONS(-Wextra)
 ADD_DEFINITIONS(-Werror)
 
 #MESSAGE(FATAL_ERROR ${CMAKE_CXX_COMPILER_ID})
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  ADD_DEFINITIONS(-Wextra)
   ADD_DEFINITIONS(-Weverything)
 
   ADD_DEFINITIONS(-Wno-c++98-compat)
@@ -49,7 +49,6 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   ADD_DEFINITIONS(-Wno-error=float-equal)
   ADD_DEFINITIONS(-Wno-error=weak-vtables)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  ADD_DEFINITIONS(-Wextra)
 endif()
 
 include(CpuMarch)

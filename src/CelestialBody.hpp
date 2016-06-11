@@ -52,12 +52,12 @@ public:
    */
   const double R_;
 
-  CelestialBody() : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0){};
+  CelestialBody() : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0) {}
   CelestialBody(double mu, double R)
       : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R) {
     assert(std::isfinite(mu));
     assert(mu >= 0.0);
     assert(std::isfinite(R));
     assert(R >= 0.0);
-  };
+  }
 };

@@ -109,22 +109,22 @@ INSTANTIATE_TEST_CASE_P(
     Kerbin, CircularOrbitTest,
     testing::Values(
         CircularOrbitData{&Kerbin, 0.0e+00, // on the surface
-                          2.4261079942986873059631362994849223761e+03L},
+                          2.4261079942986873059631362994849223761e+03},
         CircularOrbitData{&Kerbin, 7.0e+04, // min orbit, LKO
-                          2.2958756011856136609450298639424336392e+03L},
+                          2.2958756011856136609450298639424336392e+03},
         CircularOrbitData{&Kerbin, 1.0e+05, // LKO
-                          2.2461395453405958017358997226141148212e+03L},
+                          2.2461395453405958017358997226141148212e+03},
         CircularOrbitData{&Kerbin, 2.86333406e+06, // KEO
-                          1.0098074305900465787999564781785011292e+03L}));
+                          1.0098074305900465787999564781785011292e+03}));
 
 INSTANTIATE_TEST_CASE_P(
     Earth, CircularOrbitTest,
     testing::Values(
         CircularOrbitData{&Earth, 0.0e+00, // on the surface
-                          7.9053659669038524953066371381282806396e+03L},
+                          7.9053659669038524953066371381282806396e+03},
         CircularOrbitData{&Earth, 1.6e+05, // min orbit, LEO
-                          7.8080375433456320024561136960983276367e+03L},
+                          7.8080375433456320024561136960983276367e+03},
         CircularOrbitData{&Earth, 2.5e+05, // LEO
-                          7.7548457313704493572004139423370361328e+03L},
+                          7.7548457313704493572004139423370361328e+03},
         CircularOrbitData{&Earth, 3.5786e+07, // GEO / GSO
-                          3.0746613035946006675658281892538070679e+03L}));
+                          3.0746613035946006675658281892538070679e+03}));

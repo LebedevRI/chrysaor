@@ -22,7 +22,10 @@
 TEST(Vec3Test, TestConstructor) {
   ASSERT_NO_THROW({ Vec3 foo; });
   ASSERT_NO_THROW({ Vec3 bar(1.0, 2.0, 3.0); });
-  ASSERT_NO_THROW({ Vec3 bar({1.0, 2.0, 3.0}); });
+  ASSERT_NO_THROW({
+    Vec3 bar({1.0, 2.0, 3.0});
+    (void)bar;
+  });
 }
 
 TEST(Vec3Test, TestComparison) {

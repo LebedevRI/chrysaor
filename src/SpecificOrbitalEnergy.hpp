@@ -56,7 +56,7 @@ public:
    * @brief dummy constructor.
    *
    */
-  SpecificOrbitalEnergy() : value_(0){};
+  SpecificOrbitalEnergy() : value_(0) {}
 
   /**
    * @brief sets \f$\epsilon\f$ to the passed value
@@ -65,7 +65,7 @@ public:
    */
   SpecificOrbitalEnergy(double epsilon) : value_(epsilon) {
     assert(std::isfinite(epsilon));
-  };
+  }
 
   /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
@@ -112,7 +112,7 @@ public:
     value_ = -(parentBody->mu_) / (ApR + PeR);
 
     assert(std::isfinite(value_));
-  };
+  }
 
   /**
    * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.

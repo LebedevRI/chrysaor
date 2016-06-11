@@ -58,14 +58,14 @@ public:
    * @brief dummy constructor.
    *
    */
-  SemiMajorAxis() : value_(0){};
+  SemiMajorAxis() : value_(0) {}
 
   /**
    * @brief sets SMA to the passed value
    *
    * @param sma length of semi-major axis [m]
    */
-  SemiMajorAxis(double sma) : value_(sma) { assert(std::isfinite(sma)); };
+  SemiMajorAxis(double sma) : value_(sma) { assert(std::isfinite(sma)); }
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -94,7 +94,7 @@ public:
     value_ = (ApR + PeR) / 2.0;
 
     assert(std::isfinite(value_));
-  };
+  }
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -136,7 +136,7 @@ public:
     value_ = SemiMajorAxis(ApR, PeR);
 
     assert(std::isfinite(value_));
-  };
+  }
 
   /**
    * @brief calculates SMA from given velocity vector and altitude.
