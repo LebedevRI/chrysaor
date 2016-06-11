@@ -18,9 +18,8 @@
 
 #pragma once
 
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include <cassert>               // for assert
-#include <cmath>                 // for pow
+class CelestialBody;
+class SemiMajorAxis;
 
 /**
  * @brief specific orbital energy class
@@ -50,22 +49,20 @@ public:
    *
    * @return double
    */
-  operator double() const { return (value_); }
+  operator double() const;
 
   /**
    * @brief dummy constructor.
    *
    */
-  SpecificOrbitalEnergy() : value_(0) {}
+  SpecificOrbitalEnergy();
 
   /**
    * @brief sets \f$\epsilon\f$ to the passed value
    *
    * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    */
-  SpecificOrbitalEnergy(double epsilon) : value_(epsilon) {
-    assert(std::isfinite(epsilon));
-  }
+  SpecificOrbitalEnergy(double epsilon);
 
   /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
@@ -87,32 +84,7 @@ public:
    * nearest point (eriapsis) [m]
    * @param parentBody the parent body
    */
-  SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody)
-      : value_(0) {
-    assert(parentBody);
-    assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ >= 0);
-    assert(std::isfinite(parentBody->R_));
-    assert(parentBody->R_ >= 0.0);
-
-    assert(std::isfinite(ApA));
-    assert(std::isfinite(PeA));
-
-    // we got altitude, i.e. distance to the surface,
-    // but we need distance to the center of mass
-    const double ApR = ApA + parentBody->R_;
-    const double PeR = PeA + parentBody->R_;
-
-    assert(std::isfinite(ApR));
-    assert(std::isfinite(PeR));
-
-    assert(std::isfinite(ApR + PeR));
-    assert((ApR + PeR) != 0.0);
-
-    value_ = -(parentBody->mu_) / (ApR + PeR);
-
-    assert(std::isfinite(value_));
-  }
+  SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.
@@ -147,39 +119,5 @@ public:
    * @param parentBody the parent body
    */
   SpecificOrbitalEnergy(double Vx, double Vy, double altitude,
-                        CelestialBody *parentBody)
-      : value_(0) {
-    assert(parentBody);
-    assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ >= 0);
-
-    assert(std::isfinite(Vx));
-    assert(Vx >= 0.0);
-    assert(Vx <= 11000.0);
-
-    assert(std::isfinite(Vy));
-    assert(Vy >= -1000.0);
-    assert(Vy <= 1000.0);
-
-    assert(std::isfinite(parentBody->R_));
-    assert(parentBody->R_ >= 0.0);
-
-    assert(std::isfinite(altitude));
-
-    // all math assumes the radius to be from the center of patent body.
-    altitude += parentBody->R_;
-
-    assert(std::isfinite(altitude));
-    assert(altitude != 0.0);
-    assert(altitude > 0.0);
-
-    assert(std::isfinite((parentBody->mu_) / altitude));
-    assert(((parentBody->mu_) / altitude) != 0.0);
-
-    value_ = ((((1.0 / 2.0) * std::pow(Vx, 2.0)) +
-               ((1.0 / 2.0) * std::pow(Vy, 2.0))) -
-              ((parentBody->mu_) / altitude));
-
-    assert(std::isfinite(value_));
-  }
+                        CelestialBody *parentBody);
 };

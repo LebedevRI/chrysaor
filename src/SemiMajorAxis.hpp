@@ -18,10 +18,8 @@
 
 #pragma once
 
-#include "src/CelestialBody.hpp"         // for CelestialBody
-#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
-#include <cassert>                       // for assert
-#include <cmath>                         // for pow
+class CelestialBody;
+class SpecificOrbitalEnergy;
 
 /**
  * @brief semi-major axis class
@@ -53,20 +51,20 @@ public:
    *
    * @return double
    */
-  operator double() const { return (value_); }
+  operator double() const;
 
   /**
    * @brief dummy constructor.
    *
    */
-  SemiMajorAxis() : value_(0) {}
+  SemiMajorAxis();
 
   /**
    * @brief sets SMA to the passed value
    *
    * @param sma length of semi-major axis [m]
    */
-  SemiMajorAxis(double sma) : value_(sma) { assert(std::isfinite(sma)); }
+  SemiMajorAxis(double sma);
 
   /**
    * @brief calculates length of semi-major axis from specific orbital energy
@@ -89,22 +87,7 @@ public:
    * @param epsilon the specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    * @param parentBody the parent body
    */
-  SemiMajorAxis(SpecificOrbitalEnergy epsilon, CelestialBody *parentBody)
-      : value_(0) {
-    assert(std::isfinite(epsilon));
-    assert(epsilon != 0.0);
-
-    assert(parentBody);
-    assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ >= 0);
-
-    assert(std::isfinite(2.0 * epsilon));
-    assert((2.0 * epsilon) != 0.0);
-
-    value_ = (-parentBody->mu_) / (2.0 * epsilon);
-
-    assert(std::isfinite(value_));
-  }
+  SemiMajorAxis(SpecificOrbitalEnergy epsilon, CelestialBody *parentBody);
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -126,14 +109,7 @@ public:
    * @param PeR radius of the orbit, at the orbit's nearest point (periapsis)
    * [m]
    */
-  SemiMajorAxis(double ApR, double PeR) : value_(0) {
-    assert(std::isfinite(ApR));
-    assert(std::isfinite(PeR));
-
-    value_ = (ApR + PeR) / 2.0;
-
-    assert(std::isfinite(value_));
-  }
+  SemiMajorAxis(double ApR, double PeR);
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -156,26 +132,7 @@ public:
    * nearest point (periapsis) [m]
    * @param parentBody the parent body
    */
-  SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody) : value_(0) {
-    assert(parentBody);
-    assert(std::isfinite(parentBody->R_));
-    assert(parentBody->R_ >= 0.0);
-
-    assert(std::isfinite(ApA));
-    assert(std::isfinite(PeA));
-
-    // we got altitude, i.e. distance to the surface,
-    // but we need distance to the center of mass
-    const double ApR = ApA + parentBody->R_;
-    const double PeR = PeA + parentBody->R_;
-
-    assert(std::isfinite(ApR));
-    assert(std::isfinite(PeR));
-
-    value_ = SemiMajorAxis(ApR, PeR);
-
-    assert(std::isfinite(value_));
-  }
+  SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody);
 
   /**
    * @brief calculates SMA from given velocity vector and altitude.
@@ -220,43 +177,5 @@ public:
    * @param parentBody the parent body
    */
   SemiMajorAxis(double Vx, double Vy, double altitude,
-                CelestialBody *parentBody)
-      : value_(0) {
-    assert(parentBody);
-    assert(std::isfinite(parentBody->mu_));
-    assert(parentBody->mu_ >= 0);
-
-    assert(std::isfinite(Vx));
-    assert(Vx >= 0.0);
-    assert(Vx <= 11000.0);
-
-    assert(std::isfinite(Vy));
-    assert(Vy >= -1000.0);
-    assert(Vy <= 1000.0);
-
-    assert(std::isfinite(parentBody->R_));
-    assert(parentBody->R_ >= 0.0);
-
-    assert(std::isfinite(altitude));
-
-    // all math assumes the radius to be from the center of patent body.
-    altitude += parentBody->R_;
-
-    assert(std::isfinite(altitude));
-    assert(altitude != 0.0);
-    assert(altitude > 0.0);
-
-    assert(std::isfinite((parentBody->mu_) / altitude));
-    assert(((parentBody->mu_) / altitude) != 0.0);
-
-    assert(std::isfinite((2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
-                                 ((parentBody->mu_) / altitude)))));
-    assert(((2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
-                    ((parentBody->mu_) / altitude)))) != 0.0);
-
-    value_ = ((altitude) / (2.0 - ((std::pow(Vx, 2.0) + std::pow(Vy, 2.0)) /
-                                   ((parentBody->mu_) / altitude))));
-
-    assert(std::isfinite(value_));
-  }
+                CelestialBody *parentBody);
 };
