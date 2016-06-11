@@ -17,6 +17,7 @@
  */
 
 #include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
 #include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
 #include "gtest/gtest.h"                 // for AssertHelper, EXPECT_DOUBLE_EQ
 #include <gtest/gtest-param-test.h> // for ParamIteratorInterface, Circular...
@@ -46,6 +47,15 @@ TEST_P(CircularOrbitTest, Epsilon) {
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
 }
 
+TEST_P(CircularOrbitTest, SMA) {
+  auto as = GetParam();
+
+  SemiMajorAxis foo_sma(as.altitude + as.body->R_);
+  SpecificOrbitalEnergy foo(foo_sma, as.body);
+
+  EXPECT_DOUBLE_EQ(as.epsilon, foo);
+}
+
 TEST_P(CircularOrbitTest, TwoApsis) {
   auto as = GetParam();
 
@@ -69,12 +79,19 @@ TEST_P(CircularOrbitTest, Default) {
   SpecificOrbitalEnergy bar(as.altitude, as.altitude, as.body);
   SpecificOrbitalEnergy baz(as.epsilon);
 
+  SemiMajorAxis qux_sma(as.altitude + as.body->R_);
+  SpecificOrbitalEnergy qux(qux_sma, as.body);
+
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
   EXPECT_DOUBLE_EQ(as.epsilon, bar);
   EXPECT_DOUBLE_EQ(as.epsilon, baz);
+  EXPECT_DOUBLE_EQ(as.epsilon, qux);
   EXPECT_DOUBLE_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
+  EXPECT_DOUBLE_EQ(foo, qux);
   EXPECT_DOUBLE_EQ(bar, baz);
+  EXPECT_DOUBLE_EQ(bar, qux);
+  EXPECT_DOUBLE_EQ(baz, qux);
 }
 
 extern CelestialBody Kerbin;

@@ -30,6 +30,24 @@ SpecificOrbitalEnergy::SpecificOrbitalEnergy(double epsilon) : value_(epsilon) {
   assert(std::isfinite(epsilon));
 }
 
+SpecificOrbitalEnergy::SpecificOrbitalEnergy(SemiMajorAxis a,
+                                             CelestialBody *parentBody)
+    : value_(0) {
+  assert(std::isfinite(a));
+  assert(a != 0.0);
+
+  assert(parentBody);
+  assert(std::isfinite(parentBody->mu_));
+  assert(parentBody->mu_ >= 0);
+
+  assert(std::isfinite(2.0 * a));
+  assert((2.0 * a) != 0.0);
+
+  value_ = (-parentBody->mu_) / (2.0 * a);
+
+  assert(std::isfinite(value_));
+}
+
 SpecificOrbitalEnergy::SpecificOrbitalEnergy(double ApA, double PeA,
                                              CelestialBody *parentBody)
     : value_(0) {

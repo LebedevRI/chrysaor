@@ -16,10 +16,11 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/SpecificOrbitalEnergy.hpp"
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include "gtest/gtest.h"         // for AssertHelper, ASSERT_NO_THROW, ASSE...
-#include <iomanip>               // for operator<<
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "gtest/gtest.h" // for AssertHelper, ASSERT_NO_THROW, ASSE...
+#include <iomanip>       // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);
@@ -27,6 +28,10 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(SpecificOrbitalEnergyTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo; });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0); });
+  ASSERT_NO_THROW({
+    SemiMajorAxis a(1.0);
+    SpecificOrbitalEnergy foo(a, &Kerbin);
+  });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, 0.0, &Kerbin); });
 }
@@ -40,6 +45,14 @@ TEST(SpecificOrbitalEnergyTest, TestGetter) {
     const double sma = 123456789.0123456789;
     SpecificOrbitalEnergy foo(sma);
     ASSERT_EQ(sma, foo);
+  }
+  {
+    // not testing all the SMA constructors. SMA tests will do that.
+    SemiMajorAxis a(0.5);
+    CelestialBody planet(1.0, 0.0);
+
+    SpecificOrbitalEnergy foo(a, &planet);
+    ASSERT_DOUBLE_EQ(-planet.mu_, foo);
   }
   {
     CelestialBody planet(1.0, 0.5);

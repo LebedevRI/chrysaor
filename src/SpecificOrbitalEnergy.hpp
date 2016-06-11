@@ -65,6 +65,17 @@ public:
   SpecificOrbitalEnergy(double epsilon);
 
   /**
+   * @brief calculates \f$\epsilon\f$ from passed orbit's semi-major axis
+   *
+   * Vis-viva equation, orbital-energy-invariance law:
+   * \f$\epsilon={{v^2}\over{2}}-{{\mu}\over{r}}=-{\mu\over{2a}}\f$
+   *
+   * @param a length of semi-major axis [m]
+   * @param parentBody the parent body
+   */
+  SpecificOrbitalEnergy(SemiMajorAxis a, CelestialBody *parentBody);
+
+  /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
    *
    * From the geometry of an ellipse, \f$2a=r_p+r_a\f$
