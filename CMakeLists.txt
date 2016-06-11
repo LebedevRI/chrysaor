@@ -22,6 +22,10 @@ if(NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+if(NOT (CMAKE_BUILD_TYPE MATCHES "^[Rr][Ee][Ll][Ee][Aa][Ss][Ee]$"))
+  ADD_DEFINITIONS(-UNDEBUG)
+endif()
+
 include(CTest)
 
 option(BUILD_DOC "Build the documentation" ON)
