@@ -10,7 +10,8 @@ cache:
     - docker-images
 
 before_install:
-  - docker build -t lebedevri/chrysaor .
+#  - docker build -t lebedevri/chrysaor .
+  - docker pull lebedevri/chrysaor
 
 script:
   - docker run -v $PWD:/build/chrysaor -w /build/chrysaor -e CC=gcc-6 -e CXX=g++-6 lebedevri/chrysaor sh -c "cd /build/chrysaor && rm -rf /build/chrysaor/build && mkdir /build/chrysaor/build && cd /build/chrysaor/build && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_DOC=off -DUSE_IWYU=off ../ && make && make test"
