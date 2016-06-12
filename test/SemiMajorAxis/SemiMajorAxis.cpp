@@ -37,6 +37,14 @@ TEST(SemiMajorAxisTest, TestConstructor) {
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
+TEST(SemiMajorAxisTest, TestConverters) {
+  const double value = 43896214.435412451;
+  SemiMajorAxis foo(value);
+
+  ASSERT_EQ(value, foo);
+  ASSERT_EQ(value, static_cast<double>(foo));
+}
+
 TEST(SemiMajorAxisTest, TestGetter) {
   {
     SemiMajorAxis foo;

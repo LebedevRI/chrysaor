@@ -36,6 +36,14 @@ TEST(SpecificOrbitalEnergyTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
+TEST(SpecificOrbitalEnergyTest, TestConverters) {
+  const double value = 823902213.65253211;
+  SpecificOrbitalEnergy foo(value);
+
+  ASSERT_EQ(value, foo);
+  ASSERT_EQ(value, static_cast<double>(foo));
+}
+
 TEST(SpecificOrbitalEnergyTest, TestGetter) {
   {
     SpecificOrbitalEnergy foo;
