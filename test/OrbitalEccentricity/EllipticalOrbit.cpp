@@ -53,7 +53,15 @@ TEST_P(EllipticalOrbitTest, Eccentricity) {
   EXPECT_DOUBLE_EQ(as.ecc, foo);
 }
 
-TEST_P(EllipticalOrbitTest, TwoApsis) {
+TEST_P(EllipticalOrbitTest, TwoApsisR) {
+  auto as = GetParam();
+
+  OrbitalEccentricity foo(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
+
+  EXPECT_DOUBLE_EQ(as.ecc, foo);
+}
+
+TEST_P(EllipticalOrbitTest, TwoApsisA) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.apoapsis, as.altitude, as.body);
@@ -75,13 +83,18 @@ TEST_P(EllipticalOrbitTest, Default) {
   OrbitalEccentricity foo(as.ecc);
   OrbitalEccentricity bar(as.velocity, 0.0, as.altitude, as.body);
   OrbitalEccentricity baz(as.apoapsis, as.altitude, as.body);
+  OrbitalEccentricity qux(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
 
   EXPECT_DOUBLE_EQ(as.ecc, foo);
   EXPECT_FLOAT_EQ(as.ecc, bar);
   EXPECT_DOUBLE_EQ(as.ecc, baz);
+  EXPECT_DOUBLE_EQ(as.ecc, qux);
   EXPECT_FLOAT_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
+  EXPECT_DOUBLE_EQ(foo, qux);
   EXPECT_FLOAT_EQ(bar, baz);
+  EXPECT_FLOAT_EQ(bar, qux);
+  EXPECT_DOUBLE_EQ(baz, qux);
 }
 
 extern CelestialBody Kerbin;

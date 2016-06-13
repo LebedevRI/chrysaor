@@ -31,6 +31,22 @@ OrbitalEccentricity::OrbitalEccentricity(double eccentricity)
   assert(eccentricity >= 0.0);
 }
 
+OrbitalEccentricity::OrbitalEccentricity(double ApR, double PeR) : value_(0) {
+  assert(std::isfinite(ApR));
+  assert(std::isfinite(PeR));
+
+  assert(ApR >= PeR);
+
+  assert(std::isfinite(ApR - PeR));
+  assert(std::isfinite(ApR + PeR));
+  assert((ApR + PeR) != 0.0);
+
+  value_ = ((ApR - PeR) / (ApR + PeR));
+
+  assert(std::isfinite(value_));
+  assert(value_ >= 0.0);
+}
+
 OrbitalEccentricity::OrbitalEccentricity(double ApA, double PeA,
                                          CelestialBody *parentBody)
     : value_(0) {

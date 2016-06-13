@@ -40,7 +40,15 @@ extern double ecc_max_abs_err;
 
 class CircularOrbitTest : public ::testing::TestWithParam<CircularOrbitData> {};
 
-TEST_P(CircularOrbitTest, TwoApsis) {
+TEST_P(CircularOrbitTest, TwoApsisR) {
+  auto as = GetParam();
+
+  OrbitalEccentricity foo(as.altitude + as.body->R_, as.altitude + as.body->R_);
+
+  EXPECT_DOUBLE_EQ(0.0, foo);
+}
+
+TEST_P(CircularOrbitTest, TwoApsisA) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.altitude, as.altitude, as.body);
@@ -62,11 +70,15 @@ TEST_P(CircularOrbitTest, Default) {
 
   OrbitalEccentricity foo(as.velocity, 0.0, as.altitude, as.body);
   OrbitalEccentricity bar(as.altitude, as.altitude, as.body);
+  OrbitalEccentricity baz(as.altitude + as.body->R_, as.altitude + as.body->R_);
 
   // EXPECT_FLOAT_EQ(0.0, foo);
   EXPECT_NEAR(0.0, foo, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(0.0, bar);
+  EXPECT_DOUBLE_EQ(0.0, baz);
   EXPECT_NEAR(foo, bar, ecc_max_abs_err);
+  EXPECT_NEAR(foo, baz, ecc_max_abs_err);
+  EXPECT_DOUBLE_EQ(bar, baz);
 }
 
 extern CelestialBody Kerbin;

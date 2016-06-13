@@ -71,6 +71,25 @@ public:
    *
    * \f$e={{r_a-r_p}\over{r_a+r_p}}=1-{2\over{{r_a\over{r_p}}+1}}\f$
    *
+   * See math/orbit/ecc-from-r1-and-r2-2.rkt
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param ApR radius of the orbit, at the orbit's farthest point (apoapsis)
+   * [m]
+   * @param PeR radius of the orbit, at the orbit's nearest point (periapsis)
+   * [m]
+   */
+  OrbitalEccentricity(double ApR, double PeR);
+
+  /**
+   * @brief calculates \f$e\f$ from passed orbit's Ap and Pe.
+   *
+   * Since \f$r_p = a(1-e)\f$ and \f$r_a = a(1+e)\f$, where \f$a\f$ is the
+   * semi-major axis:
+   *
+   * \f$e={{r_a-r_p}\over{r_a+r_p}}=1-{2\over{{r_a\over{r_p}}+1}}\f$
+   *
    * However, for the reasons of floating-point precision, we'll use
    * optimized version:
    * \f$e={{r_a-r_p}\over{r_a+r_p}}\f$. (the difference is in adding parent's
