@@ -64,6 +64,33 @@ public:
   OrbitalEccentricity(double eccentricity);
 
   /**
+   * @brief calculates \f$e\f$ from passed orbit's Ap and Pe.
+   *
+   * Since \f$r_p = a(1-e)\f$ and \f$r_a = a(1+e)\f$, where \f$a\f$ is the
+   * semi-major axis:
+   *
+   * \f$e={{r_a-r_p}\over{r_a+r_p}}=1-{2\over{{r_a\over{r_p}}+1}}\f$
+   *
+   * However, for the reasons of floating-point precision, we'll use
+   * optimized version:
+   * \f$e={{r_a-r_p}\over{r_a+r_p}}\f$. (the difference is in adding parent's
+   * body radius only in the bottom)
+   *
+   * According to herbie, it is the most precise version given the
+   * expected input data range (error = 0.0 bits).
+   * See math/orbit/ecc-from-r1-and-r2.rkt
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param ApA altitude, from the surface of the parent body, at the orbit's
+   * farthest point (apoapsis) [m]
+   * @param PeA altitude, from the surface of the parent body, at the orbit's
+   * nearest point (eriapsis) [m]
+   * @param parentBody the parent body
+   */
+  OrbitalEccentricity(double ApA, double PeA, CelestialBody *parentBody);
+
+  /**
    * @brief calculates \f$e\f$ from given velocity vector and altitude.
    *
    * By definition, given 2 velocity's components, \f$V_x\f$ and \f$V_y\f$,

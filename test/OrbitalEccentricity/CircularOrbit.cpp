@@ -18,8 +18,9 @@
 
 #include "src/CelestialBody.hpp"       // for CelestialBody
 #include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include "gtest/gtest.h"               // for ASSERT_NEAR, AssertHelper
+#include "gtest/gtest.h"               // for AssertHelper, EXPECT_DOUBLE_EQ
 #include <gtest/gtest-param-test.h>    // for ParamIteratorInterface, Param...
+#include <iomanip>                     // for operator<<
 #include <iostream>                    // for operator<<, basic_ostream
 
 struct CircularOrbitData {
@@ -39,6 +40,14 @@ extern double ecc_max_abs_err;
 
 class CircularOrbitTest : public ::testing::TestWithParam<CircularOrbitData> {};
 
+TEST_P(CircularOrbitTest, TwoApsis) {
+  auto as = GetParam();
+
+  OrbitalEccentricity foo(as.altitude, as.altitude, as.body);
+
+  EXPECT_DOUBLE_EQ(0.0, foo);
+}
+
 TEST_P(CircularOrbitTest, VelAlt) {
   auto as = GetParam();
 
@@ -52,9 +61,12 @@ TEST_P(CircularOrbitTest, Default) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.velocity, 0.0, as.altitude, as.body);
+  OrbitalEccentricity bar(as.altitude, as.altitude, as.body);
 
   // EXPECT_FLOAT_EQ(0.0, foo);
   EXPECT_NEAR(0.0, foo, ecc_max_abs_err);
+  EXPECT_DOUBLE_EQ(0.0, bar);
+  EXPECT_NEAR(foo, bar, ecc_max_abs_err);
 }
 
 extern CelestialBody Kerbin;

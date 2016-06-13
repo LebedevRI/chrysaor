@@ -29,6 +29,7 @@ CelestialBody Earth(3.986004418e+14, 6378136.6);
 TEST(OrbitalEccentricityTest, TestConstructor) {
   ASSERT_NO_THROW({ OrbitalEccentricity foo; });
   ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0); });
+  ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
@@ -49,6 +50,12 @@ TEST(OrbitalEccentricityTest, TestGetter) {
     const double ecc = 0.958951515;
     OrbitalEccentricity foo(ecc);
     ASSERT_EQ(ecc, foo);
+  }
+  {
+    CelestialBody planet(0.0, 1.0);
+
+    OrbitalEccentricity foo(0.0, 0.0, &planet);
+    ASSERT_DOUBLE_EQ(0.0, foo);
   }
   {
     CelestialBody planet(2.0, 1.0);
