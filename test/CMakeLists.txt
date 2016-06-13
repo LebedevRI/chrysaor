@@ -6,6 +6,7 @@ add_subdirectory(CelestialBody)
 
 add_subdirectory(SemiMajorAxis)
 add_subdirectory(SpecificOrbitalEnergy)
+add_subdirectory(OrbitalEccentricity)
 
 add_subdirectory(LaunchSite)
 add_subdirectory(Stage)
