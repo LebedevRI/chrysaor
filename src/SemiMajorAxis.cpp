@@ -22,7 +22,11 @@
 #include <cassert>                       // for assert
 #include <cmath>                         // for pow
 
-SemiMajorAxis::operator double() const { return (value_); }
+SemiMajorAxis::operator double() const {
+  assert(std::isfinite(value_));
+
+  return (value_);
+}
 
 SemiMajorAxis::SemiMajorAxis() : value_(0) {}
 

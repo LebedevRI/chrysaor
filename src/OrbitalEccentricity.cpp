@@ -21,7 +21,12 @@
 #include <cassert>               // for assert
 #include <cmath>                 // for pow, isfinite, fmax, sqrt
 
-OrbitalEccentricity::operator double() const { return (value_); }
+OrbitalEccentricity::operator double() const {
+  assert(std::isfinite(value_));
+  assert(value_ >= 0.0);
+
+  return (value_);
+}
 
 OrbitalEccentricity::OrbitalEccentricity() : value_(0) {}
 
@@ -104,6 +109,8 @@ OrbitalEccentricity::OrbitalEccentricity(double Vx, double Vy, double altitude,
   assert(altitude > 0.0);
 
   assert(parentBody->mu_ != 0.0);
+  assert(std::isfinite(std::pow(parentBody->mu_, 2.0)));
+  assert((std::pow(parentBody->mu_, 2.0)) != 0.0);
 
   // FIXME: awful precision due to fp
   // sqrt(alt^2*Vx^4 + alt^2*Vx^2*Vy^2 + mu^2 - 2*alt*mu*Vx^2) / mu

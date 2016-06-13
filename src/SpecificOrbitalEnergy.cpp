@@ -22,7 +22,11 @@
 #include <cassert>                       // for assert
 #include <cmath>                         // for pow
 
-SpecificOrbitalEnergy::operator double() const { return (value_); }
+SpecificOrbitalEnergy::operator double() const {
+  assert(std::isfinite(value_));
+
+  return (value_);
+}
 
 SpecificOrbitalEnergy::SpecificOrbitalEnergy() : value_(0) {}
 
