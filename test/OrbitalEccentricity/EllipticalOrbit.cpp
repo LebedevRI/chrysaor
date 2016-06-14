@@ -16,34 +16,12 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/CelestialBody.hpp"       // for CelestialBody
+#include "test/EllipticalOrbit.hpp"
 #include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include "gtest/gtest.h"               // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <gtest/gtest-param-test.h> // for ParamIteratorInterface, Elliptical...
-#include <iomanip>                  // for operator<<
-#include <iostream>                 // for operator<<, ostream, basic_ostream
-
-struct EllipticalOrbitData {
-  CelestialBody *body;
-  double altitude; // periapsis
-  double velocity;
-  double apoapsis; // just for reference
-  double epsilon;
-
-  double ecc;
-
-  friend std::ostream &operator<<(std::ostream &os,
-                                  const EllipticalOrbitData &obj) {
-    return os << "altitude: " << obj.altitude << ", velocity: " << obj.velocity
-              << ", apoapsis: " << obj.apoapsis << ", epsilon: " << obj.epsilon
-              << ", ecc: " << obj.ecc;
-  }
-};
+#include <gtest/gtest.h>               // for AssertHelper, EXPECT_DOUBLE_EQ
+#include <iomanip>                     // for operator<<
 
 extern double ecc_max_abs_err;
-
-class EllipticalOrbitTest
-    : public ::testing::TestWithParam<EllipticalOrbitData> {};
 
 TEST_P(EllipticalOrbitTest, Eccentricity) {
   auto as = GetParam();
@@ -96,88 +74,3 @@ TEST_P(EllipticalOrbitTest, Default) {
   EXPECT_FLOAT_EQ(bar, qux);
   EXPECT_DOUBLE_EQ(baz, qux);
 }
-
-extern CelestialBody Kerbin;
-extern CelestialBody Earth;
-
-/*
- * computed using following Sage code:
- *
- * # repeat for each R
- * R = 600000
- *
- * e(r1, r2) = (((r2 + R) - (r1 + R)) / ((r2 + R) + (r1 + R)))
- *
- * RealField(128)(e(70000, 2.86333406e+06)) # repeat for each (alt, ap)
- */
-
-INSTANTIATE_TEST_CASE_P(
-    Kerbin, EllipticalOrbitTest,
-    testing::Values(
-        EllipticalOrbitData{&Kerbin,
-                            0.0e+00, // on the surface -> min orbit, LKO
-                            2.4920724702244101536052767187356948853e+03,
-                            7.0e+04, -2.7807874015748030506074428558349609375e6,
-                            5.5118110236220472440944881889763779528e-02},
-        EllipticalOrbitData{&Kerbin,
-                            0.0e+00, // on the surface -> LKO
-                            2.5176912500879116123542189598083496094e+03,
-                            1.0e+05, -2.7166153846153845079243183135986328125e6,
-                            7.6923076923076923076923076923076923077e-02},
-        EllipticalOrbitData{&Kerbin,
-                            0.0e+00, // on the surface -> KEO
-                            3.1676052523016251143417321145534515381e+03,
-                            2.86333406e+06,
-                            -8.6913848279557900968939065933227539062e5,
-                            7.0467601671913737693131452033412642777e-01},
-        EllipticalOrbitData{&Kerbin,
-                            7.0e+04, // min orbit, LKO -> LKO
-                            2.3208767986006064347748178988695144653e+03,
-                            1.0e+05, -2.5778102189781023189425468444824218750e6,
-                            2.1897810218978102189781021897810218978e-02},
-        EllipticalOrbitData{&Kerbin,
-                            7.0e+04, // min orbit, LKO -> KEO
-                            2.9720785896382690225436817854642868042e+03,
-                            2.86333406e+06,
-                            -8.5441920462630107067525386810302734375e5,
-                            6.7580650860821056546967611211584880948e-01},
-        EllipticalOrbitData{&Kerbin,
-                            1.0e+05, // LKO -> KEO
-                            2.8971987833458042587153613567352294922e+03,
-                            2.86333406e+06,
-                            -8.4826246203265280928462743759155273438e5,
-                            6.6373104348009015485132522371714003384e-01}));
-
-INSTANTIATE_TEST_CASE_P(
-    Earth, EllipticalOrbitTest,
-    testing::Values(
-        EllipticalOrbitData{&Earth,
-                            0.0e+00, // on the surface -> min orbit, LEO
-                            7.9541790227209166914690285921096801758e+03,
-                            1.6e+05, -3.0860329107934944331645965576171875000e7,
-                            1.2387474120631019811056283685957168927e-02},
-        EllipticalOrbitData{&Earth,
-                            0.0e+00, // on the surface -> LEO
-                            7.9809808103873447180376388132572174072e+03,
-                            2.5e+05, -3.0646783722796164453029632568359375000e7,
-                            1.9221493824995158211654810997970344033e-02},
-        EllipticalOrbitData{&Earth,
-                            0.0e+00, // on the surface -> GEO / GSO
-                            1.0419539570032044139225035905838012695e+04,
-                            3.5786e+07,
-                            -8.2114086449499027803540229797363281250e6,
-                            7.3721310603970635622061990943620912731e-01},
-        EllipticalOrbitData{&Earth, 1.6e+05, // min orbit, LEO -> LEO
-                            7.8346785891046356482547707855701446533e+03,
-                            2.5e+05, -3.0274355981007594615221023559570312500e7,
-                            6.8356473113439578104255645030207233503e-03},
-        EllipticalOrbitData{&Earth, 1.6e+05, // min orbit, LEO -> GEO / GSO
-                            1.0274338743499216434429399669170379639e+04,
-                            3.5786e+07,
-                            -8.1844319702103761956095695495605468750e6,
-                            7.3150589611492711217266560197458602488e-01},
-        EllipticalOrbitData{&Earth, 2.5e+05, // LEO -> GEO / GSO
-                            1.0194929816018779092701151967048645020e+04,
-                            3.5786e+07,
-                            -8.1693353405801141634583473205566406250e6,
-                            7.2831203937429989103691241325577721000e-01}));
