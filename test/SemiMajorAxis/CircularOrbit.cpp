@@ -25,9 +25,9 @@
 TEST_P(CircularOrbitTest, SMA) {
   auto as = GetParam();
 
-  SemiMajorAxis foo(as.altitude + as.body->R_);
+  SemiMajorAxis foo(as.sma);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(CircularOrbitTest, SOE) {
@@ -36,15 +36,15 @@ TEST_P(CircularOrbitTest, SOE) {
   SpecificOrbitalEnergy foo_soe(as.altitude, as.altitude, as.body);
   SemiMajorAxis foo_sma(foo_soe, as.body);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo_sma);
+  EXPECT_DOUBLE_EQ(as.sma, foo_sma);
 }
 
 TEST_P(CircularOrbitTest, TwoApsisR) {
   auto as = GetParam();
 
-  SemiMajorAxis foo(as.altitude + as.body->R_, as.altitude + as.body->R_);
+  SemiMajorAxis foo(as.sma, as.sma);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(CircularOrbitTest, TwoApsisA) {
@@ -52,7 +52,7 @@ TEST_P(CircularOrbitTest, TwoApsisA) {
 
   SemiMajorAxis foo(as.altitude, as.altitude, as.body);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(CircularOrbitTest, VelAlt) {
@@ -60,7 +60,7 @@ TEST_P(CircularOrbitTest, VelAlt) {
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 // all the real constructors should result in same SMA
@@ -68,18 +68,18 @@ TEST_P(CircularOrbitTest, Default) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
-  SemiMajorAxis bar(as.altitude + as.body->R_, as.altitude + as.body->R_);
+  SemiMajorAxis bar(as.sma, as.sma);
   SemiMajorAxis baz(as.altitude, as.altitude, as.body);
-  SemiMajorAxis qux(as.altitude + as.body->R_);
+  SemiMajorAxis qux(as.sma);
 
   SpecificOrbitalEnergy quux_soe(as.altitude, as.altitude, as.body);
   SemiMajorAxis quux(quux_soe, as.body);
 
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, foo);
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, bar);
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, baz);
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, qux);
-  EXPECT_DOUBLE_EQ(as.altitude + as.body->R_, quux);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
+  EXPECT_DOUBLE_EQ(as.sma, bar);
+  EXPECT_DOUBLE_EQ(as.sma, baz);
+  EXPECT_DOUBLE_EQ(as.sma, qux);
+  EXPECT_DOUBLE_EQ(as.sma, quux);
   EXPECT_DOUBLE_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
   EXPECT_DOUBLE_EQ(foo, qux);

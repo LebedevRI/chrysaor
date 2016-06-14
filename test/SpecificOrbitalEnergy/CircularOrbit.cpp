@@ -33,7 +33,7 @@ TEST_P(CircularOrbitTest, Epsilon) {
 TEST_P(CircularOrbitTest, SMA) {
   auto as = GetParam();
 
-  SemiMajorAxis foo_sma(as.altitude + as.body->R_);
+  SemiMajorAxis foo_sma(as.sma);
   SpecificOrbitalEnergy foo(foo_sma, as.body);
 
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
@@ -62,7 +62,7 @@ TEST_P(CircularOrbitTest, Default) {
   SpecificOrbitalEnergy bar(as.altitude, as.altitude, as.body);
   SpecificOrbitalEnergy baz(as.epsilon);
 
-  SemiMajorAxis qux_sma(as.altitude + as.body->R_);
+  SemiMajorAxis qux_sma(as.sma);
   SpecificOrbitalEnergy qux(qux_sma, as.body);
 
   EXPECT_DOUBLE_EQ(as.epsilon, foo);

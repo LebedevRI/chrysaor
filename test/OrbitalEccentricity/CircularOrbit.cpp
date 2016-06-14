@@ -26,7 +26,7 @@ extern double ecc_max_abs_err;
 TEST_P(CircularOrbitTest, TwoApsisR) {
   auto as = GetParam();
 
-  OrbitalEccentricity foo(as.altitude + as.body->R_, as.altitude + as.body->R_);
+  OrbitalEccentricity foo(as.sma, as.sma);
 
   EXPECT_DOUBLE_EQ(0.0, foo);
 }
@@ -53,7 +53,7 @@ TEST_P(CircularOrbitTest, Default) {
 
   OrbitalEccentricity foo(as.velocity, 0.0, as.altitude, as.body);
   OrbitalEccentricity bar(as.altitude, as.altitude, as.body);
-  OrbitalEccentricity baz(as.altitude + as.body->R_, as.altitude + as.body->R_);
+  OrbitalEccentricity baz(as.sma, as.sma);
 
   // EXPECT_FLOAT_EQ(0.0, foo);
   EXPECT_NEAR(0.0, foo, ecc_max_abs_err);
