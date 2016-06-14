@@ -17,9 +17,11 @@
  */
 
 #include "test/CircularOrbit.hpp"
-#include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include <gtest/gtest.h>               // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <iomanip>                     // for operator<<
+#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
+#include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
+#include <iomanip>       // for operator<<
 
 extern double ecc_max_abs_err;
 
@@ -39,6 +41,16 @@ TEST_P(CircularOrbitTest, TwoApsisA) {
   EXPECT_DOUBLE_EQ(0.0, foo);
 }
 
+TEST_P(CircularOrbitTest, EpsSrh) {
+  auto as = GetParam();
+
+  SpecificOrbitalEnergy soe(as.epsilon);
+  SpecificRelativeAngularMomentum srh(as.srh);
+  OrbitalEccentricity foo(soe, srh, as.body);
+
+  EXPECT_NEAR(0.0, foo, ecc_max_abs_err);
+}
+
 TEST_P(CircularOrbitTest, VelAlt) {
   auto as = GetParam();
 
@@ -55,11 +67,19 @@ TEST_P(CircularOrbitTest, Default) {
   OrbitalEccentricity bar(as.altitude, as.altitude, as.body);
   OrbitalEccentricity baz(as.sma, as.sma);
 
+  SpecificOrbitalEnergy qux_soe(as.epsilon);
+  SpecificRelativeAngularMomentum qux_srh(as.srh);
+  OrbitalEccentricity qux(qux_soe, qux_srh, as.body);
+
   // EXPECT_FLOAT_EQ(0.0, foo);
   EXPECT_NEAR(0.0, foo, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(0.0, bar);
   EXPECT_DOUBLE_EQ(0.0, baz);
+  EXPECT_NEAR(0.0, qux, ecc_max_abs_err);
   EXPECT_NEAR(foo, bar, ecc_max_abs_err);
   EXPECT_NEAR(foo, baz, ecc_max_abs_err);
+  EXPECT_NEAR(foo, qux, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(bar, baz);
+  EXPECT_NEAR(bar, qux, ecc_max_abs_err);
+  EXPECT_NEAR(baz, qux, ecc_max_abs_err);
 }

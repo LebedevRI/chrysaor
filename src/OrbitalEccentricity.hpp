@@ -19,6 +19,8 @@
 #pragma once
 
 class CelestialBody;
+class SpecificOrbitalEnergy;
+class SpecificRelativeAngularMomentum;
 
 /**
  * @brief orbital eccentricity class
@@ -108,6 +110,22 @@ public:
    * @param parentBody the parent body
    */
   OrbitalEccentricity(double ApA, double PeA, CelestialBody *parentBody);
+
+  /**
+   * @brief calculates \f$e\f$ from given specific relative angular momentum and
+   * specific orbital energy.
+   *
+   * \f$e=\sqrt{1+{{2\epsilon{h^2}}\over{\mu^2}}}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
+   * @param srh specific relative angular momentum [m^2/s]
+   * @param parentBody the parent body
+   */
+  OrbitalEccentricity(SpecificOrbitalEnergy epsilon,
+                      SpecificRelativeAngularMomentum srh,
+                      CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$e\f$ from given velocity vector and altitude.

@@ -32,14 +32,14 @@ class CelestialBody;
 class SpecificRelativeAngularMomentum {
 private:
   /**
-   * @brief magnitude of the specific relative angular momentum
+   * @brief magnitude of the specific relative angular momentum [m^2/s]
    *
    */
   double value_;
 
 public:
   /**
-   * @brief magnitude of the specific relative angular momentum
+   * @brief magnitude of the specific relative angular momentum [m^2/s]
    *
    * @return double
    */
@@ -54,7 +54,7 @@ public:
   /**
    * @brief sets \f$h\f$ to the passed value
    *
-   * @param srh magnitude of the specific relative angular momentum
+   * @param srh magnitude of the specific relative angular momentum [m^2/s]
    */
   SpecificRelativeAngularMomentum(double srh);
 

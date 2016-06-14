@@ -17,9 +17,11 @@
  */
 
 #include "src/OrbitalEccentricity.hpp"
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include <cassert>               // for assert
-#include <cmath>                 // for pow, isfinite, fmax, sqrt
+#include "src/CelestialBody.hpp"                   // for CelestialBody
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
+#include <cassert>                                 // for assert
+#include <cmath> // for pow, isfinite, fmax, sqrt
 
 OrbitalEccentricity::operator double() const {
   assert(std::isfinite(value_));
@@ -76,6 +78,28 @@ OrbitalEccentricity::OrbitalEccentricity(double ApA, double PeA,
   // or:
   // value_ = ((ApA) / (2.0*(parentBody->R_) + (PeA + ApA))) - ((PeA) /
   // (2.0*(parentBody->R_) + (PeA + ApA)));
+
+  assert(std::isfinite(value_));
+  assert(value_ >= 0.0);
+}
+
+OrbitalEccentricity::OrbitalEccentricity(SpecificOrbitalEnergy epsilon,
+                                         SpecificRelativeAngularMomentum srh,
+                                         CelestialBody *parentBody)
+    : value_(0) {
+  assert(parentBody);
+  assert(std::isfinite(parentBody->mu_));
+  assert(parentBody->mu_ >= 0);
+
+  assert(parentBody->mu_ != 0.0);
+  assert(std::isfinite(std::pow(parentBody->mu_, 2.0)));
+  assert((std::pow(parentBody->mu_, 2.0)) != 0.0);
+
+  value_ = std::sqrt(((2.0 * epsilon * std::pow(srh, 2.0)) /
+                      (std::pow(parentBody->mu_, 2.0))) +
+                     1.0);
+
+  value_ = std::fmax(value_, 0.0);
 
   assert(std::isfinite(value_));
   assert(value_ >= 0.0);
