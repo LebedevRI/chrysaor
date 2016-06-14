@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+
+add_executable(SpecificRelativeAngularMomentum SpecificRelativeAngularMomentum.cpp CircularOrbit.cpp EllipticalOrbit.cpp main.cpp)
+
+target_link_libraries(SpecificRelativeAngularMomentum libgtest)
+target_link_libraries(SpecificRelativeAngularMomentum libchrysaor)
+
+add_test(SpecificRelativeAngularMomentum SpecificRelativeAngularMomentum)

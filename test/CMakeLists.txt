@@ -4,6 +4,8 @@ add_subdirectory(Vec3)
 
 add_subdirectory(CelestialBody)
 
+add_subdirectory(SpecificRelativeAngularMomentum)
+
 add_subdirectory(SemiMajorAxis)
 add_subdirectory(SpecificOrbitalEnergy)
 add_subdirectory(OrbitalEccentricity)
