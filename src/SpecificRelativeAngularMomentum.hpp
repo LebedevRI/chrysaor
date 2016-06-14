@@ -19,6 +19,8 @@
 #pragma once
 
 class CelestialBody;
+class SemiMajorAxis;
+class OrbitalEccentricity;
 
 /**
  * @brief specific relative angular momentum class
@@ -57,6 +59,21 @@ public:
    * @param srh magnitude of the specific relative angular momentum [m^2/s]
    */
   SpecificRelativeAngularMomentum(double srh);
+
+  /**
+   * @brief calculates \f$h\f$ from given semi-major axis and orbital orbital
+   * eccentricity.
+   *
+   * \f$h = \sqrt{(1-e^2)\mu{a}}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param sma semi-major axis [m]
+   * @param ecc eccentricity of the orbit
+   * @param parentBody the parent body
+   */
+  SpecificRelativeAngularMomentum(SemiMajorAxis sma, OrbitalEccentricity ecc,
+                                  CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$h\f$ from given velocity vector and altitude.

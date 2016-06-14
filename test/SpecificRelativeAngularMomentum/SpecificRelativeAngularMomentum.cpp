@@ -17,9 +17,11 @@
  */
 
 #include "src/SpecificRelativeAngularMomentum.hpp"
-#include "src/CelestialBody.hpp" // for CelestialBody
-#include "gtest/gtest.h"         // for AssertHelper, ASSERT_EQ, ASSERT_NO_...
-#include <iomanip>               // for operator<<
+#include "src/CelestialBody.hpp"       // for CelestialBody
+#include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
+#include "src/SemiMajorAxis.hpp"       // for SemiMajorAxis
+#include "gtest/gtest.h" // for AssertHelper, ASSERT_EQ, ASSERT_NO_...
+#include <iomanip>       // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);
@@ -28,6 +30,11 @@ TEST(SpecificRelativeAngularMomentumTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificRelativeAngularMomentum foo; });
   ASSERT_NO_THROW({ SpecificRelativeAngularMomentum foo(0.0); });
   ASSERT_NO_THROW({ SpecificRelativeAngularMomentum foo(0.0, 0.0, &Kerbin); });
+  ASSERT_NO_THROW({
+    SemiMajorAxis sma(0.0);
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum foo(sma, ecc, &Kerbin);
+  });
 }
 
 TEST(SpecificRelativeAngularMomentumTest, TestConverters) {
@@ -47,6 +54,14 @@ TEST(SpecificRelativeAngularMomentumTest, TestGetter) {
     const double sma = 123456789.0123456789;
     SpecificRelativeAngularMomentum foo(sma);
     ASSERT_EQ(sma, foo);
+  }
+  {
+    CelestialBody planet(1.0, 0.0);
+
+    SemiMajorAxis sma(1.0);
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum foo(sma, ecc, &planet);
+    ASSERT_DOUBLE_EQ(1.0, foo);
   }
   {
     CelestialBody planet(0.0, 1.0);
