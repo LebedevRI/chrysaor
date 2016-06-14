@@ -16,26 +16,11 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "test/CircularOrbit.hpp"
 #include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
 #include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
-#include "gtest/gtest.h"                 // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <gtest/gtest-param-test.h> // for ParamIteratorInterface, Circular...
-#include <iomanip>                  // for operator<<
-#include <iostream>                 // for operator<<, ostream, basic_ostream
-
-struct CircularOrbitData {
-  CelestialBody *body;
-  double altitude;
-  double velocity;
-
-  friend std::ostream &operator<<(std::ostream &os,
-                                  const CircularOrbitData &obj) {
-    return os << "altitude: " << obj.altitude << ", velocity: " << obj.velocity;
-  }
-};
-
-class CircularOrbitTest : public ::testing::TestWithParam<CircularOrbitData> {};
+#include <gtest/gtest.h>                 // for AssertHelper, EXPECT_DOUBLE_EQ
+#include <iomanip>                       // for operator<<
 
 TEST_P(CircularOrbitTest, SMA) {
   auto as = GetParam();
@@ -106,43 +91,3 @@ TEST_P(CircularOrbitTest, Default) {
   EXPECT_DOUBLE_EQ(baz, quux);
   EXPECT_DOUBLE_EQ(qux, quux);
 }
-
-extern CelestialBody Kerbin;
-extern CelestialBody Earth;
-
-/*
- * computed using following Sage code:
- *
- * # repeat for each (mu,R)
- * mu = 3.5316000e+12
- * R = 600000
- *
- * # from Vis-viva equation, since r == a
- * v(r) = sqrt(mu/(r+R))
- *
- * RealField(128)(v(70000)) # repeat for each alt
- */
-
-INSTANTIATE_TEST_CASE_P(
-    Kerbin, CircularOrbitTest,
-    testing::Values(
-        CircularOrbitData{&Kerbin, 0.0e+00, // on the surface
-                          2.4261079942986873059631362994849223761e+03},
-        CircularOrbitData{&Kerbin, 7.0e+04, // min orbit, LKO
-                          2.2958756011856136609450298639424336392e+03},
-        CircularOrbitData{&Kerbin, 1.0e+05, // LKO
-                          2.2461395453405958017358997226141148212e+03},
-        CircularOrbitData{&Kerbin, 2.86333406e+06, // KEO
-                          1.0098074305900465787999564781785011292e+03}));
-
-INSTANTIATE_TEST_CASE_P(
-    Earth, CircularOrbitTest,
-    testing::Values(
-        CircularOrbitData{&Earth, 0.0e+00, // on the surface
-                          7.9053659669038524953066371381282806396e+03},
-        CircularOrbitData{&Earth, 1.6e+05, // min orbit, LEO
-                          7.8080375433456320024561136960983276367e+03},
-        CircularOrbitData{&Earth, 2.5e+05, // LEO
-                          7.7548457313704493572004139423370361328e+03},
-        CircularOrbitData{&Earth, 3.5786e+07, // GEO / GSO
-                          3.0746613035946006675658281892538070679e+03}));
