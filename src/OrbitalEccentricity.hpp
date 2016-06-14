@@ -19,6 +19,7 @@
 #pragma once
 
 class CelestialBody;
+class SemiMajorAxis;
 class SpecificOrbitalEnergy;
 class SpecificRelativeAngularMomentum;
 
@@ -110,6 +111,31 @@ public:
    * @param parentBody the parent body
    */
   OrbitalEccentricity(double ApA, double PeA, CelestialBody *parentBody);
+
+  /**
+   * @brief calculates \f$e\f$ from given length of semi-major axis and
+   * specific relative angular momentum.
+   *
+   * \f$h = \sqrt{(1-e^2)a\mu}\f$
+   *
+   * \f$h^2 = {(1-e^2)a\mu}\f$
+   *
+   * \f$h^2 = {a\mu-a\mu{e^2}}\f$
+   *
+   * \f$a\mu{e^2} = {a\mu-h^2}\f$
+   *
+   * \f${e^2} = {{a\mu-h^2}\over{a\mu}}\f$
+   *
+   * \f$e = \sqrt{{a\mu-h^2}\over{a\mu}}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param sma length of semi-major axis [m]
+   * @param srh specific relative angular momentum [m^2/s]
+   * @param parentBody the parent body
+   */
+  OrbitalEccentricity(SemiMajorAxis sma, SpecificRelativeAngularMomentum srh,
+                      CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$e\f$ from given specific relative angular momentum and

@@ -18,6 +18,7 @@
 
 #include "test/EllipticalOrbit.hpp"
 #include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
+#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
 #include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
 #include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
 #include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
@@ -47,6 +48,16 @@ TEST_P(EllipticalOrbitTest, TwoApsisA) {
   OrbitalEccentricity foo(as.apoapsis, as.altitude, as.body);
 
   EXPECT_DOUBLE_EQ(as.ecc, foo);
+}
+
+TEST_P(EllipticalOrbitTest, SmaSrh) {
+  auto as = GetParam();
+
+  SemiMajorAxis sma(as.sma);
+  SpecificRelativeAngularMomentum srh(as.srh);
+  OrbitalEccentricity foo(sma, srh, as.body);
+
+  EXPECT_FLOAT_EQ(as.ecc, foo);
 }
 
 TEST_P(EllipticalOrbitTest, EpsSrh) {
@@ -79,19 +90,29 @@ TEST_P(EllipticalOrbitTest, Default) {
   SpecificRelativeAngularMomentum quux_srh(as.srh);
   OrbitalEccentricity quux(quux_soe, quux_srh, as.body);
 
+  SemiMajorAxis corge_sma(as.sma);
+  SpecificRelativeAngularMomentum corge_srh(as.srh);
+  OrbitalEccentricity corge(corge_sma, corge_srh, as.body);
+
   EXPECT_DOUBLE_EQ(as.ecc, foo);
   EXPECT_FLOAT_EQ(as.ecc, bar);
   EXPECT_DOUBLE_EQ(as.ecc, baz);
   EXPECT_DOUBLE_EQ(as.ecc, qux);
   EXPECT_FLOAT_EQ(as.ecc, quux);
+  EXPECT_FLOAT_EQ(as.ecc, corge);
   EXPECT_FLOAT_EQ(foo, bar);
   EXPECT_DOUBLE_EQ(foo, baz);
   EXPECT_DOUBLE_EQ(foo, qux);
   EXPECT_FLOAT_EQ(foo, quux);
+  EXPECT_FLOAT_EQ(foo, corge);
   EXPECT_FLOAT_EQ(bar, baz);
   EXPECT_FLOAT_EQ(bar, qux);
   EXPECT_FLOAT_EQ(bar, quux);
+  EXPECT_FLOAT_EQ(bar, corge);
   EXPECT_DOUBLE_EQ(baz, qux);
   EXPECT_FLOAT_EQ(baz, quux);
+  EXPECT_FLOAT_EQ(baz, corge);
   EXPECT_FLOAT_EQ(qux, quux);
+  EXPECT_FLOAT_EQ(qux, corge);
+  EXPECT_FLOAT_EQ(quux, corge);
 }

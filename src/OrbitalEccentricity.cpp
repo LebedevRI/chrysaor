@@ -18,6 +18,7 @@
 
 #include "src/OrbitalEccentricity.hpp"
 #include "src/CelestialBody.hpp"                   // for CelestialBody
+#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
 #include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
 #include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
 #include <cassert>                                 // for assert
@@ -78,6 +79,34 @@ OrbitalEccentricity::OrbitalEccentricity(double ApA, double PeA,
   // or:
   // value_ = ((ApA) / (2.0*(parentBody->R_) + (PeA + ApA))) - ((PeA) /
   // (2.0*(parentBody->R_) + (PeA + ApA)));
+
+  assert(std::isfinite(value_));
+  assert(value_ >= 0.0);
+}
+
+OrbitalEccentricity::OrbitalEccentricity(SemiMajorAxis sma,
+                                         SpecificRelativeAngularMomentum srh,
+                                         CelestialBody *parentBody)
+    : value_(0) {
+  assert(parentBody);
+  assert(std::isfinite(parentBody->mu_));
+  assert(parentBody->mu_ >= 0);
+
+  assert(std::isfinite(sma));
+  assert(sma != 0.0);
+
+  assert(std::isfinite(srh));
+
+  assert(parentBody->mu_ != 0.0);
+
+  assert(std::isfinite(sma * (parentBody->mu_)));
+  assert((sma * (parentBody->mu_)) != 0.0);
+
+  value_ = std::sqrt((sma * (parentBody->mu_) - std::pow(srh, 2.0)) /
+                     (sma * (parentBody->mu_)));
+
+  // FIXME: !!!
+  value_ = std::fmax(value_, 0.0);
 
   assert(std::isfinite(value_));
   assert(value_ >= 0.0);
