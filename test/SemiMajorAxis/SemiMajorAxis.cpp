@@ -16,9 +16,11 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "src/CelestialBody.hpp"         // for CelestialBody
-#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
+#include "src/CelestialBody.hpp"                   // for CelestialBody
+#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
 #include "gtest/gtest.h" // for AssertHelper, ASSERT_NO_THROW, ASSE...
 #include <iomanip>       // for operator<<
 
@@ -33,6 +35,11 @@ TEST(SemiMajorAxisTest, TestConstructor) {
     SemiMajorAxis foo(epsilon, &Kerbin);
   });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0); });
+  ASSERT_NO_THROW({
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum srh(0.0);
+    SemiMajorAxis foo(ecc, srh, &Kerbin);
+  });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, &Kerbin); });
   ASSERT_NO_THROW({ SemiMajorAxis foo(0.0, 0.0, 0.0, &Kerbin); });
 }
@@ -74,6 +81,15 @@ TEST(SemiMajorAxisTest, TestGetter) {
     const double r = 1.0;
     SemiMajorAxis foo(r, r, &planet);
     ASSERT_DOUBLE_EQ(r + planet.R_, foo);
+  }
+  {
+    CelestialBody planet(1.0, 0.0);
+
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum srh(1.0);
+
+    SemiMajorAxis foo(ecc, srh, &planet);
+    ASSERT_DOUBLE_EQ(1.0, foo);
   }
   {
     CelestialBody planet(2.0, 1.0);

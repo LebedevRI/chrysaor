@@ -17,10 +17,12 @@
  */
 
 #include "test/EllipticalOrbit.hpp"
-#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
-#include <gtest/gtest.h>                 // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <iomanip>                       // for operator<<
+#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
+#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
+#include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
+#include <iomanip>       // for operator<<
 
 TEST_P(EllipticalOrbitTest, SMA) {
   auto as = GetParam();
@@ -55,6 +57,16 @@ TEST_P(EllipticalOrbitTest, TwoApsisA) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
+TEST_P(EllipticalOrbitTest, EccSrh) {
+  auto as = GetParam();
+
+  OrbitalEccentricity ecc(as.ecc);
+  SpecificRelativeAngularMomentum srh(as.srh);
+  SemiMajorAxis foo(ecc, srh, as.body);
+
+  EXPECT_DOUBLE_EQ(as.sma, foo);
+}
+
 TEST_P(EllipticalOrbitTest, VelAlt) {
   auto as = GetParam();
 
@@ -75,19 +87,29 @@ TEST_P(EllipticalOrbitTest, Default) {
   SpecificOrbitalEnergy quux_soe(as.altitude, as.apoapsis, as.body);
   SemiMajorAxis quux(quux_soe, as.body);
 
+  OrbitalEccentricity corge_ecc(as.ecc);
+  SpecificRelativeAngularMomentum corge_srh(as.srh);
+  SemiMajorAxis corge(corge_ecc, corge_srh, as.body);
+
   EXPECT_FLOAT_EQ(as.sma, foo);
   EXPECT_DOUBLE_EQ(as.sma, bar);
   EXPECT_DOUBLE_EQ(as.sma, baz);
   EXPECT_DOUBLE_EQ(as.sma, qux);
   EXPECT_DOUBLE_EQ(as.sma, quux);
+  EXPECT_DOUBLE_EQ(as.sma, corge);
   EXPECT_FLOAT_EQ(foo, bar);
   EXPECT_FLOAT_EQ(foo, baz);
   EXPECT_FLOAT_EQ(foo, qux);
   EXPECT_FLOAT_EQ(foo, quux);
+  EXPECT_FLOAT_EQ(foo, corge);
   EXPECT_DOUBLE_EQ(bar, baz);
   EXPECT_DOUBLE_EQ(bar, qux);
   EXPECT_DOUBLE_EQ(bar, quux);
+  EXPECT_DOUBLE_EQ(bar, corge);
   EXPECT_DOUBLE_EQ(baz, qux);
   EXPECT_DOUBLE_EQ(baz, quux);
+  EXPECT_DOUBLE_EQ(baz, corge);
   EXPECT_DOUBLE_EQ(qux, quux);
+  EXPECT_DOUBLE_EQ(qux, corge);
+  EXPECT_DOUBLE_EQ(quux, corge);
 }
