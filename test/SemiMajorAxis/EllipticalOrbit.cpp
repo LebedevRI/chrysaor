@@ -25,9 +25,9 @@
 TEST_P(EllipticalOrbitTest, SMA) {
   auto as = GetParam();
 
-  SemiMajorAxis foo((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
+  SemiMajorAxis foo(as.sma);
 
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(EllipticalOrbitTest, SOE) {
@@ -36,7 +36,7 @@ TEST_P(EllipticalOrbitTest, SOE) {
   SpecificOrbitalEnergy foo_soe(as.altitude, as.apoapsis, as.body);
   SemiMajorAxis foo(foo_soe, as.body);
 
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(EllipticalOrbitTest, TwoApsisR) {
@@ -44,7 +44,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisR) {
 
   SemiMajorAxis foo(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
 
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(EllipticalOrbitTest, TwoApsisA) {
@@ -52,7 +52,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisA) {
 
   SemiMajorAxis foo(as.apoapsis, as.altitude, as.body);
 
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
 TEST_P(EllipticalOrbitTest, VelAlt) {
@@ -60,7 +60,7 @@ TEST_P(EllipticalOrbitTest, VelAlt) {
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
 
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
+  EXPECT_FLOAT_EQ(as.sma, foo);
 }
 
 // all the real constructors should result in same SMA
@@ -70,16 +70,16 @@ TEST_P(EllipticalOrbitTest, Default) {
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
   SemiMajorAxis bar(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
   SemiMajorAxis baz(as.apoapsis, as.altitude, as.body);
-  SemiMajorAxis qux((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0);
+  SemiMajorAxis qux(as.sma);
 
   SpecificOrbitalEnergy quux_soe(as.altitude, as.apoapsis, as.body);
   SemiMajorAxis quux(quux_soe, as.body);
 
-  EXPECT_FLOAT_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, foo);
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, bar);
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, baz);
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, qux);
-  EXPECT_DOUBLE_EQ((as.altitude + as.apoapsis + 2.0 * as.body->R_) / 2.0, quux);
+  EXPECT_FLOAT_EQ(as.sma, foo);
+  EXPECT_DOUBLE_EQ(as.sma, bar);
+  EXPECT_DOUBLE_EQ(as.sma, baz);
+  EXPECT_DOUBLE_EQ(as.sma, qux);
+  EXPECT_DOUBLE_EQ(as.sma, quux);
   EXPECT_FLOAT_EQ(foo, bar);
   EXPECT_FLOAT_EQ(foo, baz);
   EXPECT_FLOAT_EQ(foo, qux);
