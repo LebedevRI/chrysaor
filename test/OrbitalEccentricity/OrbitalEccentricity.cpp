@@ -16,8 +16,10 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include "src/CelestialBody.hpp"       // for CelestialBody
+#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
+#include "src/CelestialBody.hpp"                   // for CelestialBody
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
 #include "gtest/gtest.h" // for AssertHelper, ASSERT_NO_THROW, ASSE...
 #include <iomanip>       // for operator<<
 
@@ -31,6 +33,11 @@ TEST(OrbitalEccentricityTest, TestConstructor) {
   ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0); });
   ASSERT_NO_THROW({ OrbitalEccentricity foo(1.0, 1.0); });
   ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0, 0.0, &Kerbin); });
+  ASSERT_NO_THROW({
+    SpecificOrbitalEnergy soe(0.0);
+    SpecificRelativeAngularMomentum srh(0.0);
+    OrbitalEccentricity foo(soe, srh, &Kerbin);
+  });
   ASSERT_NO_THROW({ OrbitalEccentricity foo(0.0, 0.0, 0.0, &Kerbin); });
 }
 
@@ -61,6 +68,14 @@ TEST(OrbitalEccentricityTest, TestGetter) {
 
     OrbitalEccentricity foo(0.0, 0.0, &planet);
     ASSERT_DOUBLE_EQ(0.0, foo);
+  }
+  {
+    CelestialBody planet(1.0, 0.0);
+
+    SpecificOrbitalEnergy soe(4.0);
+    SpecificRelativeAngularMomentum srh(1.0);
+    OrbitalEccentricity foo(soe, srh, &planet);
+    ASSERT_DOUBLE_EQ(3.0, foo);
   }
   {
     CelestialBody planet(2.0, 1.0);
