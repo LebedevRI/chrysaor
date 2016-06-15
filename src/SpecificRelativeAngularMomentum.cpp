@@ -17,11 +17,12 @@
  */
 
 #include "src/SpecificRelativeAngularMomentum.hpp"
-#include "src/CelestialBody.hpp"       // for CelestialBody
-#include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include "src/SemiMajorAxis.hpp"       // for SemiMajorAxis
-#include <assert.h>                    // for assert
-#include <cmath>                       // for isfinite
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include <assert.h>                      // for assert
+#include <cmath>                         // for isfinite
 
 SpecificRelativeAngularMomentum::operator double() const {
   assert(std::isfinite(value_));
@@ -55,6 +56,38 @@ SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
   assert(((1.0 - (std::pow(ecc, 2.0))) * (parentBody->mu_) * sma) >= 0.0);
 
   value_ = std::sqrt((1.0 - (std::pow(ecc, 2.0))) * (parentBody->mu_) * sma);
+
+  assert(std::isfinite(value_));
+  assert(value_ >= 0.0);
+}
+
+SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
+    SpecificOrbitalEnergy epsilon, OrbitalEccentricity ecc,
+    CelestialBody *parentBody)
+    : value_(0) {
+  assert(parentBody);
+  assert(std::isfinite(parentBody->mu_));
+  assert(parentBody->mu_ >= 0);
+
+  assert(std::isfinite(epsilon));
+  assert(epsilon != 0.0);
+
+  assert(std::isfinite(ecc));
+  assert(ecc >= 0.0);
+
+  assert(std::isfinite(2.0 * epsilon));
+  assert((2.0 * epsilon) != 0.0);
+
+  assert(std::isfinite((std::pow(ecc, 2.0) * std::pow((parentBody->mu_), 2.0) -
+                        std::pow((parentBody->mu_), 2.0)) /
+                       (2.0 * epsilon)));
+  assert(((std::pow(ecc, 2.0) * std::pow((parentBody->mu_), 2.0) -
+           std::pow((parentBody->mu_), 2.0)) /
+          (2.0 * epsilon)) >= 0.0);
+
+  value_ = std::sqrt((std::pow(ecc, 2.0) * std::pow((parentBody->mu_), 2.0) -
+                      std::pow((parentBody->mu_), 2.0)) /
+                     (2.0 * epsilon));
 
   assert(std::isfinite(value_));
   assert(value_ >= 0.0);

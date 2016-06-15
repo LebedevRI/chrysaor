@@ -17,9 +17,10 @@
  */
 
 #include "src/SpecificRelativeAngularMomentum.hpp"
-#include "src/CelestialBody.hpp"       // for CelestialBody
-#include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
-#include "src/SemiMajorAxis.hpp"       // for SemiMajorAxis
+#include "src/CelestialBody.hpp"         // for CelestialBody
+#include "src/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
+#include "src/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
 #include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, ASSERT_NO_...
 #include <iomanip>       // for operator<<
 
@@ -34,6 +35,11 @@ TEST(SpecificRelativeAngularMomentumTest, TestConstructor) {
     SemiMajorAxis sma(0.0);
     OrbitalEccentricity ecc(0.0);
     SpecificRelativeAngularMomentum foo(sma, ecc, &Kerbin);
+  });
+  ASSERT_NO_THROW({
+    SpecificOrbitalEnergy soe(-1.0);
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum foo(soe, ecc, &Kerbin);
   });
 }
 
@@ -61,6 +67,14 @@ TEST(SpecificRelativeAngularMomentumTest, TestGetter) {
     SemiMajorAxis sma(1.0);
     OrbitalEccentricity ecc(0.0);
     SpecificRelativeAngularMomentum foo(sma, ecc, &planet);
+    ASSERT_DOUBLE_EQ(1.0, foo);
+  }
+  {
+    CelestialBody planet(2.0, 0.0);
+
+    SpecificOrbitalEnergy soe(-2.0);
+    OrbitalEccentricity ecc(0.0);
+    SpecificRelativeAngularMomentum foo(soe, ecc, &planet);
     ASSERT_DOUBLE_EQ(1.0, foo);
   }
   {

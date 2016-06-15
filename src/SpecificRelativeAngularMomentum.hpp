@@ -21,6 +21,7 @@
 class CelestialBody;
 class SemiMajorAxis;
 class OrbitalEccentricity;
+class SpecificOrbitalEnergy;
 
 /**
  * @brief specific relative angular momentum class
@@ -73,6 +74,33 @@ public:
    * @param parentBody the parent body
    */
   SpecificRelativeAngularMomentum(SemiMajorAxis sma, OrbitalEccentricity ecc,
+                                  CelestialBody *parentBody);
+
+  /**
+   * @brief calculates \f$h\f$ from given specific orbital energy and orbital
+   * orbital eccentricity.
+   *
+   * \f$e=\sqrt{1+{{2\epsilon{h^2}}\over{\mu^2}}}\f$
+   *
+   * \f$e^2={1+{{2\epsilon{h^2}}\over{\mu^2}}}\f$
+   *
+   * \f$e^2\mu^2={\mu^2+{2\epsilon{h^2}}}\f$
+   *
+   * \f${2\epsilon{h^2}} = {e^2\mu^2-\mu^2}\f$
+   *
+   * \f${h^2} = {{e^2\mu^2-\mu^2}\over{2\epsilon}}\f$
+   *
+   * \f$h = \sqrt{{e^2\mu^2-\mu^2}\over{2\epsilon}}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
+   * @param ecc eccentricity of the orbit
+   * @param parentBody the parent body
+   */
+  SpecificRelativeAngularMomentum(SpecificOrbitalEnergy epsilon,
+                                  OrbitalEccentricity ecc,
                                   CelestialBody *parentBody);
 
   /**
