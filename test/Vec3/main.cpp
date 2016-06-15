@@ -16,7 +16,6 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/Vec3.hpp"  // for Vec3
 #include <gtest/gtest.h> // for InitGoogleTest, RUN_ALL_TESTS
 
 int main(int argc, char **argv) {

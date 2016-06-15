@@ -16,7 +16,6 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LaunchSite.hpp"
-#include <iostream>
+#include <iostream> // for operator<<, basic_ostream, cout, endl, ostream
 
 int main() { std::cout << "Hello World!" << std::endl; }
