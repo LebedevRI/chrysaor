@@ -35,7 +35,7 @@ def PrintEntry(Alt, Ap):
 
 def PrintSweep(x):
   for ialt in range(len(x)):
-    for jalt in range(ialt+1, len(x)):
+    for jalt in range(ialt, len(x)):
       PrintEntry(x[ialt], x[jalt])
 
 body = 'Kerbin'
