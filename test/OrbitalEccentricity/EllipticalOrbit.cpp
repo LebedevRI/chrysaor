@@ -57,7 +57,7 @@ TEST_P(EllipticalOrbitTest, SmaSrh) {
   SpecificRelativeAngularMomentum srh(as.srh);
   OrbitalEccentricity foo(sma, srh, as.body);
 
-  EXPECT_FLOAT_EQ(as.ecc, foo);
+  EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
 TEST_P(EllipticalOrbitTest, EpsSrh) {
@@ -67,7 +67,7 @@ TEST_P(EllipticalOrbitTest, EpsSrh) {
   SpecificRelativeAngularMomentum srh(as.srh);
   OrbitalEccentricity foo(soe, srh, as.body);
 
-  EXPECT_FLOAT_EQ(as.ecc, foo);
+  EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
 TEST_P(EllipticalOrbitTest, VelAlt) {
@@ -75,7 +75,7 @@ TEST_P(EllipticalOrbitTest, VelAlt) {
 
   OrbitalEccentricity foo(as.velocity, 0.0, as.altitude, as.body);
 
-  EXPECT_FLOAT_EQ(as.ecc, foo);
+  EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
 TEST_P(EllipticalOrbitTest, Default) {
@@ -95,24 +95,24 @@ TEST_P(EllipticalOrbitTest, Default) {
   OrbitalEccentricity corge(corge_sma, corge_srh, as.body);
 
   EXPECT_DOUBLE_EQ(as.ecc, foo);
-  EXPECT_FLOAT_EQ(as.ecc, bar);
+  EXPECT_NEAR(as.ecc, bar, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(as.ecc, baz);
   EXPECT_DOUBLE_EQ(as.ecc, qux);
-  EXPECT_FLOAT_EQ(as.ecc, quux);
-  EXPECT_FLOAT_EQ(as.ecc, corge);
-  EXPECT_FLOAT_EQ(foo, bar);
+  EXPECT_NEAR(as.ecc, quux, ecc_max_abs_err);
+  EXPECT_NEAR(as.ecc, corge, ecc_max_abs_err);
+  EXPECT_NEAR(foo, bar, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(foo, baz);
   EXPECT_DOUBLE_EQ(foo, qux);
-  EXPECT_FLOAT_EQ(foo, quux);
-  EXPECT_FLOAT_EQ(foo, corge);
-  EXPECT_FLOAT_EQ(bar, baz);
-  EXPECT_FLOAT_EQ(bar, qux);
-  EXPECT_FLOAT_EQ(bar, quux);
-  EXPECT_FLOAT_EQ(bar, corge);
+  EXPECT_NEAR(foo, quux, ecc_max_abs_err);
+  EXPECT_NEAR(foo, corge, ecc_max_abs_err);
+  EXPECT_NEAR(bar, baz, ecc_max_abs_err);
+  EXPECT_NEAR(bar, qux, ecc_max_abs_err);
+  EXPECT_NEAR(bar, quux, ecc_max_abs_err);
+  EXPECT_NEAR(bar, corge, ecc_max_abs_err);
   EXPECT_DOUBLE_EQ(baz, qux);
-  EXPECT_FLOAT_EQ(baz, quux);
-  EXPECT_FLOAT_EQ(baz, corge);
-  EXPECT_FLOAT_EQ(qux, quux);
-  EXPECT_FLOAT_EQ(qux, corge);
-  EXPECT_FLOAT_EQ(quux, corge);
+  EXPECT_NEAR(baz, quux, ecc_max_abs_err);
+  EXPECT_NEAR(baz, corge, ecc_max_abs_err);
+  EXPECT_NEAR(qux, quux, ecc_max_abs_err);
+  EXPECT_NEAR(qux, corge, ecc_max_abs_err);
+  EXPECT_NEAR(quux, corge, ecc_max_abs_err);
 }
