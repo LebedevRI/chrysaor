@@ -17,8 +17,8 @@
  */
 
 #include "src/Stage.hpp" // for Stage
-#include "gtest/gtest.h" // for ASSERT_DOUBLE_EQ, AssertHelper, TEST
 #include <cstddef>       // for size_t
+#include <gtest/gtest.h> // for ASSERT_DOUBLE_EQ, AssertHelper, TEST
 #include <iomanip>       // for operator<<
 
 TEST(Stage, TestStageDm_Thrust) {

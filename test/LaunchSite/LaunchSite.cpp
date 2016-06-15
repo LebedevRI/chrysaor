@@ -17,8 +17,8 @@
  */
 
 #include "src/LaunchSite.hpp"
-#include "gtest/gtest.h"
 #include <cstddef>
+#include <gtest/gtest.h>
 
 TEST(LaunchSiteTest, TestLatitudeGetter) {
   double lattitude = 23.484013324312;

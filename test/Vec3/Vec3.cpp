@@ -17,7 +17,7 @@
  */
 
 #include "src/Vec3.hpp"
-#include "gtest/gtest.h" // for AssertHelper, ASSERT_EQ, ASSERT_NO_THROW, TEST
+#include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, ASSERT_NO_THROW, TEST
 
 TEST(Vec3Test, TestConstructor) {
   ASSERT_NO_THROW({ Vec3 foo; });

@@ -21,7 +21,7 @@
 #include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
 #include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
 #include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include "gtest/gtest.h" // for AssertHelper, ASSERT_NO_THROW, ASSE...
+#include <gtest/gtest.h> // for AssertHelper, ASSERT_NO_THROW, ASSE...
 #include <iomanip>       // for operator<<
 
 double ecc_max_abs_err = 1.0e-07;

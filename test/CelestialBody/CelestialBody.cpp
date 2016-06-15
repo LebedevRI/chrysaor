@@ -17,7 +17,7 @@
  */
 
 #include "src/CelestialBody.hpp"
-#include "gtest/gtest.h" // for AssertHelper, TEST, ASSERT_DOUBLE_EQ, ASSER...
+#include <gtest/gtest.h> // for AssertHelper, TEST, ASSERT_DOUBLE_EQ, ASSER...
 #include <iomanip>       // for operator<<
 
 TEST(CelestialBodyTest, TestConstructor) {

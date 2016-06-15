@@ -17,8 +17,8 @@
  */
 
 #include "src/CubicCurvePoint.hpp" // for CubicCurvePoint
-#include "gtest/gtest.h"           // for AssertHelper, ASSERT_EQ, TEST
 #include <algorithm>               // for next_permutation, sort
+#include <gtest/gtest.h>           // for AssertHelper, ASSERT_EQ, TEST
 #include <limits>                  // for numeric_limits
 
 TEST(CubicCurvePointTest, TestConstructor) {

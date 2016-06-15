@@ -18,9 +18,9 @@
 
 #include "src/CubicCurve.hpp"
 #include "src/CubicCurvePoint.hpp"
-#include "gtest/gtest.h" // for AssertHelper, ASSERT_EQ, TEST, ASSERT_NO_THROW
 #include <algorithm>     // for max, min
 #include <cstddef>       // for size_t
+#include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, TEST, ASSERT_NO_THROW
 #include <limits>        // for numeric_limits
 #include <map>           // for map, map<>::iterator
 #include <utility>       // for pair

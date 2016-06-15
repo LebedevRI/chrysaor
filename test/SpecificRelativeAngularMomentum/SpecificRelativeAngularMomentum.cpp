@@ -20,7 +20,7 @@
 #include "src/CelestialBody.hpp"       // for CelestialBody
 #include "src/OrbitalEccentricity.hpp" // for OrbitalEccentricity
 #include "src/SemiMajorAxis.hpp"       // for SemiMajorAxis
-#include "gtest/gtest.h" // for AssertHelper, ASSERT_EQ, ASSERT_NO_...
+#include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, ASSERT_NO_...
 #include <iomanip>       // for operator<<
 
 CelestialBody Kerbin(3.5316000e+12, 600000);

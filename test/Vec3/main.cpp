@@ -17,7 +17,7 @@
  */
 
 #include "src/Vec3.hpp"  // for Vec3
-#include "gtest/gtest.h" // for InitGoogleTest, RUN_ALL_TESTS
+#include <gtest/gtest.h> // for InitGoogleTest, RUN_ALL_TESTS
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

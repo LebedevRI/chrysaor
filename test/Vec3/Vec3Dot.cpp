@@ -17,8 +17,8 @@
  */
 
 #include "src/Vec3.hpp"
-#include "gtest/gtest.h"            // for AssertHelper, ASSERT_EQ, ASSERT_...
 #include <gtest/gtest-param-test.h> // for ParamIteratorInterface, ParamGen...
+#include <gtest/gtest.h>            // for AssertHelper, ASSERT_EQ, ASSERT_...
 #include <iomanip>                  // for operator<<
 #include <iostream>                 // for operator<<, ostream, basic_ostream
 
