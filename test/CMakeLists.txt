@@ -9,6 +9,7 @@ add_subdirectory(SpecificRelativeAngularMomentum)
 add_subdirectory(SemiMajorAxis)
 add_subdirectory(SpecificOrbitalEnergy)
 add_subdirectory(OrbitalEccentricity)
+add_subdirectory(Apsis)
 
 add_subdirectory(LaunchSite)
 add_subdirectory(Stage)

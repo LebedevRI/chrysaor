@@ -5,6 +5,9 @@ add_library(libchrysaor SHARED
   SpecificOrbitalEnergy.cpp
   SpecificRelativeAngularMomentum.cpp
   OrbitalEccentricity.cpp
+  Apsis.cpp
+  Periapsis.cpp
+  Apoapsis.cpp
 )
 
 set_target_properties(libchrysaor PROPERTIES OUTPUT_NAME chrysaor)
