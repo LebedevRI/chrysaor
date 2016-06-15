@@ -69,6 +69,11 @@ if(USE_IWYU)
 endif()
 
 if(BUILD_TESTING)
+# want GTEST_ADD_TESTS() macro. NOT THE ACTUAL LIB!
+  include(GTEST_ADD_TESTS)
+
+# for the actual gtest:
+
 # at least in debian, they are the package only installs their source code,
 # so if one wants to use them, he needs to compile them in-tree
   include(GTest)

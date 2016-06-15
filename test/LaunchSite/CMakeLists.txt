@@ -4,4 +4,4 @@ add_executable(LaunchSite LaunchSite.cpp main.cpp)
 
 target_link_libraries(LaunchSite libgtest)
 
-add_test(LaunchSite LaunchSite)
+GTEST_ADD_TESTS(LaunchSite "" AUTO)

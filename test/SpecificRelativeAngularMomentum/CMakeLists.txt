@@ -5,4 +5,4 @@ add_executable(SpecificRelativeAngularMomentum SpecificRelativeAngularMomentum.c
 target_link_libraries(SpecificRelativeAngularMomentum libgtest)
 target_link_libraries(SpecificRelativeAngularMomentum libchrysaor)
 
-add_test(SpecificRelativeAngularMomentum SpecificRelativeAngularMomentum)
+GTEST_ADD_TESTS(SpecificRelativeAngularMomentum "" AUTO)

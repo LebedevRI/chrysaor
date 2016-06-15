@@ -4,4 +4,4 @@ add_executable(Vec3 ${CMAKE_SOURCE_DIR}/src/Vec3.cpp Vec3.cpp Vec3ScalarOps.cpp 
 
 target_link_libraries(Vec3 libgtest)
 
-add_test(Vec3 Vec3)
+GTEST_ADD_TESTS(Vec3 "" AUTO)

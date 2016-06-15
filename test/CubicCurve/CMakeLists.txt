@@ -4,4 +4,4 @@ add_executable(CubicCurve CubicCurve.cpp main.cpp)
 
 target_link_libraries(CubicCurve libgtest)
 
-add_test(CubicCurve CubicCurve)
+GTEST_ADD_TESTS(CubicCurve "" AUTO)

@@ -5,4 +5,4 @@ add_executable(SpecificOrbitalEnergy SpecificOrbitalEnergy.cpp EllipticalOrbit.c
 target_link_libraries(SpecificOrbitalEnergy libgtest)
 target_link_libraries(SpecificOrbitalEnergy libchrysaor)
 
-add_test(SpecificOrbitalEnergy SpecificOrbitalEnergy)
+GTEST_ADD_TESTS(SpecificOrbitalEnergy "" AUTO)

@@ -5,4 +5,4 @@ add_executable(OrbitalEccentricity OrbitalEccentricity.cpp EllipticalOrbit.cpp m
 target_link_libraries(OrbitalEccentricity libgtest)
 target_link_libraries(OrbitalEccentricity libchrysaor)
 
-add_test(OrbitalEccentricity OrbitalEccentricity)
+GTEST_ADD_TESTS(OrbitalEccentricity "" AUTO)
