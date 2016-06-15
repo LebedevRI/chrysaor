@@ -17,8 +17,10 @@
  */
 
 #include "test/EllipticalOrbit.hpp"
-#include "src/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
+#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
 #include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
 #include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
 #include <iomanip>       // for operator<<
 
@@ -47,6 +49,16 @@ TEST_P(EllipticalOrbitTest, TwoApsis) {
   EXPECT_DOUBLE_EQ(as.epsilon, foo);
 }
 
+TEST_P(EllipticalOrbitTest, EccSrh) {
+  auto as = GetParam();
+
+  OrbitalEccentricity ecc(as.ecc);
+  SpecificRelativeAngularMomentum srh(as.srh);
+  SpecificOrbitalEnergy foo(ecc, srh, as.body);
+
+  EXPECT_DOUBLE_EQ(as.epsilon, foo);
+}
+
 TEST_P(EllipticalOrbitTest, VelAlt) {
   auto as = GetParam();
 
@@ -64,6 +76,10 @@ TEST_P(EllipticalOrbitTest, Default) {
 
   SemiMajorAxis qux_sma(as.sma);
   SpecificOrbitalEnergy qux(qux_sma, as.body);
+
+  OrbitalEccentricity quux_ecc(as.ecc);
+  SpecificRelativeAngularMomentum quux_srh(as.srh);
+  SpecificOrbitalEnergy quux(quux_ecc, quux_srh, as.body);
 
   EXPECT_FLOAT_EQ(as.epsilon, foo);
   EXPECT_DOUBLE_EQ(as.epsilon, bar);

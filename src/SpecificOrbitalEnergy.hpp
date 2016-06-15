@@ -20,6 +20,8 @@
 
 class CelestialBody;
 class SemiMajorAxis;
+class OrbitalEccentricity;
+class SpecificRelativeAngularMomentum;
 
 /**
  * @brief specific orbital energy class
@@ -96,6 +98,31 @@ public:
    * @param parentBody the parent body
    */
   SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody);
+
+  /**
+   * @brief calculates \f$\epsilon\f$ from given orbital eccentricity and
+   * specific relative angular momentum.
+   *
+   * \f$e=\sqrt{1+{{2\epsilon{h^2}}\over{\mu^2}}}\f$
+   *
+   * \f$e^2={1+{{2\epsilon{h^2}}\over{\mu^2}}}\f$
+   *
+   * \f$e^2\mu^2={\mu^2+{2\epsilon{h^2}}}\f$
+   *
+   * \f${2\epsilon{h^2}} = {e^2\mu^2-\mu^2}\f$
+   *
+   * \f$\epsilon = {{e^2\mu^2-\mu^2}\over{2h^2}}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   * \see https://en.wikipedia.org/wiki/Orbital_eccentricity
+   *
+   * @param ecc eccentricity of the orbit
+   * @param srh specific relative angular momentum [m^2/s]
+   * @param parentBody the parent body
+   */
+  SpecificOrbitalEnergy(OrbitalEccentricity ecc,
+                        SpecificRelativeAngularMomentum srh,
+                        CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.
