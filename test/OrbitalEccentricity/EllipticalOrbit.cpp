@@ -17,16 +17,18 @@
  */
 
 #include "test/EllipticalOrbit.hpp"
-#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
-#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
-#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
-#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <iomanip>       // for operator<<
+#include "src/OrbitalEccentricity.hpp"                      // for OrbitalE...
+#include "src/SemiMajorAxis.hpp"                            // for SemiMajo...
+#include "src/SpecificOrbitalEnergy.hpp"                    // for Specific...
+#include "src/SpecificRelativeAngularMomentum.hpp"          // for Specific...
+#include "test/OrbitalEccentricity/OrbitalEccentricity.hpp" // for OrbitalE...
+#include <gtest/gtest-param-test.h>                         // for Paramete...
+#include <gtest/gtest.h>                                    // for EXPECT_NEAR
+#include <iomanip>                                          // for operator<<
 
 extern double ecc_max_abs_err;
 
-TEST_P(EllipticalOrbitTest, Eccentricity) {
+TEST_P(OrbitalEccentricityTest, Eccentricity) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.ecc);
@@ -34,7 +36,7 @@ TEST_P(EllipticalOrbitTest, Eccentricity) {
   EXPECT_DOUBLE_EQ(as.ecc, foo);
 }
 
-TEST_P(EllipticalOrbitTest, TwoApsisR) {
+TEST_P(OrbitalEccentricityTest, TwoApsisR) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
@@ -42,7 +44,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisR) {
   EXPECT_DOUBLE_EQ(as.ecc, foo);
 }
 
-TEST_P(EllipticalOrbitTest, TwoApsisA) {
+TEST_P(OrbitalEccentricityTest, TwoApsisA) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.apoapsis, as.altitude, as.body);
@@ -50,7 +52,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisA) {
   EXPECT_DOUBLE_EQ(as.ecc, foo);
 }
 
-TEST_P(EllipticalOrbitTest, SmaSrh) {
+TEST_P(OrbitalEccentricityTest, SmaSrh) {
   auto as = GetParam();
 
   SemiMajorAxis sma(as.sma);
@@ -60,7 +62,7 @@ TEST_P(EllipticalOrbitTest, SmaSrh) {
   EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
-TEST_P(EllipticalOrbitTest, EpsSrh) {
+TEST_P(OrbitalEccentricityTest, EpsSrh) {
   auto as = GetParam();
 
   SpecificOrbitalEnergy soe(as.epsilon);
@@ -70,7 +72,7 @@ TEST_P(EllipticalOrbitTest, EpsSrh) {
   EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
-TEST_P(EllipticalOrbitTest, VelAlt) {
+TEST_P(OrbitalEccentricityTest, VelAlt) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.velocity, 0.0, as.altitude, as.body);
@@ -78,7 +80,7 @@ TEST_P(EllipticalOrbitTest, VelAlt) {
   EXPECT_NEAR(as.ecc, foo, ecc_max_abs_err);
 }
 
-TEST_P(EllipticalOrbitTest, Default) {
+TEST_P(OrbitalEccentricityTest, Default) {
   auto as = GetParam();
 
   OrbitalEccentricity foo(as.ecc);

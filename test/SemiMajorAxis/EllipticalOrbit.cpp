@@ -16,15 +16,18 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test/EllipticalOrbit.hpp"
+#include "test/EllipticalOrbit.hpp"                // for EllipticalOrbitData
+#include "src/CelestialBody.hpp"                   // for CelestialBody
 #include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
 #include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
-#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
-#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <iomanip>       // for operator<<
+#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEn...
+#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeA...
+#include "test/SemiMajorAxis/SemiMajorAxis.hpp"    // for SemiMajorAxisTest
+#include <gtest/gtest-param-test.h>                // for ParameterizedTest...
+#include <gtest/gtest.h>                           // for EXPECT_DOUBLE_EQ
+#include <iomanip>                                 // for operator<<
 
-TEST_P(EllipticalOrbitTest, SMA) {
+TEST_P(SemiMajorAxisTest, SMA) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.sma);
@@ -32,7 +35,7 @@ TEST_P(EllipticalOrbitTest, SMA) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
-TEST_P(EllipticalOrbitTest, SOE) {
+TEST_P(SemiMajorAxisTest, SOE) {
   auto as = GetParam();
 
   SpecificOrbitalEnergy foo_soe(as.altitude, as.apoapsis, as.body);
@@ -41,7 +44,7 @@ TEST_P(EllipticalOrbitTest, SOE) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
-TEST_P(EllipticalOrbitTest, TwoApsisR) {
+TEST_P(SemiMajorAxisTest, TwoApsisR) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.apoapsis + as.body->R_, as.altitude + as.body->R_);
@@ -49,7 +52,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisR) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
-TEST_P(EllipticalOrbitTest, TwoApsisA) {
+TEST_P(SemiMajorAxisTest, TwoApsisA) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.apoapsis, as.altitude, as.body);
@@ -57,7 +60,7 @@ TEST_P(EllipticalOrbitTest, TwoApsisA) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
-TEST_P(EllipticalOrbitTest, EccSrh) {
+TEST_P(SemiMajorAxisTest, EccSrh) {
   auto as = GetParam();
 
   OrbitalEccentricity ecc(as.ecc);
@@ -67,7 +70,7 @@ TEST_P(EllipticalOrbitTest, EccSrh) {
   EXPECT_DOUBLE_EQ(as.sma, foo);
 }
 
-TEST_P(EllipticalOrbitTest, VelAlt) {
+TEST_P(SemiMajorAxisTest, VelAlt) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);
@@ -76,7 +79,7 @@ TEST_P(EllipticalOrbitTest, VelAlt) {
 }
 
 // all the real constructors should result in same SMA
-TEST_P(EllipticalOrbitTest, Default) {
+TEST_P(SemiMajorAxisTest, Default) {
   auto as = GetParam();
 
   SemiMajorAxis foo(as.velocity, 0.0, as.altitude, as.body);

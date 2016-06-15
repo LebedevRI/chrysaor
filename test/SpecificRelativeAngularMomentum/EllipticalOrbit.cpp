@@ -17,14 +17,16 @@
  */
 
 #include "test/EllipticalOrbit.hpp"
-#include "src/OrbitalEccentricity.hpp"             // for OrbitalEccentricity
-#include "src/SemiMajorAxis.hpp"                   // for SemiMajorAxis
-#include "src/SpecificOrbitalEnergy.hpp"           // for SpecificOrbitalEnergy
-#include "src/SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include <gtest/gtest.h> // for AssertHelper, EXPECT_DOUBLE_EQ
-#include <iomanip>       // for operator<<
+#include "src/OrbitalEccentricity.hpp"
+#include "src/SemiMajorAxis.hpp"
+#include "src/SpecificOrbitalEnergy.hpp"
+#include "src/SpecificRelativeAngularMomentum.hpp"
+#include "test/SpecificRelativeAngularMomentum/SpecificRelativeAngularMomentum.hpp"
+#include <gtest/gtest-param-test.h>
+#include <gtest/gtest.h>
+#include <iomanip>
 
-TEST_P(EllipticalOrbitTest, SRH) {
+TEST_P(SpecificRelativeAngularMomentumTest, SRH) {
   auto as = GetParam();
 
   SpecificRelativeAngularMomentum foo(as.srh);
@@ -32,7 +34,7 @@ TEST_P(EllipticalOrbitTest, SRH) {
   EXPECT_DOUBLE_EQ(as.srh, foo);
 }
 
-TEST_P(EllipticalOrbitTest, SmaEcc) {
+TEST_P(SpecificRelativeAngularMomentumTest, SmaEcc) {
   auto as = GetParam();
 
   SemiMajorAxis sma(as.sma);
@@ -42,7 +44,7 @@ TEST_P(EllipticalOrbitTest, SmaEcc) {
   EXPECT_DOUBLE_EQ(as.srh, foo);
 }
 
-TEST_P(EllipticalOrbitTest, SoeEcc) {
+TEST_P(SpecificRelativeAngularMomentumTest, SoeEcc) {
   auto as = GetParam();
 
   SpecificOrbitalEnergy soe(as.epsilon);
@@ -52,7 +54,7 @@ TEST_P(EllipticalOrbitTest, SoeEcc) {
   EXPECT_DOUBLE_EQ(as.srh, foo);
 }
 
-TEST_P(EllipticalOrbitTest, VelAlt) {
+TEST_P(SpecificRelativeAngularMomentumTest, VelAlt) {
   auto as = GetParam();
 
   SpecificRelativeAngularMomentum foo(as.velocity, as.altitude, as.body);
@@ -61,7 +63,7 @@ TEST_P(EllipticalOrbitTest, VelAlt) {
 }
 
 // all the real constructors should result in same SMA
-TEST_P(EllipticalOrbitTest, Default) {
+TEST_P(SpecificRelativeAngularMomentumTest, Default) {
   auto as = GetParam();
 
   SpecificRelativeAngularMomentum foo(as.srh);

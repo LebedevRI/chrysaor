@@ -19,8 +19,6 @@
 #pragma once
 
 #include "src/CelestialBody.hpp"    // for CelestialBody
-#include <gtest/gtest-param-test.h> // for ParamIteratorInterface, ValuesIn
-#include <gtest/gtest.h>            // for TestWithParam
 #include <iostream>                 // for operator<<, basic_ostream, basic...
 
 struct EllipticalOrbitData {
@@ -197,12 +195,3 @@ static const struct EllipticalOrbitData EarthEllipticalOrbitData[] = {
                         0.00000000000000000000000000000000000000}
 
 };
-
-class EllipticalOrbitTest
-    : public ::testing::TestWithParam<EllipticalOrbitData> {};
-
-INSTANTIATE_TEST_CASE_P(Kerbin, EllipticalOrbitTest,
-                        testing::ValuesIn(KerbinEllipticalOrbitData));
-
-INSTANTIATE_TEST_CASE_P(Earth, EllipticalOrbitTest,
-                        testing::ValuesIn(EarthEllipticalOrbitData));
