@@ -100,8 +100,6 @@ if(BUILD_DOC)
                     SOURCES ${CMAKE_BINARY_DIR}/Doxyfile)
 endif(BUILD_DOC)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
 add_subdirectory(src)
 
 if(BUILD_TESTING)

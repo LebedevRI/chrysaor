@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+
+add_executable(CubicCurvePoint CubicCurvePoint.cpp main.cpp)
+
+target_link_libraries(CubicCurvePoint libgtest)
+target_link_libraries(CubicCurvePoint libchrysaor)
+
+GTEST_ADD_TESTS(CubicCurvePoint "" AUTO)
