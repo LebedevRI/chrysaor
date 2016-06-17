@@ -40,3 +40,22 @@ TEST(CelestialBodyTest, TestRGetter) {
 
   ASSERT_DOUBLE_EQ(R, foo.R_);
 }
+
+TEST(CelestialBodyTest, TestGravitationalAcceleration) {
+  CelestialBody Earth(3.986004418e+14, 6378136.6);
+
+  const double g_0 = Earth.GravitationalAcceleration(0.0);
+  ASSERT_NEAR(9.80665, g_0, 1.0e-02);
+
+  const double g_1km = Earth.GravitationalAcceleration(1.0e+03);
+  ASSERT_GT(g_0, g_1km);
+
+  const double g_10km = Earth.GravitationalAcceleration(1.0e+04);
+  ASSERT_GT(g_0, g_10km);
+  ASSERT_GT(g_1km, g_10km);
+
+  const double g_100km = Earth.GravitationalAcceleration(1.0e+05);
+  ASSERT_GT(g_0, g_100km);
+  ASSERT_GT(g_1km, g_10km);
+  ASSERT_GT(g_10km, g_100km);
+}

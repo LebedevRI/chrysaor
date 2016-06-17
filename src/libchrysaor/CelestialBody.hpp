@@ -48,6 +48,17 @@ public:
    */
   const double R_;
 
+  /**
+   * @brief barycentric gravitational acceleration at given radius [m/s^2]
+   *
+   * \f$g = {{GM}\over{r^2}} = {\mu\over{r^2}}\f$
+   *
+   * @param alt altitude, from the surface of the parent body [m]
+   *
+   * \see https://en.wikipedia.org/wiki/Gravitational_acceleration
+   */
+  double GravitationalAcceleration(double alt) const;
+
   CelestialBody();
   CelestialBody(double mu, double R);
 };

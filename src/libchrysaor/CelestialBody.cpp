@@ -21,6 +21,32 @@
 #include <cmath>   // for pow
 #include <cstddef>
 
+double CelestialBody::GravitationalAcceleration(double alt) const {
+  assert(std::isfinite(R_));
+  assert(R_ >= 0.0);
+  assert(std::isfinite(mu_));
+  assert(mu_ >= 0.0);
+
+  assert(std::isfinite(alt));
+  assert(alt >= 0.0);
+
+  const double r = alt + R_;
+
+  assert(std::isfinite(r));
+  assert(r >= 0.0);
+  assert(r != 0.0);
+
+  assert(std::isfinite(std::pow(r, 2.0)));
+  assert((std::pow(r, 2.0)) != 0.0);
+
+  const double g = ((mu_) / (std::pow(r, 2.0)));
+
+  assert(std::isfinite(g));
+  assert(g >= 0.0);
+
+  return g;
+}
+
 CelestialBody::CelestialBody()
     : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0) {}
 
