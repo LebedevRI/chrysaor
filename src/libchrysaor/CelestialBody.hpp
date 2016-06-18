@@ -74,6 +74,17 @@ public:
    */
   double EquatorialSpeed() const;
 
+  /**
+   * @brief planet's angular rotation speed, at given latitude [m/s]
+   *
+   * \f$v = {{{2\pi{R}}\over{T_{rot}}}cos(\phi)} = {\omega{R}cos(\phi)}\f$
+   *
+   * @param latitude geographical latitude [deg]
+   *
+   * \see https://en.wikipedia.org/wiki/Earth%27s_rotation#Angular_speed
+   */
+  double EquatorialSpeed(double latitude) const;
+
   CelestialBody();
   CelestialBody(double mu, double R);
   CelestialBody(double mu, double R, double Trot);

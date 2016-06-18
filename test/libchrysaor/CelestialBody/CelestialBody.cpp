@@ -75,3 +75,27 @@ TEST(CelestialBodyTest, TestEquatorialSpeed) {
   const double equator = Earth.EquatorialSpeed();
   ASSERT_NEAR(465.1, equator, 1.0e-02);
 }
+
+TEST(CelestialBodyTest, TestSpeedAtLat) {
+  CelestialBody Earth(3.986004418e+14, 6378136.6, 86164.098903691);
+
+  const double equator = Earth.EquatorialSpeed();
+  const double s_0deg = Earth.EquatorialSpeed(0.0);
+  ASSERT_NEAR(465.1, equator, 1.0e-02);
+  ASSERT_NEAR(465.1, s_0deg, 1.0e-02);
+  ASSERT_DOUBLE_EQ(equator, s_0deg);
+
+  const double s_2859deg = Earth.EquatorialSpeed(28.59);
+  ASSERT_NEAR(408.40, s_2859deg, 1.0e-01);
+
+  const double s_90deg = Earth.EquatorialSpeed(90.0);
+  ASSERT_NEAR(0.0, s_90deg, 1.0e-13);
+  ASSERT_LT(s_90deg, s_2859deg);
+  ASSERT_LT(s_90deg, s_0deg);
+
+  const double s_minus90deg = Earth.EquatorialSpeed(-90.0);
+  ASSERT_NEAR(0.0, s_minus90deg, 1.0e-13);
+  ASSERT_NEAR(s_90deg, s_minus90deg, 1.0e-13);
+  ASSERT_LT(s_minus90deg, s_2859deg);
+  ASSERT_LT(s_minus90deg, s_0deg);
+}

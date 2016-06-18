@@ -62,6 +62,25 @@ double CelestialBody::EquatorialSpeed() const {
   return speed;
 }
 
+double CelestialBody::EquatorialSpeed(double latitude) const {
+  assert(std::isfinite(latitude));
+  assert((latitude >= -90.0) && (latitude <= 90.0));
+
+  const double s_eq = EquatorialSpeed();
+
+  assert(std::isfinite(s_eq));
+  assert(s_eq >= 0.0);
+
+  assert(std::isfinite(std::cos(M_PI * latitude / 180.0)));
+
+  const double speed = s_eq * std::cos(M_PI * latitude / 180.0);
+
+  assert(std::isfinite(speed));
+  assert(speed >= 0.0);
+
+  return speed;
+}
+
 CelestialBody::CelestialBody()
     : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0), Trot_(0.0) {}
 
