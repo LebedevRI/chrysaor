@@ -49,6 +49,12 @@ public:
   const double R_;
 
   /**
+   * @brief stellar day [s]
+   *
+   */
+  const double Trot_;
+
+  /**
    * @brief barycentric gravitational acceleration at given radius [m/s^2]
    *
    * \f$g = {{GM}\over{r^2}} = {\mu\over{r^2}}\f$
@@ -59,6 +65,16 @@ public:
    */
   double GravitationalAcceleration(double alt) const;
 
+  /**
+   * @brief planet's angular rotation speed, at equator [m/s]
+   *
+   * \f$v = {{2\pi{R}}\over{T_{rot}}} = \omega{R}\f$
+   *
+   * \see https://en.wikipedia.org/wiki/Earth%27s_rotation#Angular_speed
+   */
+  double EquatorialSpeed() const;
+
   CelestialBody();
   CelestialBody(double mu, double R);
+  CelestialBody(double mu, double R, double Trot);
 };

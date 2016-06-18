@@ -23,6 +23,7 @@
 TEST(CelestialBodyTest, TestConstructor) {
   ASSERT_NO_THROW({ CelestialBody foo; });
   ASSERT_NO_THROW({ CelestialBody foo(123.456, 6000.0); });
+  ASSERT_NO_THROW({ CelestialBody foo(123.456, 6000.0, 246814.341); });
 }
 
 TEST(CelestialBodyTest, TestMuGetter) {
@@ -39,6 +40,14 @@ TEST(CelestialBodyTest, TestRGetter) {
   CelestialBody foo(0.0, R);
 
   ASSERT_DOUBLE_EQ(R, foo.R_);
+}
+
+TEST(CelestialBodyTest, TestTrotGetter) {
+  const double Trot = 23479.42431;
+
+  CelestialBody foo(0.0, 0.0, Trot);
+
+  ASSERT_DOUBLE_EQ(Trot, foo.Trot_);
 }
 
 TEST(CelestialBodyTest, TestGravitationalAcceleration) {
@@ -58,4 +67,11 @@ TEST(CelestialBodyTest, TestGravitationalAcceleration) {
   ASSERT_GT(g_0, g_100km);
   ASSERT_GT(g_1km, g_10km);
   ASSERT_GT(g_10km, g_100km);
+}
+
+TEST(CelestialBodyTest, TestEquatorialSpeed) {
+  CelestialBody Earth(3.986004418e+14, 6378136.6, 86164.098903691);
+
+  const double equator = Earth.EquatorialSpeed();
+  ASSERT_NEAR(465.1, equator, 1.0e-02);
 }

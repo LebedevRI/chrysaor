@@ -47,13 +47,38 @@ double CelestialBody::GravitationalAcceleration(double alt) const {
   return g;
 }
 
+double CelestialBody::EquatorialSpeed() const {
+  assert(std::isfinite(R_));
+  assert(R_ >= 0.0);
+  assert(std::isfinite(Trot_));
+  assert(Trot_ >= 0.0);
+  assert(Trot_ != 0.0);
+
+  const double speed = ((2.0 * M_PI) * (R_ / Trot_));
+
+  assert(std::isfinite(speed));
+  assert(speed >= 0.0);
+
+  return speed;
+}
+
 CelestialBody::CelestialBody()
-    : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0) {}
+    : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0), Trot_(0.0) {}
 
 CelestialBody::CelestialBody(double mu, double R)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R) {
+    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(0.0) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);
   assert(std::isfinite(R));
   assert(R >= 0.0);
+}
+
+CelestialBody::CelestialBody(double mu, double R, double Trot)
+    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot) {
+  assert(std::isfinite(mu));
+  assert(mu >= 0.0);
+  assert(std::isfinite(R));
+  assert(R >= 0.0);
+  assert(std::isfinite(Trot));
+  assert(Trot >= 0.0);
 }
