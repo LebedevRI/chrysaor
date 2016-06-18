@@ -16,16 +16,23 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "IdealGas.hpp"
-#include <gtest/gtest.h> // for AssertHelper, TEST, ASSERT_DOUBLE_EQ, ASSER...
+#include "FluidDynamics.hpp"
+#include <cassert> // for assert
+#include <cmath>   // for pow
 
-TEST(IdealGasTest, TestDensity) {
-  // IUPAC
-  const double gas0 = IdealGas::Density(100000.0, 273.15);
-  ASSERT_NEAR(1.2754, gas0, 1.0e-4);
+double FluidDynamics::DynamicPressure(double rho, double v) {
+  assert(std::isfinite(rho));
+  assert(rho >= 0.0);
+  assert(std::isfinite(v));
+  assert(v >= 0.0);
 
-  const double gas1 = IdealGas::Density(101325.0, 293.15);
-  ASSERT_NEAR(1.2041, gas1, 1.0e-4);
+  assert(std::isfinite(std::pow(v, 2.0)));
+  assert(std::isfinite(rho * std::pow(v, 2.0)));
 
-  ASSERT_LT(gas1, gas0);
+  const double q = ((rho * std::pow(v, 2.0)) / 2.0);
+
+  assert(std::isfinite(q));
+  assert(q >= 0.0);
+
+  return q;
 }

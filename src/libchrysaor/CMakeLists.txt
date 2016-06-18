@@ -13,6 +13,7 @@ add_library(libchrysaor SHARED
   CubicCurvePoint.cpp
   CubicCurve.cpp
   IdealGas.cpp
+  FluidDynamics.cpp
 )
 
 add_subdirectory(OrbitalElements)

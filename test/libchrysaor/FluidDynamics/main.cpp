@@ -16,16 +16,10 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "IdealGas.hpp"
-#include <gtest/gtest.h> // for AssertHelper, TEST, ASSERT_DOUBLE_EQ, ASSER...
+#include <gtest/gtest.h> // for InitGoogleTest, RUN_ALL_TESTS
 
-TEST(IdealGasTest, TestDensity) {
-  // IUPAC
-  const double gas0 = IdealGas::Density(100000.0, 273.15);
-  ASSERT_NEAR(1.2754, gas0, 1.0e-4);
-
-  const double gas1 = IdealGas::Density(101325.0, 293.15);
-  ASSERT_NEAR(1.2041, gas1, 1.0e-4);
-
-  ASSERT_LT(gas1, gas0);
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  int ret = RUN_ALL_TESTS();
+  return ret;
 }
