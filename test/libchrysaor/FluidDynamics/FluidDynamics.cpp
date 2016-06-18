@@ -17,7 +17,6 @@
  */
 
 #include "FluidDynamics.hpp"
-#include "IdealGas.hpp"
 #include <gtest/gtest.h> // for ASSERT_DOUBLE_EQ, TEST
 #include <iomanip>       // for operator<<
 
@@ -29,10 +28,18 @@ TEST(FluidDynamicsTest, TestQ) {
   const double Qm1 = FluidDynamics::DynamicPressure(1.2041, 343.21);
   ASSERT_NEAR(70920.0, Qm1, 1.0e+01);
   ASSERT_GT(Qm1, Q0);
+}
 
-  const double Qm1_2 = FluidDynamics::DynamicPressure(
-      IdealGas::Density(101325.0, 293.15), 343.21);
-  ASSERT_NEAR(70920.0, Qm1_2, 1.0e+01);
-  ASSERT_NEAR(Qm1, Qm1_2, 1.0e-00);
-  ASSERT_GT(Qm1_2, Q0);
+TEST(FluidDynamicsTest, TestDrag) {
+  const double Fd1 = FluidDynamics::Drag(70920.0, 1.0, 1.0);
+  const double Fd2_1 = FluidDynamics::Drag(70920.0, 2.0, 1.0);
+  const double Fd2_2 = FluidDynamics::Drag(70920.0, 1.0, 2.0);
+  const double Fd3 = FluidDynamics::Drag(70920.0, 2.0, 2.0);
+
+  ASSERT_NEAR(70920.0, Fd1, 1.0e-10);
+  ASSERT_LT(Fd1, Fd2_1);
+  ASSERT_LT(Fd1, Fd2_2);
+  ASSERT_LT(Fd1, Fd3);
+  ASSERT_LT(Fd2_1, Fd3);
+  ASSERT_LT(Fd2_2, Fd3);
 }

@@ -36,3 +36,19 @@ double FluidDynamics::DynamicPressure(double rho, double v) {
 
   return q;
 }
+
+double FluidDynamics::Drag(double q, double Cd, double A) {
+  assert(std::isfinite(q));
+  assert(q >= 0.0);
+  assert(std::isfinite(Cd));
+  assert(Cd >= 0.0);
+  assert(std::isfinite(A));
+  assert(A >= 0.0);
+
+  const double Fd = (q * Cd * A);
+
+  assert(std::isfinite(Fd));
+  assert(Fd >= 0.0);
+
+  return Fd;
+}

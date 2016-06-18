@@ -33,4 +33,19 @@ public:
    * @return double dynamic pressure [Pa]
    */
   static double DynamicPressure(double rho, double v);
+
+  /**
+   * @brief returns drag force \f$F_d\f$
+   *
+   * \f$ F_d = {{1\over{2}} \rho v^2 C_D A} = {q C_D A}\f$
+   *
+   * @param q dynamic pressure [Pa]
+   * @param Cd drag coefficient
+   * @param A cross sectional area [m^2]
+   *
+   * @see https://en.wikipedia.org/wiki/Drag_(physics)
+   *
+   * @return double drag force [N]
+   */
+  static double Drag(double q, double Cd, double A);
 };
