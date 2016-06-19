@@ -13,6 +13,9 @@ endif(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 
 project(chrysaor CXX)
 
+# Generate clang compilation database
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMakeModules")
 
 # Add a sensible build type default and warning because empty means no optimization and no debug info.
@@ -65,6 +68,34 @@ if(USE_IWYU)
     message(FATAL_ERROR "Could not find the program include-what-you-use")
   else(NOT iwyu_path)
     set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
+  endif()
+
+  find_program(iwyu_tool_path NAMES iwyu_tool.py)
+  if (iwyu_tool_path)
+    add_custom_command(
+      OUTPUT "${CMAKE_BINARY_DIR}/iwyu.log"
+      COMMAND "${iwyu_tool_path}" -p "${CMAKE_BINARY_DIR}" 2> "${CMAKE_BINARY_DIR}/iwyu.log"
+      WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+      COMMENT "Running include-what-you-use tool"
+      VERBATIM
+    )
+    add_custom_target(iwyu
+      DEPENDS "${CMAKE_BINARY_DIR}/iwyu.log"
+      VERBATIM
+    )
+  endif()
+
+  find_program(fix_includes_path NAMES fix_includes.py)
+  if (fix_includes_path)
+    add_custom_target(iwyu_fix
+      COMMAND "${fix_includes_path}" --noblank_lines --comments
+              --nosafe_headers < "${CMAKE_BINARY_DIR}/iwyu.log" || true
+      COMMAND ${CMAKE_COMMAND} -E remove "${CMAKE_BINARY_DIR}/iwyu.log"
+      DEPENDS "${CMAKE_BINARY_DIR}/iwyu.log"
+      WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+      COMMENT "Running include-what-you-use fix_includes tool"
+      VERBATIM
+    )
   endif()
 endif()
 

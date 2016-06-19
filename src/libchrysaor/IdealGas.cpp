@@ -18,7 +18,7 @@
 
 #include "IdealGas.hpp"
 #include <cassert> // for assert
-#include <cmath>   // for pow
+#include <cmath>   // for isfinite
 
 const double IdealGas::Rspec = 287.058;
 
