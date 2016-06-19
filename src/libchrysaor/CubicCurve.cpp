@@ -33,25 +33,14 @@ double CubicCurve::operator[](const double x) const {
     return static_cast<double>(*curve_.begin());
   else if (xpt >= *curve_.rbegin())
     return static_cast<double>(*curve_.rbegin());
+  else if (curve_.find(xpt) != curve_.end())
+    return static_cast<double>(*curve_.find(xpt));
   else {
-    // will hold closest points, so that [min-k min p map map+n]
-    CubicCurvePoint min = *curve_.begin();
-    CubicCurvePoint max = *curve_.begin();
-
-    for (const auto &point : curve_) {
-      if (xpt == point)
-        return static_cast<double>(point);
-
-      min = max;
-      max = point;
-
-      // found
-      if (min < xpt && xpt < max)
-        break;
-    }
+    auto it_max = curve_.upper_bound(xpt);
+    auto it_min = std::prev(it_max, 1);
 
     // FIXME: actually evaluate the Unity-like expression!
-    return (static_cast<double>(min) + static_cast<double>(max)) / 2.0;
+    return (static_cast<double>(*it_min) + static_cast<double>(*it_max)) / 2.0;
   }
 }
 
