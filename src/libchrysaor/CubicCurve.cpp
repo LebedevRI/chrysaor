@@ -27,12 +27,12 @@
 double CubicCurve::operator[](const double x) const {
   assert(!curve_.empty());
 
-  const CubicCurvePoint xpt(x, -1.0, -1.0, -1.0);
+  const CubicCurvePoint xpt(x);
 
   if (xpt <= *curve_.begin())
-    return *curve_.begin();
+    return static_cast<double>(*curve_.begin());
   else if (xpt >= *curve_.rbegin())
-    return *curve_.rbegin();
+    return static_cast<double>(*curve_.rbegin());
   else {
     // will hold closest points, so that [min-k min p map map+n]
     CubicCurvePoint min = *curve_.begin();
@@ -40,7 +40,7 @@ double CubicCurve::operator[](const double x) const {
 
     for (const auto &point : curve_) {
       if (xpt == point)
-        return point;
+        return static_cast<double>(point);
 
       min = max;
       max = point;

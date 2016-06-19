@@ -23,6 +23,9 @@
 
 TEST(CubicCurvePointTest, TestConstructor) {
   const double x = 0.0;
+
+  ASSERT_NO_THROW({ CubicCurvePoint foo(x); });
+
   const double y = 1.0;
 
   const double outTangent = 1.0;
@@ -41,15 +44,19 @@ TEST(CubicCurvePointTest, TestComparisonOperators) {
   CubicCurvePoint foo(0.0, NaN, NaN, NaN);
   CubicCurvePoint bar(1.0, NaN, NaN, NaN);
 
-  ASSERT_NE(foo, bar);
-
   ASSERT_EQ(foo, foo);
   ASSERT_EQ(bar, bar);
 
+  ASSERT_NE(foo, bar);
+
   ASSERT_LT(foo, bar);
+
   ASSERT_GT(bar, foo);
 
+  ASSERT_LE(foo, foo);
   ASSERT_LE(foo, bar);
+
+  ASSERT_GE(foo, foo);
   ASSERT_GE(bar, foo);
 }
 
@@ -62,36 +69,8 @@ TEST(CubicCurvePointTest, TestConversionOperator) {
   const double y = 3.54;
 
   CubicCurvePoint foo(NaN, y, NaN, NaN);
-  CubicCurvePoint bar(NaN, y, NaN, NaN);
 
-  ASSERT_EQ(y, foo);
   ASSERT_EQ(y, static_cast<double>(foo));
-
-  ASSERT_EQ(y, bar);
-  ASSERT_EQ(y, static_cast<double>(bar));
-}
-
-/**
- * @brief tests all the ways to get the point x coordinate
- */
-TEST(CubicCurvePointTest, TestGetterOperators) {
-  const double NaN = std::numeric_limits<double>::signaling_NaN();
-
-  const double x = 3.54;
-
-  CubicCurvePoint foo(x, NaN, NaN, NaN);
-  CubicCurvePoint bar(x, NaN, NaN, NaN);
-
-  ASSERT_EQ(foo(), foo());
-  ASSERT_EQ(foo(), *foo);
-  ASSERT_EQ(foo(), x);
-
-  ASSERT_EQ(bar(), bar());
-  ASSERT_EQ(bar(), *bar);
-  ASSERT_EQ(bar(), x);
-
-  ASSERT_EQ(foo(), bar());
-  ASSERT_EQ(foo(), *bar);
 }
 
 TEST(CubicCurvePointTest, TestOnlyXMatters) {

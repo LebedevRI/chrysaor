@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <iostream> // for operator<<, basic_ostream, basic...
+
 class CubicCurvePoint {
 private:
   /**
@@ -41,12 +43,8 @@ private:
   double inTangent_;
 
 public:
-  // all getters return the x-coordinate of current point
-  double operator()() const;
-  double operator*() const;
-
   // converter returns the y-coordinate of current point
-  operator double() const;
+  explicit operator double() const;
 
   //
   // void operator=(const CubicCurvePoint & b) { x = b.x; y = b.y;
@@ -63,5 +61,8 @@ public:
   bool operator<=(const CubicCurvePoint &b) const;
   bool operator>=(const CubicCurvePoint &b) const;
 
+  friend std::ostream &operator<<(std::ostream &os, const CubicCurvePoint &obj);
+
+  CubicCurvePoint(double x);
   CubicCurvePoint(double x, double y, double outTangent, double inTangent);
 };

@@ -17,9 +17,7 @@
  */
 
 #include "CubicCurvePoint.hpp"
-
-double CubicCurvePoint::operator()() const { return (x_); }
-double CubicCurvePoint::operator*() const { return (x_); }
+#include <iostream> // for operator<<, basic_ostream, basic...
 
 // converter returns the y-coordinate of current point
 CubicCurvePoint::operator double() const { return (y_); }
@@ -36,12 +34,12 @@ bool CubicCurvePoint::operator==(const CubicCurvePoint &b) const {
 bool CubicCurvePoint::operator<(const CubicCurvePoint &b) const {
   return (x_ < b.x_);
 }
+bool CubicCurvePoint::operator>(const CubicCurvePoint &b) const {
+  return (x_ > b.x_);
+}
 
 bool CubicCurvePoint::operator!=(const CubicCurvePoint &b) const {
   return !(operator==(b));
-}
-bool CubicCurvePoint::operator>(const CubicCurvePoint &b) const {
-  return !(operator<(b));
 }
 
 bool CubicCurvePoint::operator<=(const CubicCurvePoint &b) const {
@@ -50,6 +48,13 @@ bool CubicCurvePoint::operator<=(const CubicCurvePoint &b) const {
 bool CubicCurvePoint::operator>=(const CubicCurvePoint &b) const {
   return !(operator<(b));
 }
+
+std::ostream &operator<<(std::ostream &os, const CubicCurvePoint &obj) {
+  return os << "x: " << obj.x_ << "; y: " << obj.y_;
+}
+
+CubicCurvePoint::CubicCurvePoint(double x)
+    : x_(x), y_(0), outTangent_(0), inTangent_(0) {}
 
 CubicCurvePoint::CubicCurvePoint(double x, double y, double outTangent,
                                  double inTangent)
