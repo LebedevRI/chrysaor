@@ -12,7 +12,6 @@ add_subdirectory(Vec3)
 
 add_subdirectory(LaunchSite)
 add_subdirectory(Stage)
-add_subdirectory(CubicCurvePoint)
-add_subdirectory(CubicCurve)
+add_subdirectory(Curve)
 add_subdirectory(IdealGas)
 add_subdirectory(FluidDynamics)

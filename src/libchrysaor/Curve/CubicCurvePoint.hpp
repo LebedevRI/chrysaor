@@ -61,6 +61,8 @@ public:
   bool operator<=(const CubicCurvePoint &b) const;
   bool operator>=(const CubicCurvePoint &b) const;
 
+  double interpolate(const CubicCurvePoint &b, double x) const;
+
   friend std::ostream &operator<<(std::ostream &os, const CubicCurvePoint &obj);
 
   CubicCurvePoint(double x);

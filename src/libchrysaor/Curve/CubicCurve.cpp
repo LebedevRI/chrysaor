@@ -39,8 +39,7 @@ double CubicCurve::operator[](const double x) const {
     auto it_max = curve_.upper_bound(xpt);
     auto it_min = std::prev(it_max, 1);
 
-    // FIXME: actually evaluate the Unity-like expression!
-    return (static_cast<double>(*it_min) + static_cast<double>(*it_max)) / 2.0;
+    return (*it_min).interpolate(*it_max, x);
   }
 }
 

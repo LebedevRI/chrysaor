@@ -16,8 +16,8 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "CubicCurve.hpp"
-#include "CubicCurvePoint.hpp"
+#include "Curve/CubicCurve.hpp"
+#include "Curve/CubicCurvePoint.hpp"
 #include <algorithm>     // for max, min
 #include <cstddef>       // for size_t
 #include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, TEST, ASSERT_NO_THROW

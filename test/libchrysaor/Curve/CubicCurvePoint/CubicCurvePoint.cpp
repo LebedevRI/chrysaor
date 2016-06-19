@@ -16,10 +16,10 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "CubicCurvePoint.hpp" // for CubicCurvePoint
-#include <algorithm>           // for next_permutation, sort
-#include <gtest/gtest.h>       // for AssertHelper, ASSERT_EQ, TEST
-#include <limits>              // for numeric_limits
+#include "Curve/CubicCurvePoint.hpp" // for CubicCurvePoint
+#include <algorithm>                 // for next_permutation, sort
+#include <gtest/gtest.h>             // for AssertHelper, ASSERT_EQ, TEST
+#include <limits>                    // for numeric_limits
 
 TEST(CubicCurvePointTest, TestConstructor) {
   const double x = 0.0;

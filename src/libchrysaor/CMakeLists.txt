@@ -10,13 +10,12 @@ add_library(libchrysaor SHARED
   Vec3.cpp
   LaunchSite.cpp
   Stage.cpp
-  CubicCurvePoint.cpp
-  CubicCurve.cpp
   IdealGas.cpp
   FluidDynamics.cpp
 )
 
 add_subdirectory(OrbitalElements)
+add_subdirectory(Curve)
 
 target_include_directories(libchrysaor PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>

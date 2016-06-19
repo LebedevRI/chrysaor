@@ -49,6 +49,11 @@ bool CubicCurvePoint::operator>=(const CubicCurvePoint &b) const {
   return !(operator<(b));
 }
 
+double CubicCurvePoint::interpolate(const CubicCurvePoint &b, double x) const {
+  (void)x;
+  return (static_cast<double>(*this) + static_cast<double>(b)) / 2.0;
+}
+
 std::ostream &operator<<(std::ostream &os, const CubicCurvePoint &obj) {
   return os << "x: " << obj.x_ << "; y: " << obj.y_;
 }
