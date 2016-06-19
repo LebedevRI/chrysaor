@@ -19,52 +19,36 @@
 #pragma once
 
 #include <iostream> // for operator<<, basic_ostream, basic...
+class LinearCurvePoint;
 
-class CubicCurvePoint {
-private:
+class AbstractCurvePoint {
+protected:
   /**
   * @brief point position
   */
   double x_;
 
-  /**
-  * @brief point value
-  */
-  double y_;
-
-  /**
-  * @brief tangent out
-  */
-  double outTangent_;
-
-  /**
-  * @brief tangent in
-  */
-  double inTangent_;
-
 public:
   // converter returns the y-coordinate of current point
   explicit operator double() const;
 
-  //
-  // void operator=(const CubicCurvePoint & b) { x = b.x; y = b.y;
-  // outTangent = b.outTangent; inTangent = b.inTangent; }
+  operator LinearCurvePoint();
 
-  // all comparison is key-based.
+  bool operator==(const AbstractCurvePoint &b) const;
+  bool operator<(const AbstractCurvePoint &b) const;
 
-  bool operator==(const CubicCurvePoint &b) const;
-  bool operator<(const CubicCurvePoint &b) const;
+  bool operator!=(const AbstractCurvePoint &b) const;
+  bool operator>(const AbstractCurvePoint &b) const;
 
-  bool operator!=(const CubicCurvePoint &b) const;
-  bool operator>(const CubicCurvePoint &b) const;
+  bool operator<=(const AbstractCurvePoint &b) const;
+  bool operator>=(const AbstractCurvePoint &b) const;
 
-  bool operator<=(const CubicCurvePoint &b) const;
-  bool operator>=(const CubicCurvePoint &b) const;
+  static double interpolate(const AbstractCurvePoint &a,
+                            const AbstractCurvePoint &b, double x);
+  double interpolate(const AbstractCurvePoint &b, double x) const;
 
-  double interpolate(const CubicCurvePoint &b, double x) const;
+  friend std::ostream &operator<<(std::ostream &os,
+                                  const AbstractCurvePoint &obj);
 
-  friend std::ostream &operator<<(std::ostream &os, const CubicCurvePoint &obj);
-
-  CubicCurvePoint(double x);
-  CubicCurvePoint(double x, double y, double outTangent, double inTangent);
+  AbstractCurvePoint(double x);
 };

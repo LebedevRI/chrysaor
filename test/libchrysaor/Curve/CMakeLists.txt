@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 
-add_subdirectory(CubicCurvePoint)
-add_subdirectory(CubicCurve)
+add_subdirectory(AbstractCurvePoint)
+add_subdirectory(LinearCurvePoint)
+add_subdirectory(LinearCurve)

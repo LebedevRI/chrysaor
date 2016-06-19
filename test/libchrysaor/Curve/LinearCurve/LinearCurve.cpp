@@ -16,21 +16,20 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Curve/CubicCurve.hpp"
-#include "Curve/CubicCurvePoint.hpp"
-#include <algorithm>     // for max, min
-#include <cstddef>       // for size_t
-#include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, TEST, ASSERT_NO_THROW
-#include <limits>        // for numeric_limits
-#include <map>           // for map, map<>::iterator
-#include <utility>       // for pair
-#include <vector>        // for vector, allocator
+#include "Curve/AbstractCurve.hpp"    // for AbstractCurve
+#include "Curve/LinearCurvePoint.hpp" // for LinearCurvePoint
+#include <algorithm>                  // for max, min
+#include <cstddef>                    // for size_t
+#include <gtest/gtest.h>              // for ASSERT_EQ, ASSERT_NO_THROW, TEST
+#include <map>                        // for map, _Rb_tree_iterator, map<>:...
+#include <utility>                    // for pair
+#include <vector>                     // for vector, allocator
 
-TEST(CubicCurveTest, TestConstructor) {
+TEST(LinearCurveTest, TestConstructor) {
   {
-    ASSERT_NO_THROW(CubicCurve foo;);
+    ASSERT_NO_THROW(AbstractCurve<LinearCurvePoint> foo;);
 
-    CubicCurve foo;
+    AbstractCurve<LinearCurvePoint> foo;
     ASSERT_EQ(foo.size(), 0);
   }
 
@@ -38,41 +37,40 @@ TEST(CubicCurveTest, TestConstructor) {
   const double y0 = 0.0;
   const double x1 = 1.0;
   const double y1 = 1.0;
-  const double NaN = std::numeric_limits<double>::signaling_NaN();
 
-  CubicCurvePoint p1(x0, y0, NaN, NaN);
-  CubicCurvePoint p2(x1, y1, NaN, NaN);
+  LinearCurvePoint p1(x0, y0);
+  LinearCurvePoint p2(x1, y1);
 
   {
-    ASSERT_NO_THROW(CubicCurve bar({p1, p2}););
+    ASSERT_NO_THROW(AbstractCurve<LinearCurvePoint> bar({p1, p2}););
 
-    CubicCurve bar({p1, p2});
+    AbstractCurve<LinearCurvePoint> bar({p1, p2});
     ASSERT_EQ(bar.size(), 2);
   }
 
-  std::vector<CubicCurvePoint> vec;
+  std::vector<LinearCurvePoint> vec;
   vec.push_back(p1);
   vec.push_back(p2);
 
   {
-    ASSERT_NO_THROW(CubicCurve baz(vec.begin(), vec.end()););
+    ASSERT_NO_THROW(
+        AbstractCurve<LinearCurvePoint> baz(vec.begin(), vec.end()););
 
-    CubicCurve baz(vec.begin(), vec.end());
+    AbstractCurve<LinearCurvePoint> baz(vec.begin(), vec.end());
     ASSERT_EQ(baz.size(), 2);
   }
 }
 
-TEST(CubicCurveTest, TestGetter) {
+TEST(LinearCurveTest, TestGetter) {
   const double x0 = 0.0;
   const double y0 = 2.0;
-  const double x1 = 1.0;
+  const double x1 = 3.0;
   const double y1 = 4.0;
-  const double NaN = std::numeric_limits<double>::signaling_NaN();
 
-  CubicCurvePoint p1(x0, y0, NaN, NaN);
-  CubicCurvePoint p2(x1, y1, NaN, NaN);
+  LinearCurvePoint p1(x0, y0);
+  LinearCurvePoint p2(x1, y1);
 
-  CubicCurve bar({p1, p2});
+  AbstractCurve<LinearCurvePoint> bar({p1, p2});
   ASSERT_EQ(bar.size(), 2);
 
   ASSERT_EQ(y0, bar[x0 - x1]);
@@ -85,17 +83,16 @@ TEST(CubicCurveTest, TestGetter) {
   ASSERT_EQ((y0 + y1) / 2.0, bar[(x0 + x1) / 2.0]);
 }
 
-TEST(CubicCurveTest, TestBigger) {
+TEST(LinearCurveTest, TestBigger) {
   const double x0 = 0.0;
   const double y0 = 2.0;
-  const double x1 = 1.0;
+  const double x1 = 3.0;
   const double y1 = 4.0;
-  const double NaN = std::numeric_limits<double>::signaling_NaN();
 
   const std::size_t numPts = 101;
 
   std::map<double, double> testPts;
-  std::vector<CubicCurvePoint> ptsVec;
+  std::vector<LinearCurvePoint> ptsVec;
   for (std::size_t i = 0; i < numPts; i++) {
     const double t = std::min(
         std::max(static_cast<double>(i) / static_cast<double>(numPts - 1), 0.0),
@@ -106,13 +103,13 @@ TEST(CubicCurveTest, TestBigger) {
 
     testPts[x] = y;
 
-    CubicCurvePoint p(x, y, NaN, NaN);
+    LinearCurvePoint p(x, y);
     ptsVec.push_back(p);
   }
 
   ASSERT_EQ(ptsVec.size(), numPts);
 
-  CubicCurve bar(ptsVec.begin(), ptsVec.end());
+  AbstractCurve<LinearCurvePoint> bar(ptsVec.begin(), ptsVec.end());
 
   ASSERT_EQ(bar.size(), numPts);
   ASSERT_EQ(bar.size(), ptsVec.size());
