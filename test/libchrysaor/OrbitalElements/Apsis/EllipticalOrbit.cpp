@@ -34,6 +34,28 @@ INSTANTIATE_TEST_CASE_P(Kerbin, ApsisTest,
 INSTANTIATE_TEST_CASE_P(Earth, ApsisTest,
                         testing::ValuesIn(EarthEllipticalOrbitData));
 
+TEST(FluidDynamicsTest, TestConstructor) {
+  SemiMajorAxis foo_sma(122141.4314);
+  OrbitalEccentricity foo_ecc(0.71);
+  ASSERT_NO_THROW({ Apoapsis foo_ap(foo_sma, foo_ecc, &Earth); });
+  ASSERT_NO_THROW({ Periapsis foo_pe(foo_sma, foo_ecc, &Earth); });
+}
+
+TEST(FluidDynamicsTest, TestDynamicConstructor) {
+  SemiMajorAxis foo_sma(122141.4314);
+  OrbitalEccentricity foo_ecc(0.71);
+  ASSERT_NO_THROW({
+    Apoapsis *foo_ap;
+    foo_ap = new Apoapsis(foo_sma, foo_ecc, &Earth);
+    delete foo_ap;
+  });
+  ASSERT_NO_THROW({
+    Periapsis *foo_pe;
+    foo_pe = new Periapsis(foo_sma, foo_ecc, &Earth);
+    delete foo_pe;
+  });
+}
+
 TEST_P(ApsisTest, Default) {
   auto as = GetParam();
 

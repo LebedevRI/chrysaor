@@ -18,6 +18,7 @@
 
 #include "Curve/AbstractCurvePoint.hpp"
 #include <gtest/gtest.h> // for ASSERT_EQ, ASSERT_GE, ASSERT_LE, TEST, ASSE...
+#include <string>        // for string
 
 TEST(AbstractCurvePointTest, TestConstructor) {
   const double x = 0.0;
@@ -50,4 +51,15 @@ TEST(AbstractCurvePointTest, TestComparisonOperators) {
   ASSERT_GE(foo, foo);
   ASSERT_GE(bar, foo);
   ASSERT_GE(bar, bar);
+}
+
+TEST(Vec3Test, TestPrint) {
+  AbstractCurvePoint foo(3.14);
+
+  std::ostringstream output;
+  output << foo;
+
+  std::string foo_str("x: 3.14");
+
+  ASSERT_EQ(foo_str, output.str());
 }

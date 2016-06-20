@@ -17,7 +17,8 @@
  */
 
 #include "Vec3.hpp"
-#include <gtest/gtest.h> // for AssertHelper, ASSERT_EQ, ASSERT_NO_THROW, TEST
+#include <gtest/gtest.h> // for ASSERT_EQ, ASSERT_NO_THROW, TEST
+#include <string>        // for string
 
 TEST(Vec3Test, TestConstructor) {
   ASSERT_NO_THROW({ Vec3 foo; });
@@ -44,4 +45,15 @@ TEST(Vec3Test, TestComparison) {
   ASSERT_EQ(bar, foo);
   ASSERT_EQ(bar, baz);
   ASSERT_EQ(foo, baz);
+}
+
+TEST(Vec3Test, TestPrint) {
+  Vec3 foo(1.4, 2.56, 3.789);
+
+  std::ostringstream output;
+  output << foo;
+
+  std::string foo_str("(1.4; 2.56; 3.789)");
+
+  ASSERT_EQ(foo_str, output.str());
 }

@@ -24,6 +24,7 @@
 #include <iterator>                     // for reverse_iterator
 #include <limits>                       // for numeric_limits
 #include <map>                          // for map, _Rb_tree_iterator, map<...
+#include <string>                       // for string
 #include <utility>                      // for pair
 
 TEST(LinearCurvePoint, TestConstructor) {
@@ -142,4 +143,15 @@ TEST(LinearCurvePoint, TestOnlyXMatters) {
   do {
     ASSERT_EQ(LinearCurvePoint(0.0, vals[0]), LinearCurvePoint(0.0, vals[1]));
   } while (std::next_permutation(vals, vals + 2));
+}
+
+TEST(Vec3Test, TestPrint) {
+  LinearCurvePoint foo(2.71, 7.381);
+
+  std::ostringstream output;
+  output << foo;
+
+  std::string foo_str("x: 2.71; y: 7.381");
+
+  ASSERT_EQ(foo_str, output.str());
 }
