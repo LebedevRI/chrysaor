@@ -83,6 +83,20 @@ TEST(LinearCurveTest, TestGetter) {
   ASSERT_EQ((y0 + y1) / 2.0, bar[(x0 + x1) / 2.0]);
 }
 
+TEST(LinearCurveTest, TestSmall) {
+  const double x0 = 0.0;
+  const double y0 = 2.0;
+
+  LinearCurvePoint p1(x0, y0);
+
+  AbstractCurve<LinearCurvePoint> bar({p1});
+  ASSERT_EQ(bar.size(), 1);
+
+  ASSERT_EQ(y0, bar[-1.0]);
+  ASSERT_EQ(y0, bar[x0]);
+  ASSERT_EQ(y0, bar[1.0]);
+}
+
 TEST(LinearCurveTest, TestBigger) {
   const double x0 = 0.0;
   const double y0 = 2.0;
