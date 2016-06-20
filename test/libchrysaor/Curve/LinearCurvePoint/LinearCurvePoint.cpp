@@ -17,10 +17,14 @@
  */
 
 #include "Curve/LinearCurvePoint.hpp"   // for LinearCurvePoint
-#include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint
+#include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint, operator<<
 #include <algorithm>                    // for next_permutation, sort
-#include <gtest/gtest.h>                // for AssertHelper, ASSERT_EQ, TEST
+#include <gtest/gtest.h>                // for ASSERT_GE, ASSERT_LE, ASSERT_EQ
+#include <iomanip>                      // for operator<<
+#include <iterator>                     // for reverse_iterator
 #include <limits>                       // for numeric_limits
+#include <map>                          // for map, _Rb_tree_iterator, map<...
+#include <utility>                      // for pair
 
 TEST(LinearCurvePoint, TestConstructor) {
   const double x = 0.0;
@@ -108,28 +112,26 @@ TEST(LinearCurvePoint, TestConversionOperator) {
 }
 
 TEST(LinearCurvePoint, TestInterpolation) {
-  const double NaN = std::numeric_limits<double>::signaling_NaN();
+  std::map<double, double> testPts;
+  testPts[0.0] = 4.0;
+  testPts[0.5] = 5.0;
+  testPts[1.0] = 6.0;
+  testPts[1.5] = 7.0;
+  testPts[2.0] = 8.0;
 
-  const double x0 = 0.0;
-  const double y0 = 1.0;
-  const double x1 = 2.0;
-  const double y1 = 4.0;
+  LinearCurvePoint p1(testPts.begin()->first, testPts.begin()->second);
+  LinearCurvePoint p2(testPts.rbegin()->first, testPts.rbegin()->second);
 
-  LinearCurvePoint p1(x0, y0);
-  LinearCurvePoint p2(x1, y1);
+  for (std::map<double, double>::iterator it = testPts.begin();
+       it != testPts.end(); ++it) {
+    const double x = it->first;
+    const double y = it->second;
 
-  ASSERT_EQ((y0 + y1) / 2.0, p1.interpolate(p2, NaN));
-  ASSERT_EQ((y0 + y1) / 2.0, p2.interpolate(p1, NaN));
-  ASSERT_EQ((y0 + y1) / 2.0, LinearCurvePoint::interpolate(p1, p2, NaN));
-  ASSERT_EQ((y0 + y1) / 2.0, LinearCurvePoint::interpolate(p2, p1, NaN));
-  ASSERT_EQ(p1.interpolate(p2, NaN),
-            LinearCurvePoint::interpolate(p1, p2, NaN));
-  ASSERT_EQ(p1.interpolate(p2, NaN),
-            LinearCurvePoint::interpolate(p2, p1, NaN));
-  ASSERT_EQ(p2.interpolate(p1, NaN),
-            LinearCurvePoint::interpolate(p1, p2, NaN));
-  ASSERT_EQ(p2.interpolate(p1, NaN),
-            LinearCurvePoint::interpolate(p2, p1, NaN));
+    ASSERT_DOUBLE_EQ(y, p1.interpolate(p2, x));
+    ASSERT_DOUBLE_EQ(y, LinearCurvePoint::interpolate(p1, p2, x));
+    ASSERT_DOUBLE_EQ(p1.interpolate(p2, x),
+                     LinearCurvePoint::interpolate(p1, p2, x));
+  }
 }
 
 TEST(LinearCurvePoint, TestOnlyXMatters) {

@@ -32,6 +32,24 @@ public:
   explicit operator double() const;
 
   using AbstractCurvePoint::interpolate;
+
+  /**
+  * @brief linearly interpolates between 2 datapoints
+  *
+  * @param a left datapoint (x0, y0)
+  * @param b right datapoint (x1, y1), x1 > x0
+  * @param x x coordinate, in the interval (x0, x1)
+  *
+  * \f$\frac{y - y_0}{x - x_0} = \frac{y_1 - y_0}{x_1 - x_0}\f$
+  *
+  * Solving this equation for y, which is the unknown value at x, gives
+  *
+  * \f$y = y_0 + (y_1-y_0)\frac{x - x_0}{x_1-x_0}\f$
+  *
+  * @see https://en.wikipedia.org/wiki/Linear_interpolation
+  *
+  * @return double y
+  */
   static double interpolate(const LinearCurvePoint &a,
                             const LinearCurvePoint &b, double x);
   double interpolate(const LinearCurvePoint &b, double x) const;

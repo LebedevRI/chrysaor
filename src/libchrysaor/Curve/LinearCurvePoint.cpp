@@ -18,6 +18,8 @@
 
 #include "Curve/LinearCurvePoint.hpp"
 #include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint
+#include <cassert>                      // for assert
+#include <cmath>                        // for isfinite
 #include <iostream>                     // for operator<<, ostream, basic_o...
 
 // converter returns the y-coordinate of current point
@@ -30,8 +32,31 @@ AbstractCurvePoint::operator LinearCurvePoint() {
 
 double LinearCurvePoint::interpolate(const LinearCurvePoint &a,
                                      const LinearCurvePoint &b, double x) {
-  (void)x;
-  return (static_cast<double>(a) + static_cast<double>(b)) / 2.0;
+  assert(std::isfinite(x));
+  assert(std::isfinite(a.x_));
+  assert(std::isfinite(a.y_));
+  assert(std::isfinite(b.x_));
+  assert(std::isfinite(b.y_));
+
+  assert(a != b);
+  assert(a < b);
+
+  assert(x <= b.x_);
+  assert(a.x_ <= x);
+
+  assert((b.x_ - a.x_) != 0.0);
+
+  const double t = ((x - a.x_) / (b.x_ - a.x_));
+  assert(std::isfinite(t));
+
+  assert(t <= 1.0);
+  assert(0.0 <= t);
+
+  const double y = ((1.0 - t) * a.y_ + t * b.y_);
+  assert(y <= b.y_);
+  assert(a.y_ <= y);
+
+  return y;
 }
 
 double LinearCurvePoint::interpolate(const LinearCurvePoint &b,
