@@ -14,4 +14,5 @@ unset CC CXX
 export CC=gcc
 export CXX=g++
 
-cmake -DCMAKE_BUILD_TYPE=Coverage ../ && make -j9 && make test && make coverage && sensible-browser ./coverage/index.html
+cmake -DCMAKE_BUILD_TYPE=Coverage -DBUILD_DOC=off -DUSE_IWYU=off ../ && \
+make -j9 && make test && make coverage && sensible-browser ./coverage/index.html
