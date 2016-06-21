@@ -18,6 +18,7 @@
 
 #include "Curve/LinearCurvePoint.hpp"
 #include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint
+#include <algorithm>                    // for max, min
 #include <cassert>                      // for assert
 #include <cmath>                        // for isfinite
 #include <iostream>                     // for operator<<, ostream, basic_o...
@@ -53,8 +54,8 @@ double LinearCurvePoint::interpolate(const LinearCurvePoint &a,
   assert(0.0 <= t);
 
   const double y = ((1.0 - t) * a.y_ + t * b.y_);
-  assert(y <= b.y_);
-  assert(a.y_ <= y);
+  assert(y <= std::max(a.y_, b.y_));
+  assert(std::min(a.y_, b.y_) <= y);
 
   return y;
 }

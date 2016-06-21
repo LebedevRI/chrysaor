@@ -141,3 +141,17 @@ TEST(LinearCurveTest, TestBigger) {
 
   ASSERT_EQ(bar.size(), numPts);
 }
+
+TEST(LinearCurveTest, TestSlike) {
+  std::vector<LinearCurvePoint> testVec;
+  testVec.push_back(LinearCurvePoint(0, 100));
+  testVec.push_back(LinearCurvePoint(5, 150));
+  testVec.push_back(LinearCurvePoint(10, 50));
+  testVec.push_back(LinearCurvePoint(15, 200));
+
+  AbstractCurve<LinearCurvePoint> foo(testVec.begin(), testVec.end());
+
+  for (auto i = -10; i <= 25; i++) {
+    ASSERT_NO_THROW({ (void)foo[i]; });
+  }
+}
