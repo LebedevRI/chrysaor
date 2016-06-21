@@ -12,6 +12,7 @@ add_library(libchrysaor SHARED
   Stage.cpp
   IdealGas.cpp
   FluidDynamics.cpp
+  Atmosphere.cpp
 )
 
 add_subdirectory(OrbitalElements)
