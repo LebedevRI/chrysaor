@@ -19,6 +19,7 @@
 #pragma once
 
 class Orbit;
+class Atmosphere;
 
 class CelestialBody {
 private:
@@ -55,6 +56,12 @@ public:
   const double Trot_;
 
   /**
+   * @brief planetary atmosphere
+   *
+   */
+  const Atmosphere *atmosphere_;
+
+  /**
    * @brief barycentric gravitational acceleration at given radius [m/s^2]
    *
    * \f$g = {{GM}\over{r^2}} = {\mu\over{r^2}}\f$
@@ -88,4 +95,5 @@ public:
   CelestialBody();
   CelestialBody(double mu, double R);
   CelestialBody(double mu, double R, double Trot);
+  CelestialBody(double mu, double R, double Trot, Atmosphere *atmosphere);
 };

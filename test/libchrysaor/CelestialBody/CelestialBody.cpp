@@ -17,8 +17,11 @@
  */
 
 #include "CelestialBody.hpp"
-#include <gtest/gtest.h> // for AssertHelper, TEST, ASSERT_DOUBLE_EQ, ASSER...
-#include <iomanip>       // for operator<<
+#include "Atmosphere.hpp"             // for Atmosphere
+#include "Curve/AbstractCurve.hpp"    // for AbstractCurve
+#include "Curve/LinearCurvePoint.hpp" // for LinearCurvePoint
+#include <gtest/gtest.h>              // for ASSERT_NEAR, TEST, ASSERT_DOUB...
+#include <iomanip>                    // for operator<<
 
 TEST(CelestialBodyTest, TestConstructor) {
   ASSERT_NO_THROW({ CelestialBody foo; });
@@ -48,6 +51,21 @@ TEST(CelestialBodyTest, TestTrotGetter) {
   CelestialBody foo(0.0, 0.0, Trot);
 
   ASSERT_DOUBLE_EQ(Trot, foo.Trot_);
+}
+
+TEST(CelestialBodyTest, TestAtmosphere) {
+  auto atmPressure =
+      AbstractCurve<LinearCurvePoint>({LinearCurvePoint(0.0, 101325)});
+  auto atmTemperature =
+      AbstractCurve<LinearCurvePoint>({LinearCurvePoint(0.0, 282.5)});
+
+  Atmosphere foo_atm(&atmPressure, &atmTemperature);
+
+  CelestialBody foo(0.0, 0.0, 0.0, &foo_atm);
+
+  ASSERT_DOUBLE_EQ(101325, foo.atmosphere_->Pressure(0));
+  ASSERT_DOUBLE_EQ(282.5, foo.atmosphere_->Temperature(0));
+  ASSERT_DOUBLE_EQ(1.2494776887307841, foo.atmosphere_->Density(0));
 }
 
 TEST(CelestialBodyTest, TestGravitationalAcceleration) {

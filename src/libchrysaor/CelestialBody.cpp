@@ -82,10 +82,12 @@ double CelestialBody::EquatorialSpeed(double latitude) const {
 }
 
 CelestialBody::CelestialBody()
-    : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0), Trot_(0.0) {}
+    : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0), Trot_(0.0),
+      atmosphere_(NULL) {}
 
 CelestialBody::CelestialBody(double mu, double R)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(0.0) {
+    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(0.0),
+      atmosphere_(NULL) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);
   assert(std::isfinite(R));
@@ -93,11 +95,25 @@ CelestialBody::CelestialBody(double mu, double R)
 }
 
 CelestialBody::CelestialBody(double mu, double R, double Trot)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot) {
+    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot),
+      atmosphere_(NULL) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);
   assert(std::isfinite(R));
   assert(R >= 0.0);
   assert(std::isfinite(Trot));
   assert(Trot >= 0.0);
+}
+
+CelestialBody::CelestialBody(double mu, double R, double Trot,
+                             Atmosphere *atmosphere)
+    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot),
+      atmosphere_(atmosphere) {
+  assert(std::isfinite(mu));
+  assert(mu >= 0.0);
+  assert(std::isfinite(R));
+  assert(R >= 0.0);
+  assert(std::isfinite(Trot));
+  assert(Trot >= 0.0);
+  assert(atmosphere);
 }
