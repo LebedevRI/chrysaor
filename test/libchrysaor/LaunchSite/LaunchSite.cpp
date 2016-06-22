@@ -17,6 +17,7 @@
  */
 
 #include "LaunchSite.hpp"
+#include "CelestialBody.hpp"
 #include <cstddef>
 #include <gtest/gtest.h>
 
@@ -36,4 +37,10 @@ TEST(LaunchSiteTest, TestLatitudegetter) {
   std::size_t altitude = 123.0;
   LaunchSite foo(0.0, 0.0, altitude);
   EXPECT_EQ(foo.Altitude(), altitude);
+}
+
+TEST(LaunchSiteTest, TestParentBody) {
+  CelestialBody parentBody;
+  LaunchSite foo(&parentBody, 0.0, 0.0, 0.0);
+  EXPECT_EQ(&parentBody, foo.Body());
 }

@@ -19,9 +19,16 @@
 #pragma once
 
 #include <cstddef>
+class CelestialBody;
 
 class LaunchSite {
 private:
+  /**
+   * @brief the body on which this site is located
+   *
+   */
+  CelestialBody *body_;
+
   /**
   * @brief latitude of the launch site [deg]
   */
@@ -38,6 +45,13 @@ private:
   std::size_t altitude_;
 
 public:
+  /**
+   * @brief returns pointer to the body on which this lauchsite is located
+   *
+   * @return CelestialBody *
+   */
+  CelestialBody *Body() const;
+
   /**
    * @brief returns latitude of the launch site [deg]
    *
@@ -60,4 +74,6 @@ public:
   std::size_t Altitude() const;
 
   LaunchSite(double latitude, double longitude, std::size_t altitude);
+  LaunchSite(CelestialBody *parentBody, double latitude, double longitude,
+             std::size_t altitude);
 };

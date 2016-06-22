@@ -17,7 +17,10 @@
  */
 
 #include "LaunchSite.hpp"
+#include <cassert> // for assert
 #include <cstddef>
+
+CelestialBody *LaunchSite::Body() const { return body_; }
 
 double LaunchSite::Latitude() const { return latitude_; }
 
@@ -27,3 +30,10 @@ std::size_t LaunchSite::Altitude() const { return altitude_; }
 
 LaunchSite::LaunchSite(double latitude, double longitude, std::size_t altitude)
     : latitude_(latitude), longitude_(longitude), altitude_(altitude) {}
+
+LaunchSite::LaunchSite(CelestialBody *parentBody, double latitude,
+                       double longitude, std::size_t altitude)
+    : body_(parentBody), latitude_(latitude), longitude_(longitude),
+      altitude_(altitude) {
+  assert(parentBody);
+}
