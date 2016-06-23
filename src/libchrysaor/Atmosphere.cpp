@@ -25,6 +25,7 @@
 double Atmosphere::Pressure(double altitude) const {
   assert(std::isfinite(altitude));
   assert(altitude >= 0.0);
+  assert(pressure_);
 
   const double p = (*pressure_)[altitude];
 
@@ -37,6 +38,7 @@ double Atmosphere::Pressure(double altitude) const {
 double Atmosphere::Temperature(double altitude) const {
   assert(std::isfinite(altitude));
   assert(altitude >= 0.0);
+  assert(temperature_);
 
   const double t = (*temperature_)[altitude];
 
