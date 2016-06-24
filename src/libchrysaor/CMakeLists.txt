@@ -17,6 +17,7 @@ add_library(libchrysaor SHARED
 
 add_subdirectory(OrbitalElements)
 add_subdirectory(Curve)
+add_subdirectory(Vehicle)
 
 target_include_directories(libchrysaor PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
