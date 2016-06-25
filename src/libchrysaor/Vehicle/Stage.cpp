@@ -16,22 +16,17 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Stage.hpp"
-#include <cstddef>
+#include "Vehicle/Stage.hpp"
 
-double Stage::dm() const {
-  return (static_cast<double>(thrust_) / static_cast<double>(isp1_ * g0));
+double Stage::maxT(double p) const {
+  return (fuelMass_ * engine_.exhaustVelocity(p)) / engine_.thrust(p);
 }
 
-double Stage::maxT() const {
-  return (static_cast<double>(fm_ * isp1_ * g0) / static_cast<double>(thrust_));
+double Stage::TWR(double p) const {
+  return engine_.thrust(p) / (massTotal_ * g0);
 }
 
-double Stage::TWR() const {
-  return (static_cast<double>(thrust_) / static_cast<double>(launchMass_ * g0));
-}
+Stage::Stage() {}
 
-Stage::Stage(std::size_t launchMass, std::size_t thrust, std::size_t isp0,
-             std::size_t isp1, std::size_t fm, std::size_t A)
-    : launchMass_(launchMass), thrust_(thrust), isp0_(isp0), isp1_(isp1),
-      fm_(fm), A_(A) {}
+Stage::Stage(Engine engine, double massTotal, double fuelMass)
+    : engine_(engine), massTotal_(massTotal), fuelMass_(fuelMass) {}

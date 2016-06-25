@@ -9,7 +9,6 @@ add_library(libchrysaor SHARED
 
   Vec3.cpp
   LaunchSite.cpp
-  Stage.cpp
   IdealGas.cpp
   FluidDynamics.cpp
   Atmosphere.cpp

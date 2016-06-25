@@ -18,68 +18,54 @@
 
 #pragma once
 
-#include <cstddef>
+#include "Vehicle/Engine.hpp"
 
 /**
-* @brief std gravity asl [m/s2]
-* http://physics.nist.gov/cgi-bin/cuu/Value?gn
-*/
-static const double g0 = 9.80665;
-
+ * @brief provides all the necessary functionality to model a vehicle's stage
+ */
 class Stage {
 private:
-  /**
-  * @brief launch mass [kg]
-  */
-  std::size_t launchMass_;
+  Engine engine_;
 
   /**
-  * @brief thrust ASL [N] [kg * m/s^2]
+  * @brief total mass of the stage [kg]
   */
-  std::size_t thrust_;
-
-  /**
-  * @brief isp vacuum [s]
-  */
-  std::size_t isp0_;
-
-  /**
-  * @brief isp asl [s]
-  */
-  std::size_t isp1_;
+  double massTotal_;
 
   /**
   * @brief stage fuel mass [kg]
   */
-  std::size_t fm_;
-
-  /**
-  * @brief reference cross section area [m^2]
-  */
-  std::size_t A_;
+  double fuelMass_;
 
 public:
   /**
-   * @brief returns mass flow rate [kg/s]
-   *
-   * @return double dm [kg/s]
-   */
-  double dm() const;
-
-  /**
    * @brief returns expected stage burn time [s]
    *
+   * @param p atmospheric pressure
    * @return double maxT [s]
    */
-  double maxT() const;
+  double maxT(double p = 0.0) const;
 
   /**
-   * @brief returns TWR at launch
+   * @brief returns TWR
    *
+   * @param p atmospheric pressure
    * @return double TWR [const]
    */
-  double TWR() const;
+  double TWR(double p = 0.0) const;
 
-  Stage(std::size_t launchMass, std::size_t thrust, std::size_t isp0,
-        std::size_t isp1, std::size_t fm, std::size_t A);
+  /**
+   * @brief dummy constructor
+   *
+   */
+  Stage();
+
+  /**
+   * @brief constructs stage with given parameters
+   *
+   * @param engine engine object
+   * @param totalMass *total* mass of the stage [kg]
+   * @param fuelMass mass of fuel in *this* stage [kg]
+   */
+  Stage(Engine engine, double totalMass, double fuelMass);
 };

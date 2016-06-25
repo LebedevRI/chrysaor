@@ -11,7 +11,6 @@ add_subdirectory(OrbitalElements)
 add_subdirectory(Vec3)
 
 add_subdirectory(LaunchSite)
-add_subdirectory(Stage)
 add_subdirectory(Curve)
 add_subdirectory(IdealGas)
 add_subdirectory(FluidDynamics)
