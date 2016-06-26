@@ -56,7 +56,7 @@ OrbitalEccentricity::OrbitalEccentricity(double ApR, double PeR) : value_(0) {
 }
 
 OrbitalEccentricity::OrbitalEccentricity(double ApA, double PeA,
-                                         CelestialBody *parentBody)
+                                         const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->R_));
@@ -86,7 +86,7 @@ OrbitalEccentricity::OrbitalEccentricity(double ApA, double PeA,
 
 OrbitalEccentricity::OrbitalEccentricity(SemiMajorAxis sma,
                                          SpecificRelativeAngularMomentum srh,
-                                         CelestialBody *parentBody)
+                                         const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -114,7 +114,7 @@ OrbitalEccentricity::OrbitalEccentricity(SemiMajorAxis sma,
 
 OrbitalEccentricity::OrbitalEccentricity(SpecificOrbitalEnergy epsilon,
                                          SpecificRelativeAngularMomentum srh,
-                                         CelestialBody *parentBody)
+                                         const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -135,7 +135,7 @@ OrbitalEccentricity::OrbitalEccentricity(SpecificOrbitalEnergy epsilon,
 }
 
 OrbitalEccentricity::OrbitalEccentricity(double Vx, double Vy, double altitude,
-                                         CelestialBody *parentBody)
+                                         const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));

@@ -33,9 +33,9 @@ class OrbitalEccentricity;
  */
 class Periapsis : public Apsis {
 public:
-  operator double() const;
+  operator double() const override;
 
-  ~Periapsis() {}
+  ~Periapsis() override = default;
 
   /**
    * @brief creates Periapsis object from passed characteristics
@@ -47,5 +47,5 @@ public:
    * @param parentBody the parent body
    */
   Periapsis(SemiMajorAxis sma, OrbitalEccentricity ecc,
-            CelestialBody *parentBody);
+            const CelestialBody *parentBody);
 };

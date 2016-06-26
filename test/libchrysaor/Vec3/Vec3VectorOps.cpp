@@ -45,7 +45,7 @@ TEST_P(Vec3PlusVectorTest, Plus) {
 
   Vec3 bar(Vec3(as.in) + vec);
 
-  Vec3 baz(Vec3(as.in) + as.vec);
+  Vec3 baz(Vec3(as.in) + Vec3(as.vec));
 
   ASSERT_EQ(res, foo);
   ASSERT_EQ(res, bar);
@@ -78,7 +78,7 @@ TEST_P(Vec3MinusVectorTest, Minus) {
 
   Vec3 bar(Vec3(as.in) - vec);
 
-  Vec3 baz(Vec3(as.in) - as.vec);
+  Vec3 baz(Vec3(as.in) - Vec3(as.vec));
 
   ASSERT_EQ(res, foo);
   ASSERT_EQ(res, bar);
@@ -112,7 +112,7 @@ TEST_P(Vec3MultiplyVectorTest, Multiply) {
 
   Vec3 bar(Vec3(as.in) * vec);
 
-  Vec3 baz(Vec3(as.in) * as.vec);
+  Vec3 baz(Vec3(as.in) * Vec3(as.vec));
 
   ASSERT_EQ(res, foo);
   ASSERT_EQ(res, bar);
@@ -147,7 +147,7 @@ TEST_P(Vec3DivideVectorTest, Divide) {
 
   Vec3 bar(Vec3(as.in) / vec);
 
-  Vec3 baz(Vec3(as.in) / as.vec);
+  Vec3 baz(Vec3(as.in) / Vec3(as.vec));
 
   ASSERT_EQ(res, foo);
   ASSERT_EQ(res, bar);

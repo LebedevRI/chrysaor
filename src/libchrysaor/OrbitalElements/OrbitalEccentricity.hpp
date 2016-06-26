@@ -64,7 +64,7 @@ public:
    *
    * @param eccentricity eccentricity of the orbit
    */
-  OrbitalEccentricity(double eccentricity);
+  explicit OrbitalEccentricity(double eccentricity);
 
   /**
    * @brief calculates \f$e\f$ from passed orbit's Ap and Pe.
@@ -110,7 +110,7 @@ public:
    * nearest point (eriapsis) [m]
    * @param parentBody the parent body
    */
-  OrbitalEccentricity(double ApA, double PeA, CelestialBody *parentBody);
+  OrbitalEccentricity(double ApA, double PeA, const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$e\f$ from given length of semi-major axis and
@@ -135,7 +135,7 @@ public:
    * @param parentBody the parent body
    */
   OrbitalEccentricity(SemiMajorAxis sma, SpecificRelativeAngularMomentum srh,
-                      CelestialBody *parentBody);
+                      const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$e\f$ from given specific relative angular momentum and
@@ -151,7 +151,7 @@ public:
    */
   OrbitalEccentricity(SpecificOrbitalEnergy epsilon,
                       SpecificRelativeAngularMomentum srh,
-                      CelestialBody *parentBody);
+                      const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$e\f$ from given velocity vector and altitude.
@@ -171,5 +171,5 @@ public:
    * @param parentBody the parent body
    */
   OrbitalEccentricity(double Vx, double Vy, double altitude,
-                      CelestialBody *parentBody);
+                      const CelestialBody *parentBody);
 };

@@ -37,7 +37,7 @@ SpecificOrbitalEnergy::SpecificOrbitalEnergy(double epsilon) : value_(epsilon) {
 }
 
 SpecificOrbitalEnergy::SpecificOrbitalEnergy(SemiMajorAxis a,
-                                             CelestialBody *parentBody)
+                                             const CelestialBody *parentBody)
     : value_(0) {
   assert(std::isfinite(a));
   assert(a != 0.0);
@@ -55,7 +55,7 @@ SpecificOrbitalEnergy::SpecificOrbitalEnergy(SemiMajorAxis a,
 }
 
 SpecificOrbitalEnergy::SpecificOrbitalEnergy(double ApA, double PeA,
-                                             CelestialBody *parentBody)
+                                             const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -84,7 +84,7 @@ SpecificOrbitalEnergy::SpecificOrbitalEnergy(double ApA, double PeA,
 
 SpecificOrbitalEnergy::SpecificOrbitalEnergy(
     OrbitalEccentricity ecc, SpecificRelativeAngularMomentum srh,
-    CelestialBody *parentBody)
+    const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -108,7 +108,7 @@ SpecificOrbitalEnergy::SpecificOrbitalEnergy(
 
 SpecificOrbitalEnergy::SpecificOrbitalEnergy(double Vx, double Vy,
                                              double altitude,
-                                             CelestialBody *parentBody)
+                                             const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));

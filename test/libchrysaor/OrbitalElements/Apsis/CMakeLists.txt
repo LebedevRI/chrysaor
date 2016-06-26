@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-add_executable(Apsis Apsis.cpp EllipticalOrbit.cpp main.cpp)
+add_executable(Apsis EllipticalOrbit.cpp main.cpp)
 
 target_link_libraries(Apsis libgtest)
 target_link_libraries(Apsis libchrysaor)

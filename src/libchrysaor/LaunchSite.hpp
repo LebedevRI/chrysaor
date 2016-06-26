@@ -27,7 +27,7 @@ private:
    * @brief the body on which this site is located
    *
    */
-  CelestialBody *body_;
+  CelestialBody *body_{};
 
   /**
   * @brief latitude of the launch site [deg]

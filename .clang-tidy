@@ -1,0 +1,2 @@
+Checks:          '*,-clang-diagnostic-*,-clang-analyzer-alpha.deadcode.UnreachableCode,-llvm-include-order,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-pro-type-vararg,-cppcoreguidelines-pro-bounds-constant-array-index'
+WarningsAsErrors: '*,-clang-diagnostic-*,-clang-analyzer-alpha.deadcode.UnreachableCode,-llvm-include-order,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-pro-type-vararg,-cppcoreguidelines-pro-bounds-constant-array-index'

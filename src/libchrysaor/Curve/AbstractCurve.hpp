@@ -32,35 +32,38 @@ private:
   std::set<PointType> curve_;
 
 public:
-  double operator[](const double x) const {
+  double operator[](double x) const {
     assert(!curve_.empty());
 
     AbstractCurvePoint xpt(x);
 
-    if (xpt <= *curve_.begin())
+    if (xpt <= *curve_.begin()) {
       return static_cast<double>(*curve_.begin());
-    else if (xpt >= *curve_.rbegin())
-      return static_cast<double>(*curve_.rbegin());
-    else {
-      auto it_max = curve_.upper_bound(xpt);
-
-      assert(!((*it_max) <= xpt));
-      assert(xpt != (*it_max));
-      assert(xpt < (*it_max));
-
-      auto it_min = std::prev(it_max, 1);
-
-      assert(!((*it_min) > xpt));
-      assert((*it_min) <= xpt);
-
-      assert((*it_min) < (*it_max));
-      assert((*it_min) != (*it_max));
-
-      if (xpt == (*it_min))
-        return static_cast<double>(*it_min);
-
-      return (*it_min).interpolate(*it_max, x);
     }
+
+    if (xpt >= *curve_.rbegin()) {
+      return static_cast<double>(*curve_.rbegin());
+    }
+
+    auto it_max = curve_.upper_bound(xpt);
+
+    assert(!((*it_max) <= xpt));
+    assert(xpt != (*it_max));
+    assert(xpt < (*it_max));
+
+    auto it_min = std::prev(it_max, 1);
+
+    assert(!((*it_min) > xpt));
+    assert((*it_min) <= xpt);
+
+    assert((*it_min) < (*it_max));
+    assert((*it_min) != (*it_max));
+
+    if (xpt == (*it_min)) {
+      return static_cast<double>(*it_min);
+    }
+
+    return (*it_min).interpolate(*it_max, x);
   }
 
   std::size_t size() const { return curve_.size(); }

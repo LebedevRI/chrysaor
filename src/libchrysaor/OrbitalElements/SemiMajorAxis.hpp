@@ -66,7 +66,7 @@ public:
    *
    * @param sma length of semi-major axis [m]
    */
-  SemiMajorAxis(double sma);
+  explicit SemiMajorAxis(double sma);
 
   /**
    * @brief calculates length of semi-major axis from specific orbital energy
@@ -89,7 +89,7 @@ public:
    * @param epsilon the specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    * @param parentBody the parent body
    */
-  SemiMajorAxis(SpecificOrbitalEnergy epsilon, CelestialBody *parentBody);
+  SemiMajorAxis(SpecificOrbitalEnergy epsilon, const CelestialBody *parentBody);
 
   /**
    * @brief calculates length of semi-major axis from passed orbit's Ap and Pe.
@@ -134,7 +134,7 @@ public:
    * nearest point (periapsis) [m]
    * @param parentBody the parent body
    */
-  SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody);
+  SemiMajorAxis(double ApA, double PeA, const CelestialBody *parentBody);
 
   /**
    * @brief calculates SMA from given specific relative angular momentum and
@@ -153,7 +153,7 @@ public:
    * @param parentBody the parent body
    */
   SemiMajorAxis(OrbitalEccentricity ecc, SpecificRelativeAngularMomentum srh,
-                CelestialBody *parentBody);
+                const CelestialBody *parentBody);
 
   /**
    * @brief calculates SMA from given velocity vector and altitude.
@@ -198,5 +198,5 @@ public:
    * @param parentBody the parent body
    */
   SemiMajorAxis(double Vx, double Vy, double altitude,
-                CelestialBody *parentBody);
+                const CelestialBody *parentBody);
 };

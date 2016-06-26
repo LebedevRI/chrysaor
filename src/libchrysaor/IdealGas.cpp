@@ -20,13 +20,13 @@
 #include <cassert> // for assert
 #include <cmath>   // for isfinite
 
-const double IdealGas::Rspec = 287.058;
+const double constexpr IdealGas::Rspec = 287.058;
 
 double IdealGas::Density(double p, double T) {
   assert(std::isfinite(p));
   assert(std::isfinite(T));
-  assert(std::isfinite(Rspec));
-  assert(Rspec != 0.0);
+  static_assert(std::isfinite(Rspec), "");
+  static_assert(Rspec != 0.0, "");
 
   assert(T >= 0.0);
   assert(T != 0.0);

@@ -19,6 +19,7 @@
 #include "Curve/LinearCurvePoint.hpp"   // for LinearCurvePoint
 #include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint, operator<<
 #include <algorithm>                    // for next_permutation, sort
+#include <array>                        // for array
 #include <gtest/gtest.h>                // for Message, TestPartResult, Tes...
 #include <iterator>                     // for reverse_iterator
 #include <limits>                       // for numeric_limits
@@ -122,10 +123,9 @@ TEST(LinearCurvePoint, TestInterpolation) {
   LinearCurvePoint p1(testPts.begin()->first, testPts.begin()->second);
   LinearCurvePoint p2(testPts.rbegin()->first, testPts.rbegin()->second);
 
-  for (std::map<double, double>::iterator it = testPts.begin();
-       it != testPts.end(); ++it) {
-    const double x = it->first;
-    const double y = it->second;
+  for (auto &testPt : testPts) {
+    const double x = testPt.first;
+    const double y = testPt.second;
 
     ASSERT_DOUBLE_EQ(y, p1.interpolate(p2, x));
     ASSERT_DOUBLE_EQ(y, LinearCurvePoint::interpolate(p1, p2, x));
@@ -135,13 +135,13 @@ TEST(LinearCurvePoint, TestInterpolation) {
 }
 
 TEST(LinearCurvePoint, TestOnlyXMatters) {
-  double vals[] = {-1.0, 1.0};
+  std::array<double, 2> vals{{-1.0, 1.0}};
 
-  std::sort(vals, vals + 2);
+  std::sort(vals.begin(), vals.end());
 
   do {
     ASSERT_EQ(LinearCurvePoint(0.0, vals[0]), LinearCurvePoint(0.0, vals[1]));
-  } while (std::next_permutation(vals, vals + 2));
+  } while (std::next_permutation(vals.begin(), vals.end()));
 }
 
 TEST(Vec3Test, TestPrint) {

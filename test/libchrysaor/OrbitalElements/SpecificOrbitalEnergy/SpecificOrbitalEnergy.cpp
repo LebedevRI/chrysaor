@@ -18,13 +18,11 @@
 
 #include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
 #include "CelestialBody.hpp"                         // for CelestialBody
-#include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
-#include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativeA...
-#include <gtest/gtest.h>                             // for Message, TestPart...
-
-CelestialBody Kerbin(3.5316000e+12, 600000);
-CelestialBody Earth(3.986004418e+14, 6378136.6);
+#include "OrbitalElements/CelestialBodyData.hpp"
+#include "OrbitalElements/OrbitalEccentricity.hpp" // for OrbitalEccentricity
+#include "OrbitalElements/SemiMajorAxis.hpp"       // for SemiMajorAxis
+#include "SpecificRelativeAngularMomentum.hpp"     // for SpecificRelativeA...
+#include <gtest/gtest.h>                           // for Message, TestPart...
 
 TEST(SpecificOrbitalEnergyTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificOrbitalEnergy foo; });

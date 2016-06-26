@@ -68,7 +68,7 @@ TEST(CelestialBodyTest, TestAtmosphere) {
 }
 
 TEST(CelestialBodyTest, TestGravitationalAcceleration) {
-  CelestialBody Earth(3.986004418e+14, 6378136.6);
+  const CelestialBody Earth(3.986004418e+14, 6378136.6);
 
   const double g_0 = Earth.GravitationalAcceleration(0.0);
   ASSERT_NEAR(9.80665, g_0, 1.0e-02);

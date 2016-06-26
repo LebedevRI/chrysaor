@@ -16,15 +16,13 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "CelestialBody.hpp"                         // for CelestialBody
+#include "OrbitalElements/SemiMajorAxis.hpp" // for SemiMajorAxis
+#include "CelestialBody.hpp"                 // for CelestialBody
+#include "OrbitalElements/CelestialBodyData.hpp"
 #include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentri...
 #include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbital...
 #include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativ...
 #include <gtest/gtest.h>                             // for Message, TestPa...
-
-CelestialBody Kerbin(3.5316000e+12, 600000);
-CelestialBody Earth(3.986004418e+14, 6378136.6);
 
 TEST(SemiMajorAxisTest, TestConstructor) {
   ASSERT_NO_THROW({ SemiMajorAxis foo; });

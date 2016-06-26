@@ -16,17 +16,15 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
-#include "CelestialBody.hpp"                         // for CelestialBody
+#include "OrbitalElements/OrbitalEccentricity.hpp" // for OrbitalEccentricity
+#include "CelestialBody.hpp"                       // for CelestialBody
+#include "OrbitalElements/CelestialBodyData.hpp"
 #include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
 #include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbital...
 #include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativ...
 #include <gtest/gtest.h>                             // for Message, TestPa...
 
 double ecc_max_abs_err = 1.0e-07;
-
-CelestialBody Kerbin(3.5316000e+12, 600000);
-CelestialBody Earth(3.986004418e+14, 6378136.6);
 
 TEST(OrbitalEccentricityTest, TestConstructor) {
   ASSERT_NO_THROW({ OrbitalEccentricity foo; });

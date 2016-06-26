@@ -118,7 +118,7 @@ public:
 
   Vec3() : x_(0.0), y_(0.0), z_(0.0) {}
   Vec3(double x, double y, double z) : x_(x), y_(y), z_(z) {}
-  Vec3(double (&v)[3]) : x_(v[0]), y_(v[1]), z_(v[2]) {}
+  explicit Vec3(const double (&v)[3]) : x_(v[0]), y_(v[1]), z_(v[2]) {}
 };
 
 std::ostream &operator<<(::std::ostream &os, const Vec3 &bar);

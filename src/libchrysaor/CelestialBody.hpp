@@ -27,7 +27,7 @@ private:
    * @brief the body around which this orbit is
    *
    */
-  CelestialBody *parentBody_;
+  const CelestialBody *parentBody_;
 
   /**
    * @brief orbit around the parent body
@@ -92,8 +92,9 @@ public:
    */
   double EquatorialSpeed(double latitude) const;
 
-  CelestialBody();
-  CelestialBody(double mu, double R);
-  CelestialBody(double mu, double R, double Trot);
-  CelestialBody(double mu, double R, double Trot, Atmosphere *atmosphere);
+  CelestialBody() noexcept;
+  CelestialBody(double mu, double R) noexcept;
+  CelestialBody(double mu, double R, double Trot) noexcept;
+  CelestialBody(double mu, double R, double Trot,
+                Atmosphere *atmosphere) noexcept;
 };

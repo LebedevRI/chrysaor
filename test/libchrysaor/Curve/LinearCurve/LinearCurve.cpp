@@ -134,8 +134,7 @@ TEST(LinearCurveTest, TestBigger) {
   ASSERT_EQ(y1, bar[x1]);
   ASSERT_EQ(y1, bar[2 * x1]);
 
-  for (std::map<double, double>::iterator it = testPts.begin();
-       it != testPts.end(); ++it) {
+  for (auto it = testPts.begin(); it != testPts.end(); ++it) {
     ASSERT_EQ(it->second, bar[it->first]);
   }
 

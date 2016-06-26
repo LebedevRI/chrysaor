@@ -25,7 +25,7 @@
 * @brief std gravity asl [m/s^2]
 * http://physics.nist.gov/cgi-bin/cuu/Value?gn
 */
-static const double g0 = 9.80665;
+static const double constexpr g0 = 9.80665;
 
 /**
  * @brief provides all the necessary functionality to model an engine

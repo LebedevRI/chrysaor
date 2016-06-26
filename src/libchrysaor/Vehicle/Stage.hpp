@@ -30,12 +30,12 @@ private:
   /**
   * @brief total mass of the stage [kg]
   */
-  double massTotal_;
+  double massTotal_{};
 
   /**
   * @brief stage fuel mass [kg]
   */
-  double fuelMass_;
+  double fuelMass_{};
 
 public:
   /**
@@ -64,8 +64,8 @@ public:
    * @brief constructs stage with given parameters
    *
    * @param engine engine object
-   * @param totalMass *total* mass of the stage [kg]
+   * @param massTotal *total* mass of the stage [kg]
    * @param fuelMass mass of fuel in *this* stage [kg]
    */
-  Stage(Engine engine, double totalMass, double fuelMass);
+  Stage(Engine engine, double massTotal, double fuelMass);
 };

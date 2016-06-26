@@ -18,8 +18,7 @@
 
 #include "CelestialBody.hpp"
 #include <cassert> // for assert
-#include <cmath>   // for pow
-#include <cstddef>
+#include <cmath>   // for isfinite, pow, cos, M_PI
 
 double CelestialBody::GravitationalAcceleration(double alt) const {
   assert(std::isfinite(R_));
@@ -81,22 +80,22 @@ double CelestialBody::EquatorialSpeed(double latitude) const {
   return speed;
 }
 
-CelestialBody::CelestialBody()
-    : parentBody_(NULL), orbit_(NULL), mu_(0.0), R_(0.0), Trot_(0.0),
-      atmosphere_(NULL) {}
+CelestialBody::CelestialBody() noexcept
+    : parentBody_(nullptr), orbit_(nullptr), mu_(0.0), R_(0.0), Trot_(0.0),
+      atmosphere_(nullptr) {}
 
-CelestialBody::CelestialBody(double mu, double R)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(0.0),
-      atmosphere_(NULL) {
+CelestialBody::CelestialBody(double mu, double R) noexcept
+    : parentBody_(nullptr), orbit_(nullptr), mu_(mu), R_(R), Trot_(0.0),
+      atmosphere_(nullptr) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);
   assert(std::isfinite(R));
   assert(R >= 0.0);
 }
 
-CelestialBody::CelestialBody(double mu, double R, double Trot)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot),
-      atmosphere_(NULL) {
+CelestialBody::CelestialBody(double mu, double R, double Trot) noexcept
+    : parentBody_(nullptr), orbit_(nullptr), mu_(mu), R_(R), Trot_(Trot),
+      atmosphere_(nullptr) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);
   assert(std::isfinite(R));
@@ -106,8 +105,8 @@ CelestialBody::CelestialBody(double mu, double R, double Trot)
 }
 
 CelestialBody::CelestialBody(double mu, double R, double Trot,
-                             Atmosphere *atmosphere)
-    : parentBody_(NULL), orbit_(NULL), mu_(mu), R_(R), Trot_(Trot),
+                             Atmosphere *atmosphere) noexcept
+    : parentBody_(nullptr), orbit_(nullptr), mu_(mu), R_(R), Trot_(Trot),
       atmosphere_(atmosphere) {
   assert(std::isfinite(mu));
   assert(mu >= 0.0);

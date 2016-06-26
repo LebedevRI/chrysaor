@@ -36,7 +36,7 @@ protected:
    * @brief the parent body
    *
    */
-  CelestialBody *parentBody_;
+  const CelestialBody *parentBody_;
 
   /**
    * @brief semi-major axis of the orbit [m]
@@ -72,7 +72,7 @@ public:
    */
   double Altitude() const;
 
-  virtual ~Apsis() {}
+  virtual ~Apsis() = default;
 
   /**
    * @brief creates Apsis object from passed characteristics
@@ -81,6 +81,7 @@ public:
    * @param ecc eccentricity of the orbit
    * @param parentBody the parent body
    */
-  Apsis(SemiMajorAxis sma, OrbitalEccentricity ecc, CelestialBody *parentBody)
+  Apsis(SemiMajorAxis sma, OrbitalEccentricity ecc,
+        const CelestialBody *parentBody)
       : parentBody_(parentBody), sma_(sma), ecc_(ecc) {}
 };

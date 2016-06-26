@@ -44,7 +44,7 @@ double Engine::exhaustVelocity(double p) const {
 
   assert(isp_.size() > 0);
 
-  assert(std::isfinite(g0));
+  static_assert(std::isfinite(g0), "");
   assert(std::isfinite(isp_[p]));
 
   const double v = isp_[p] * g0;
@@ -61,9 +61,9 @@ double Engine::massFlow(double p) const {
   assert(thrust_.size() > 0);
   assert(isp_.size() > 0);
 
-  assert(std::isfinite(g0));
+  static_assert(std::isfinite(g0), "");
   assert(std::isfinite(isp_[p]));
-  assert(g0 != 0.0);
+  static_assert(g0 != 0.0, "");
   assert((isp_[p]) != 0.0);
   assert((isp_[p] * g0) != 0.0);
 

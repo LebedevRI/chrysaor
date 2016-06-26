@@ -64,7 +64,7 @@ public:
    *
    * @param epsilon specific orbital energy \f$\epsilon\f$ [J/kg] [m^2/s^2]
    */
-  SpecificOrbitalEnergy(double epsilon);
+  explicit SpecificOrbitalEnergy(double epsilon);
 
   /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's semi-major axis
@@ -75,7 +75,7 @@ public:
    * @param a length of semi-major axis [m]
    * @param parentBody the parent body
    */
-  SpecificOrbitalEnergy(SemiMajorAxis a, CelestialBody *parentBody);
+  SpecificOrbitalEnergy(SemiMajorAxis a, const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$\epsilon\f$ from passed orbit's Ap and Pe.
@@ -97,7 +97,8 @@ public:
    * nearest point (eriapsis) [m]
    * @param parentBody the parent body
    */
-  SpecificOrbitalEnergy(double ApA, double PeA, CelestialBody *parentBody);
+  SpecificOrbitalEnergy(double ApA, double PeA,
+                        const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$\epsilon\f$ from given orbital eccentricity and
@@ -122,7 +123,7 @@ public:
    */
   SpecificOrbitalEnergy(OrbitalEccentricity ecc,
                         SpecificRelativeAngularMomentum srh,
-                        CelestialBody *parentBody);
+                        const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$\epsilon\f$ from given velocity vector and altitude.
@@ -157,5 +158,5 @@ public:
    * @param parentBody the parent body
    */
   SpecificOrbitalEnergy(double Vx, double Vy, double altitude,
-                        CelestialBody *parentBody);
+                        const CelestialBody *parentBody);
 };

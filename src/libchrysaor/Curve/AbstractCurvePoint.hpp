@@ -50,5 +50,5 @@ public:
   friend std::ostream &operator<<(std::ostream &os,
                                   const AbstractCurvePoint &obj);
 
-  AbstractCurvePoint(double x);
+  explicit AbstractCurvePoint(double x);
 };

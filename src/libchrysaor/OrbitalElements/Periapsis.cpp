@@ -24,5 +24,5 @@
 Periapsis::operator double() const { return (sma_ * (1.0 - ecc_)); }
 
 Periapsis::Periapsis(SemiMajorAxis sma, OrbitalEccentricity ecc,
-                     CelestialBody *parentBody)
+                     const CelestialBody *parentBody)
     : Apsis(sma, ecc, parentBody) {}

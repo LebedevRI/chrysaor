@@ -21,7 +21,7 @@
 #include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
 #include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
 #include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
-#include <assert.h>                                  // for assert
+#include <cassert>                                   // for assert
 #include <cmath>                                     // for isfinite
 
 SpecificRelativeAngularMomentum::operator double() const {
@@ -41,7 +41,7 @@ SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(double srh)
 }
 
 SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
-    SemiMajorAxis sma, OrbitalEccentricity ecc, CelestialBody *parentBody)
+    SemiMajorAxis sma, OrbitalEccentricity ecc, const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -63,7 +63,7 @@ SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
 
 SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
     SpecificOrbitalEnergy epsilon, OrbitalEccentricity ecc,
-    CelestialBody *parentBody)
+    const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -94,7 +94,7 @@ SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
 }
 
 SpecificRelativeAngularMomentum::SpecificRelativeAngularMomentum(
-    double Vx, double altitude, CelestialBody *parentBody)
+    double Vx, double altitude, const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->R_));

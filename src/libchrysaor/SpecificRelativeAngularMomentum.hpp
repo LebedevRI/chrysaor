@@ -59,7 +59,7 @@ public:
    *
    * @param srh magnitude of the specific relative angular momentum [m^2/s]
    */
-  SpecificRelativeAngularMomentum(double srh);
+  explicit SpecificRelativeAngularMomentum(double srh);
 
   /**
    * @brief calculates \f$h\f$ from given semi-major axis and orbital orbital
@@ -74,7 +74,7 @@ public:
    * @param parentBody the parent body
    */
   SpecificRelativeAngularMomentum(SemiMajorAxis sma, OrbitalEccentricity ecc,
-                                  CelestialBody *parentBody);
+                                  const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$h\f$ from given specific orbital energy and orbital
@@ -101,7 +101,7 @@ public:
    */
   SpecificRelativeAngularMomentum(SpecificOrbitalEnergy epsilon,
                                   OrbitalEccentricity ecc,
-                                  CelestialBody *parentBody);
+                                  const CelestialBody *parentBody);
 
   /**
    * @brief calculates \f$h\f$ from given velocity vector and altitude.
@@ -119,5 +119,5 @@ public:
    * @param parentBody the parent body
    */
   SpecificRelativeAngularMomentum(double Vx, double altitude,
-                                  CelestialBody *parentBody);
+                                  const CelestialBody *parentBody);
 };

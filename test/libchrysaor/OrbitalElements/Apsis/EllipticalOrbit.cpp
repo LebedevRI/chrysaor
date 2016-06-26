@@ -18,6 +18,7 @@
 
 #include "CelestialBody.hpp"                       // for CelestialBody
 #include "OrbitalElements/Apoapsis.hpp"            // for Apoapsis
+#include "OrbitalElements/CelestialBodyData.hpp"   // for Earth
 #include "OrbitalElements/EllipticalOrbitData.hpp" // for EllipticalOrbitData
 #include "OrbitalElements/OrbitalEccentricity.hpp" // for OrbitalEccentricity
 #include "OrbitalElements/Periapsis.hpp"           // for Periapsis

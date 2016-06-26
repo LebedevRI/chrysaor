@@ -24,5 +24,5 @@
 Apoapsis::operator double() const { return (sma_ * (1.0 + ecc_)); }
 
 Apoapsis::Apoapsis(SemiMajorAxis sma, OrbitalEccentricity ecc,
-                   CelestialBody *parentBody)
+                   const CelestialBody *parentBody)
     : Apsis(sma, ecc, parentBody) {}

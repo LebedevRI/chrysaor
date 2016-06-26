@@ -16,7 +16,9 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include "CelestialBody.hpp" // for CelestialBody
 
-CelestialBody Kerbin(3.5316000e+12, 600000);
-CelestialBody Earth(3.986004418e+14, 6378136.6);
+const CelestialBody Kerbin(3.5316000e+12, 600000);
+const CelestialBody Earth(3.986004418e+14, 6378136.6);

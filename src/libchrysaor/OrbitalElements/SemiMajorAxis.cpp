@@ -37,7 +37,7 @@ SemiMajorAxis::SemiMajorAxis(double sma) : value_(sma) {
 }
 
 SemiMajorAxis::SemiMajorAxis(SpecificOrbitalEnergy epsilon,
-                             CelestialBody *parentBody)
+                             const CelestialBody *parentBody)
     : value_(0) {
   assert(std::isfinite(epsilon));
   assert(epsilon != 0.0);
@@ -63,7 +63,8 @@ SemiMajorAxis::SemiMajorAxis(double ApR, double PeR) : value_(0) {
   assert(std::isfinite(value_));
 }
 
-SemiMajorAxis::SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody)
+SemiMajorAxis::SemiMajorAxis(double ApA, double PeA,
+                             const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->R_));
@@ -87,7 +88,7 @@ SemiMajorAxis::SemiMajorAxis(double ApA, double PeA, CelestialBody *parentBody)
 
 SemiMajorAxis::SemiMajorAxis(OrbitalEccentricity ecc,
                              SpecificRelativeAngularMomentum srh,
-                             CelestialBody *parentBody)
+                             const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));
@@ -109,7 +110,7 @@ SemiMajorAxis::SemiMajorAxis(OrbitalEccentricity ecc,
 }
 
 SemiMajorAxis::SemiMajorAxis(double Vx, double Vy, double altitude,
-                             CelestialBody *parentBody)
+                             const CelestialBody *parentBody)
     : value_(0) {
   assert(parentBody);
   assert(std::isfinite(parentBody->mu_));

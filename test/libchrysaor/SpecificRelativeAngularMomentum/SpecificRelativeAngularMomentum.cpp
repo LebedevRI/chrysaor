@@ -17,14 +17,12 @@
  */
 
 #include "SpecificRelativeAngularMomentum.hpp"
-#include "CelestialBody.hpp"                         // for CelestialBody
+#include "CelestialBody.hpp" // for CelestialBody
+#include "OrbitalElements/CelestialBodyData.hpp"
 #include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentri...
 #include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
 #include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbital...
 #include <gtest/gtest.h>                             // for IsNullLiteralHe...
-
-CelestialBody Kerbin(3.5316000e+12, 600000);
-CelestialBody Earth(3.986004418e+14, 6378136.6);
 
 TEST(SpecificRelativeAngularMomentumTest, TestConstructor) {
   ASSERT_NO_THROW({ SpecificRelativeAngularMomentum foo; });

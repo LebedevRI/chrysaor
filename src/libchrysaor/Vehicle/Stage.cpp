@@ -16,6 +16,8 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <utility>
+
 #include "Vehicle/Stage.hpp"
 
 double Stage::maxT(double p) const {
@@ -29,4 +31,4 @@ double Stage::TWR(double p) const {
 Stage::Stage() {}
 
 Stage::Stage(Engine engine, double massTotal, double fuelMass)
-    : engine_(engine), massTotal_(massTotal), fuelMass_(fuelMass) {}
+    : engine_(std::move(engine)), massTotal_(massTotal), fuelMass_(fuelMass) {}
