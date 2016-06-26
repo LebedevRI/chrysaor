@@ -16,11 +16,9 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Vec3.hpp"
-#include <gtest/gtest-param-test.h> // for ParamIteratorInterface, ParamGen...
-#include <gtest/gtest.h>            // for AssertHelper, ASSERT_EQ, ASSERT_...
-#include <iomanip>                  // for operator<<
-#include <iostream>                 // for operator<<, ostream, basic_ostream
+#include "Vec3.hpp"      // for Vec3
+#include <gtest/gtest.h> // for CmpHelperFloatingPointEQ, ASSERT_DOUBLE_EQ
+#include <iostream>      // for operator<<, basic_ostream, basic_ostream<>:...
 
 struct Vec3DotData {
   double v0[3];

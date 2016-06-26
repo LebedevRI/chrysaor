@@ -19,10 +19,9 @@
 #include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
 #include "CelestialBody.hpp"                         // for CelestialBody
 #include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbitalEnergy
-#include "SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include <gtest/gtest.h> // for AssertHelper, ASSERT_NO_THROW, ASSE...
-#include <iomanip>       // for operator<<
+#include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbital...
+#include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativ...
+#include <gtest/gtest.h>                             // for Message, TestPa...
 
 double ecc_max_abs_err = 1.0e-07;
 

@@ -18,8 +18,7 @@
 
 #include "Vehicle/Stage.hpp"  // for Stage
 #include "Vehicle/Engine.hpp" // for Engine
-#include <gtest/gtest.h>      // for ASSERT_DOUBLE_EQ, AssertHelper, TEST
-#include <iomanip>            // for operator<<
+#include <gtest/gtest.h>      // for Test, Message, TestPartResult, TestPar...
 
 TEST(Engine, TestConstructor) {
   ASSERT_NO_THROW({ Stage foo; });

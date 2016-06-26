@@ -19,12 +19,11 @@
 #include "Curve/LinearCurvePoint.hpp"   // for LinearCurvePoint
 #include "Curve/AbstractCurvePoint.hpp" // for AbstractCurvePoint, operator<<
 #include <algorithm>                    // for next_permutation, sort
-#include <gtest/gtest.h>                // for ASSERT_GE, ASSERT_LE, ASSERT_EQ
-#include <iomanip>                      // for operator<<
+#include <gtest/gtest.h>                // for Message, TestPartResult, Tes...
 #include <iterator>                     // for reverse_iterator
 #include <limits>                       // for numeric_limits
 #include <map>                          // for map, _Rb_tree_iterator, map<...
-#include <string>                       // for string
+#include <string>                       // for basic_string, string
 #include <utility>                      // for pair
 
 TEST(LinearCurvePoint, TestConstructor) {

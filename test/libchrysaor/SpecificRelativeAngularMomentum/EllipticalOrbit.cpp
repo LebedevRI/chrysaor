@@ -16,14 +16,12 @@
  *    along with chrysaor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "OrbitalElements/EllipticalOrbitData.hpp"
-#include "OrbitalElements/OrbitalEccentricity.hpp"
-#include "OrbitalElements/SemiMajorAxis.hpp"
-#include "OrbitalElements/SpecificOrbitalEnergy.hpp"
-#include "SpecificRelativeAngularMomentum.hpp"
-#include <gtest/gtest-param-test.h>
-#include <gtest/gtest.h> // for AssertHelper, ASSERT_NO_THROW, ASSE...
-#include <iomanip>       // for operator<<
+#include "OrbitalElements/EllipticalOrbitData.hpp"   // for EllipticalOrbit...
+#include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentri...
+#include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
+#include "OrbitalElements/SpecificOrbitalEnergy.hpp" // for SpecificOrbital...
+#include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativ...
+#include <gtest/gtest.h>                             // for CmpHelperFloati...
 
 class SpecificRelativeAngularMomentumTest
     : public ::testing::TestWithParam<EllipticalOrbitData> {};

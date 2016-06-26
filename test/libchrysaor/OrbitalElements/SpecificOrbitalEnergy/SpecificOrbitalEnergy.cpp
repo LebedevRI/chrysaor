@@ -20,9 +20,8 @@
 #include "CelestialBody.hpp"                         // for CelestialBody
 #include "OrbitalElements/OrbitalEccentricity.hpp"   // for OrbitalEccentricity
 #include "OrbitalElements/SemiMajorAxis.hpp"         // for SemiMajorAxis
-#include "SpecificRelativeAngularMomentum.hpp" // for SpecificRelativeAngularMomentum
-#include <gtest/gtest.h> // for AssertHelper, ASSERT_NO_THROW, ASSE...
-#include <iomanip>       // for operator<<
+#include "SpecificRelativeAngularMomentum.hpp"       // for SpecificRelativeA...
+#include <gtest/gtest.h>                             // for Message, TestPart...
 
 CelestialBody Kerbin(3.5316000e+12, 600000);
 CelestialBody Earth(3.986004418e+14, 6378136.6);

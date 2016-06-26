@@ -19,8 +19,7 @@
 #include "Vehicle/Engine.hpp"
 #include "Curve/AbstractCurve.hpp"    // for AbstractCurve
 #include "Curve/LinearCurvePoint.hpp" // for LinearCurvePoint
-#include <gtest/gtest.h>              // for ASSERT_NO_THROW, TEST, ASSERT_...
-#include <iomanip>                    // for operator<<
+#include <gtest/gtest.h>              // for Test, Message, TestPartResult
 
 TEST(Engine, TestConstructor) {
   ASSERT_NO_THROW({ Engine foo; });

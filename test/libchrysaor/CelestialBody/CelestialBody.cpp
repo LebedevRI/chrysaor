@@ -20,8 +20,7 @@
 #include "Atmosphere.hpp"             // for Atmosphere
 #include "Curve/AbstractCurve.hpp"    // for AbstractCurve
 #include "Curve/LinearCurvePoint.hpp" // for LinearCurvePoint
-#include <gtest/gtest.h>              // for ASSERT_NEAR, TEST, ASSERT_DOUB...
-#include <iomanip>                    // for operator<<
+#include <gtest/gtest.h>              // for Message, TestPartResult, TestP...
 
 TEST(CelestialBodyTest, TestConstructor) {
   ASSERT_NO_THROW({ CelestialBody foo; });

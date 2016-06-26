@@ -22,9 +22,7 @@
 #include "OrbitalElements/OrbitalEccentricity.hpp" // for OrbitalEccentricity
 #include "OrbitalElements/Periapsis.hpp"           // for Periapsis
 #include "OrbitalElements/SemiMajorAxis.hpp"       // for SemiMajorAxis
-#include <gtest/gtest-param-test.h>                // for ParamIteratorInte...
-#include <gtest/gtest.h>                           // for EXPECT_DOUBLE_EQ
-#include <iomanip>                                 // for operator<<
+#include <gtest/gtest.h>                           // for CmpHelperFloating...
 
 class ApsisTest : public ::testing::TestWithParam<EllipticalOrbitData> {};
 

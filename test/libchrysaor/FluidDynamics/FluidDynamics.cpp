@@ -17,8 +17,7 @@
  */
 
 #include "FluidDynamics.hpp"
-#include <gtest/gtest.h> // for ASSERT_DOUBLE_EQ, TEST
-#include <iomanip>       // for operator<<
+#include <gtest/gtest.h> // for CmpHelperLT, AssertionResult, Message, Test...
 
 TEST(FluidDynamicsTest, TestQ) {
   const double Q0 = FluidDynamics::DynamicPressure(1.2754, 0.0);

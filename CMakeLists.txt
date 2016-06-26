@@ -67,14 +67,16 @@ if(USE_IWYU)
   if(NOT iwyu_path)
     message(FATAL_ERROR "Could not find the program include-what-you-use")
   else(NOT iwyu_path)
-    set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${iwyu_path}")
+    set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${iwyu_path} -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/iwyu.imp)
   endif()
 
   find_program(iwyu_tool_path NAMES iwyu_tool.py)
   if (iwyu_tool_path)
     add_custom_command(
       OUTPUT "${CMAKE_BINARY_DIR}/iwyu.log"
-      COMMAND "${iwyu_tool_path}" -p "${CMAKE_BINARY_DIR}" 2> "${CMAKE_BINARY_DIR}/iwyu.log"
+      COMMAND "${iwyu_tool_path}" -v -p "${CMAKE_BINARY_DIR}"
+              -- --mapping_file=${CMAKE_SOURCE_DIR}/iwyu.imp 2>
+              "${CMAKE_BINARY_DIR}/iwyu.log"
       WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
       COMMENT "Running include-what-you-use tool"
       VERBATIM
